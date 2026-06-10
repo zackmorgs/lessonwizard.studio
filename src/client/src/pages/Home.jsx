@@ -1,28 +1,31 @@
 import React from "react";
 
+import { Link } from "react-router-dom";
+
 import Layout from "../components/Layout";
 
 export default function Home() {
   return (
     <Layout>
-      <header className="text-center">
+      <header id="header_main" className="text-center">
         <div className="p-4">
           {/* <img
             src="/assets/logo-transparent.png"
             alt="zoilerplate logo"
             className="mb-4"
           /> */}
-          <h1 className="text-4xl font-semibold">lessonwizard.studio</h1>
-          <p className="mt-4 text-lg text-gray-600">
+          <h1 className="title text-4xl font-semibold">lessonwizard.studio</h1>
+          <p className="mt-2 text-lg">
             A free and open-source lesson planning tool for teachers, by teachers.
           </p>
+          <Link to="/login" className="btn btn-primary btn-lg mt-6" alt="Login button">
+            <img src="/assets/svg/icon-login.svg" alt="Login Icon" className="icon"/>
+            <span className="btn-text">
+              Login
+            </span>
+          </Link>
         </div>
       </header>
-      <section>
-        <div className="p-4">
-          <p>Content</p>
-        </div>
-      </section>
     </Layout>
   );
 }

@@ -2,10 +2,10 @@ import React from "react";
 
 import Layout from "../../components/Layout";
 
-export default function Settings() {
+export default function StudentPage() {
     return (
         <Layout>
-            <h1>Settings</h1>
+            <h1>Student Page</h1>
         </Layout>
     );
 }

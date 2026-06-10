@@ -13,7 +13,7 @@ export default function NavMenu() {
   };
 
   return (
-    <nav id="nav_menu" className={`sticky w-full top-0 bg-white shadow z-10${isOpen ? " nav-open" : ""}`}>
+    <nav id="nav_menu" className={`sticky w-full top-0 z-10${isOpen ? " nav-open" : ""}`}>
       <div className="nav-bar flex flex-row justify-between items-center p-4">
         <div className="nav-logo">
           <Link to="/" id="nav_logo_link">
@@ -26,10 +26,10 @@ export default function NavMenu() {
           <span></span>
         </button>
       </div>
-      <ul className={`nav-list fixed flex flex-col list-none w-full m-0 p-0 ${isOpen ? "" : "hidden"} bg-white shadow `}>
+      <ul className={`nav-list fixed flex flex-col list-none w-full m-0 p-0 ${isOpen ? "" : "hidden"}`}>
         {navItems.map((item) => (
           <li key={item.path} className="nav-item block">
-            <Link to={item.path} className="nav-link py-2 px-4 block ">
+            <Link to={item.path} className="nav-link block">
               {item.name}
             </Link>
           </li>

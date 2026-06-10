@@ -5,7 +5,7 @@ export default function Layout({ children }) {
     return (
         <div className="relative">
             <NavMenu />
-            <main>
+            <main className="container">
                 {children}
             </main>
             <footer id="footer_main">

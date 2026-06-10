@@ -1,5 +1,5 @@
 {
-  "name": "zoilerplate",
+  "name": "lessonwizard.studio",
   "version": "1.0.0",
   "description": "- .NET 10 with C# - MongoDb - SCSS with PostCSS - TailwindCSS? - Complete authentication handling, with roles (admin, user)",
   "main": "index.js",

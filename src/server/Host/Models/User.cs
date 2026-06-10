@@ -23,4 +23,9 @@ public class User
 
     [BsonElement("createdAt")]
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+
+
+    [BsonElement("role")]
+    public string? Role { get; set; } = "user";
+    
 }

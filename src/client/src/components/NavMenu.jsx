@@ -17,7 +17,7 @@ export default function NavMenu() {
       <div className="nav-bar flex flex-row justify-between items-center p-4">
         <div className="nav-logo">
           <Link to="/" id="nav_logo_link">
-            zoilerplate
+            lessonwizard.studio
           </Link>
         </div>
         <button id="nav_toggle" aria-label="Toggle navigation menu" onClick={handleNavToggle}>

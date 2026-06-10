@@ -334,3 +334,24 @@ Quick access to:
 # Vision
 
 LessonWizard aims to become the central operating system for lesson-based music teachers, combining student management, curriculum planning, lesson organization, and song tracking into a single platform that improves the execution and organization of the teaching experience.
+
+# Developement Notes
+## Routes
+-  /dashboard 
+
+- /students 
+- /students/new 
+- /students/:studentId 
+
+- /lessons 
+- /lessons/new 
+- /lessons/:lessonId 
+
+- /songs 
+- /songs/new 
+- /songs/:songId 
+
+- /song-lists 
+- /song-lists/:listId 
+
+- /settings

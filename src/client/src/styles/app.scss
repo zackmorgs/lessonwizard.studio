@@ -117,11 +117,14 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  width:100%;
 
   box-shadow:
     0 2px 4px rgba(0, 0, 0, 0.1),
     inset 0px 0px 2rem 9px rgba(0, 0, 0, 0.25);
   text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+
+  transition: transform 0.15s ease-in-out, background-color 0.3s ease;
 
   .icon {
     display: inline-block;
@@ -147,6 +150,13 @@ body {
   &.btn-lg {
     font-size: 1.5rem;
   }
+
+  &:hover {
+    transform: scale(1.025);
+  }
+  &:active {
+    transform: scale(0.95);
+  }
 }
 
 #footer_main {
@@ -154,4 +164,24 @@ body {
   box-shadow: inset 0px 2px 20px 7px rgb(0 0 0 / 18%);
   background: #3f2254;
   color: #f1f1f1;
+}
+
+@media (min-width: 414px) {
+ 
+}
+
+@media (min-width: 768px) {
+
+}
+
+@media (min-width: 1024px) {
+  .btn {
+    display:inline-flex;
+    width:auto;
+    min-width:12ch;
+  }
+}
+
+@media (min-width: 1536px) {
+
 }

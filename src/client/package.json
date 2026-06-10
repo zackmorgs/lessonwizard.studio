@@ -1,0 +1,27 @@
+{
+  "name": "zoilerplate-client",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "dev": "node build.mjs --dev",
+    "build": "node build.mjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@tailwindcss/postcss": "^4.3.0",
+    "autoprefixer": "^10.5.0",
+    "esbuild": "^0.28.0",
+    "esbuild-sass-plugin": "^3.7.0",
+    "postcss": "^8.5.15",
+    "postcss-cli": "^11.0.1",
+    "prettier": "^3.8.4",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "react-router-dom": "^7.17.0",
+    "sass": "^1.100.0",
+    "tailwindcss": "^4.3.0"
+  }
+}

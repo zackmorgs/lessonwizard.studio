@@ -1,0 +1,49 @@
+oauth.txt
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# .NET build output
+**/bin/
+**/obj/
+*.user
+*.suo
+
+# Global tools and local packages
+/node_modules/
+/.nuget/
+
+
+# Frontend dependencies and build output
+/src/client/node_modules/
+/src/client/dist/
+/dist/
+src/server/Host/wwwroot/*
+!src/server/Host/wwwroot/.gitkeep
+
+# Local databases and runtime files
+*.db
+*.db-shm
+*.db-wal
+
+# Test and coverage artifacts
+coverage/
+TestResults/

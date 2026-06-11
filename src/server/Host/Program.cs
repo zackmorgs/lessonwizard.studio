@@ -1,12 +1,12 @@
 using System.Text;
 using Services;
+using Host.Endpoints;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using MongoDB.Driver;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 
 // MongoDB
@@ -80,7 +80,8 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapControllers();
+app.MapAuthEndpoints();
+app.MapLessonEndpoints();
 
 // Fall back to index.html for client-side routing
 app.MapFallbackToFile("index.html");

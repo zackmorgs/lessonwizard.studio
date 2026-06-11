@@ -47,3 +47,7 @@ src/server/Host/wwwroot/*
 # Test and coverage artifacts
 coverage/
 TestResults/
+
+# appsettings
+/src/server/Host/appsettings.json
+/src/server/Host/appsettings.Development.json

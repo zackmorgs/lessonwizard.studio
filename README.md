@@ -271,24 +271,6 @@ Students can log:
 - Notes
 - Questions
 
-### Parent Portal
-
-Parents can view:
-
-- Assignments
-- Practice goals
-- Lesson notes
-- Progress updates
-
-### Student Portal
-
-Students can access:
-
-- Current songs
-- Assignments
-- Resources
-- Practice logs
-
 ### Recital Management
 
 Track:

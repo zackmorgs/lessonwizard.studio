@@ -14,15 +14,18 @@ export default function Home() {
             alt="zoilerplate logo"
             className="mb-4"
           /> */}
-          <h1 className="title text-4xl font-semibold mb-4">
-            lessonwizard.studio
+          <h1 className="h1 text-4xl font-semibold mb-4">
+            Stop Winging It. Start Teaching with a Plan.
           </h1>
+          <p className="text-lg">
+            
+          </p>
           <p className="mt-2 mb-4 text-lg">
             A free and open-source lesson planning tool for teachers, by
             teachers.
           </p>
           <div className="flex flex-col items-center justify-center">
-            <Link
+            {/* <Link
               to="/login"
               className="btn btn-primary btn-lg mt-8"
               alt="Login button"
@@ -33,7 +36,7 @@ export default function Home() {
                 className="icon"
               />
               <span className="btn-text">Login</span>
-            </Link>
+            </Link> */}
             <Link
               to="/signup"
               className="btn btn-primary btn-lg mt-6"

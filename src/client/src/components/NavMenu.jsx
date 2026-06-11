@@ -14,12 +14,12 @@ export default function NavMenu() {
 
   return (
     <nav id="nav_menu" className={`sticky w-full top-0 z-10${isOpen ? " nav-open" : ""}`}>
-      <div className="nav-bar flex flex-row justify-end items-center p-4">
-        {/* <div className="nav-logo">
+      <div className="nav-bar flex flex-row justify-between items-center p-4">
+        <div className="nav-logo">
           <Link to="/" id="nav_logo_link">
-            lessonwizard.studio
+            <span>lessonwizard</span><span>.</span><span>studio</span>
           </Link>
-        </div> */}
+        </div>
         <button id="nav_toggle" aria-label="Toggle navigation menu" onClick={handleNavToggle}>
           <span></span>
           <span></span>

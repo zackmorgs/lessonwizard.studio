@@ -30,25 +30,18 @@ export default function SignUp() {
     <Layout>
       <div className="flex items-center justify-center">
       <div className="w-full max-w-sm p-8">
-        <h1 className="text-xl font-semibold mb-6">Create account</h1>
+        
 
         {error && <p className="text-red-600 text-sm mb-4">{error}</p>}
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-          <input
-            type="text"
-            placeholder="Display name"
-            value={displayName}
-            onChange={(e) => setDisplayName(e.target.value)}
-            className="border rounded px-3 py-2 text-sm"
-          />
           <input
             type="email"
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="border rounded px-3 py-2 text-sm"
+            className="input input-text"
           />
           <input
             type="password"
@@ -57,20 +50,24 @@ export default function SignUp() {
             onChange={(e) => setPassword(e.target.value)}
             required
             minLength={8}
-            className="border rounded px-3 py-2 text-sm"
+            className="input input-text"
           />
           <button
             type="submit"
             disabled={loading}
-            className="bg-black text-white rounded px-4 py-2 text-sm disabled:opacity-50"
+            className="btn btn-primary"
           >
             {loading ? "Creating account…" : "Sign up"}
           </button>
         </form>
 
+        <p className="text-center  my-4">
+          <b>Or</b>
+        </p>
+
         <button
           onClick={() => loginWithGoogle()}
-          className="w-full mt-3 border rounded px-4 py-2 text-sm"
+          className="btn btn-primary btn"
         >
           Continue with Google
         </button>

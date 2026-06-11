@@ -24,10 +24,18 @@ builder.Services.AddSingleton<TokenService>();
 
 // JWT authentication
 var jwtKey = builder.Configuration["Jwt:Key"]!;
-builder.Services.AddAuthentication(options =>
+var googleClientId = builder.Configuration["Authentication:Google:ClientId"];
+var googleClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
+var hasGoogle = !string.IsNullOrEmpty(googleClientId) && !string.IsNullOrEmpty(googleClientSecret);
+
+var authBuilder = builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     options.DefaultChallengeScheme    = JwtBearerDefaults.AuthenticationScheme;
+    // Google OAuth needs a cookie-based sign-in scheme to store the external
+    // identity between the challenge redirect and the callback.
+    if (hasGoogle)
+        options.DefaultSignInScheme = "ExternalCookie";
 })
 .AddJwtBearer(options =>
 {
@@ -43,15 +51,15 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-var googleClientId = builder.Configuration["Authentication:Google:ClientId"];
-var googleClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
-if (!string.IsNullOrEmpty(googleClientId) && !string.IsNullOrEmpty(googleClientSecret))
+if (hasGoogle)
 {
-    builder.Services.AddAuthentication()
+    authBuilder
+        .AddCookie("ExternalCookie")
         .AddGoogle(options =>
         {
-            options.ClientId     = googleClientId;
-            options.ClientSecret = googleClientSecret;
+            options.ClientId     = googleClientId!;
+            options.ClientSecret = googleClientSecret!;
+            options.SignInScheme = "ExternalCookie";
         });
 }
 

@@ -18,9 +18,6 @@ public class User
     [BsonElement("googleId")]
     public string? GoogleId { get; set; }
 
-    [BsonElement("displayName")]
-    public string? DisplayName { get; set; }
-
     [BsonElement("createdAt")]
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 }

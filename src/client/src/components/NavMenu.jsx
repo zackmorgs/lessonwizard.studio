@@ -13,7 +13,7 @@ export default function NavMenu() {
   };
 
   return (
-    <nav id="nav_menu" className={`sticky w-full top-0 z-10${isOpen ? " nav-open" : ""}`}>
+    <nav id="nav_menu" className={`sticky w-full top-0 z-100 ${isOpen ? " nav-open" : ""}`}>
       <div className="nav-bar flex flex-row justify-between items-center p-4">
         <div className="nav-logo">
           <Link to="/" id="nav_logo_link">

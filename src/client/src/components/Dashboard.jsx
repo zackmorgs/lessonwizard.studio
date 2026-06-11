@@ -3,6 +3,7 @@ import React from "react";
 import Layout from "../components/Layout";
 import TodayView from "./TodayView";
 import CalendarDatePicker from "../components/CalendarDatePicker";
+import StudentList from "../components/StudentList";
 import { useAuth } from "../contexts/AuthContext";
 
 export default function Dashboard() {
@@ -19,6 +20,7 @@ export default function Dashboard() {
       </header>
       <TodayView />
       <CalendarDatePicker />
+      <StudentList />
     </>
   );
 }

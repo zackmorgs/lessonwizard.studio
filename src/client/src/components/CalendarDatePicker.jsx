@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 import { Link } from "react-router-dom";
+import Accordion from "./Accordion";
 
 const today = new Date();
 
@@ -19,7 +20,6 @@ function hasLesson(year, month, day) {
 }
 
 export default function CalendarDatePicker() {
-  const [isOpen, setIsOpen] = useState(true);
   const [viewDate, setViewDate] = useState(
     new Date(today.getFullYear(), today.getMonth(), 1),
   );
@@ -48,23 +48,8 @@ export default function CalendarDatePicker() {
   const nextMonth = () => setViewDate(new Date(year, monthIndex + 1, 1));
 
   return (
-    <>
-      <section id="calendar_date_picker" className="section">
-        <div className="panel">
-          <div
-            className="accordion-header accordion-toggle flex flex-row mb-2 justify-between items-center w-full cursor-pointer"
-            onClick={() => setIsOpen((prev) => !prev)}
-          >
-            <h1 className="h1">Calendar</h1>
-            <img
-              src="/assets/svg/icon-arrow-down.svg"
-              alt="Toggle Calendar"
-              height="1rem"
-              className={`icon transition-transform duration-200 ${isOpen ? "" : "rotate-180"}`}
-            />
-          </div>
-          {isOpen && <div className="accordion-content">
-            
+    <section id="calendar_date_picker" className="section">
+      <Accordion title={<h1 className="h1">Calendar</h1>} defaultOpen={true}>
             <h2
               id="calendar_month"
               className="h2 text-center flex align-center gap-4 justify-center"
@@ -108,7 +93,6 @@ export default function CalendarDatePicker() {
                 <div className="day-name">Sat</div>
               </div>
               <ul className="grid grid-cols-7 gap-2">
-                {/* leading dates from previous month */}
                 {prevMonthLeadingDays.map((day, index) => (
                   <li key={`prev-${index}`}>
                     <Link
@@ -119,7 +103,6 @@ export default function CalendarDatePicker() {
                     </Link>
                   </li>
                 ))}
-                {/* current month dates */}
                 {allDaysInMonth.map((day, index) => (
                   <li key={index}>
                     <Link
@@ -133,7 +116,6 @@ export default function CalendarDatePicker() {
                     </Link>
                   </li>
                 ))}
-                {/* trailing dates from next month */}
                 {nextMonthDays.map((day, index) => (
                   <li key={`next-${index}`}>
                     <Link
@@ -151,9 +133,7 @@ export default function CalendarDatePicker() {
               <b>Go to a date</b> to view scheduled lessons or to create one on
               that date.
             </p>
-          </div>}
-        </div>
-      </section>
-    </>
+      </Accordion>
+    </section>
   );
 }

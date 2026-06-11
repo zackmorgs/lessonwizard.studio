@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 
 import { Link } from "react-router-dom";
+import Accordion from "./Accordion";
 
 let dummyLessons = [
   {
@@ -38,13 +39,16 @@ let dummyLessons = [
 
 export default function TodayView() {
   return (
-    <>
-      <section id="today_view" className="section">
-        <div className="panel p-4">
+    <section id="today_view" className="section">
+      <Accordion
+        title={
           <h2 className="h2">
             Today's Scheduled Lessons (
             <span className="lesson-count">{dummyLessons.length}</span>)
           </h2>
+        }
+        defaultOpen={true}
+      >
           <hr className="rule-sm" />
           <div className="scrollable max-h-72">
             {dummyLessons.length === 0 ? (
@@ -64,10 +68,9 @@ export default function TodayView() {
                         <span className="lesson-dot today-lesson-dot mr-2"></span>
                         <div className="lesson-info z-10">
                           <div className="student-name">
-                            {lesson.studentName} 
+                            {lesson.studentName}
                           </div>
                           <div className="lesson-time">{lesson.time}</div>
-                          
                         </div>
                       </div>
                       <div className="instrument-title z-10">
@@ -106,8 +109,7 @@ export default function TodayView() {
             </svg>
             <span className="btn-text">Plan New Lesson</span>
           </Link>
-        </div>
-      </section>
-    </>
+      </Accordion>
+    </section>
   );
 }

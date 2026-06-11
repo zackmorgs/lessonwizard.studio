@@ -9,6 +9,9 @@ public class Lesson
     [BsonRepresentation(BsonType.ObjectId)]
     public string? Id { get; set; }
 
+    [BsonElement("studentId")]
+    public string StudentId { get; set; } = string.Empty;
+
     [BsonElement("date")]
     public DateTime Date { get; set; } = DateTime.UtcNow;
 

@@ -6,7 +6,9 @@ import TodayView from "./TodayView";
 export default function Dashboard() {
     return (
         <>
-            <h1>Dashboard</h1>
+            <header className="dashboard-header p-4">
+                <h1>Dashboard</h1>
+            </header>
             <TodayView />
         </>
     );

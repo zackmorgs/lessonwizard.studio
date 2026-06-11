@@ -12,6 +12,7 @@
   "type": "commonjs",
   "dependencies": {
     "@tailwindcss/postcss": "^4.3.0",
+    "@tinymce/tinymce-react": "^6.3.0",
     "autoprefixer": "^10.5.0",
     "esbuild": "^0.28.0",
     "esbuild-sass-plugin": "^3.7.0",

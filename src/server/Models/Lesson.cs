@@ -24,11 +24,3 @@ public class Lesson
     [BsonElement("tagIds")]
     public List<string> TagIds { get; set; } = new List<string>();
 }
-
-// - Lesson
-//     - Date
-//     - Time
-//     - Notes
-//     - Song(s)
-//     - Tags 
-//         - #open-chords, #beginner, #barre-chords, #rock, #metal, #jazz

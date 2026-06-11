@@ -26,4 +26,11 @@ public class User
 
     [BsonElement("role")]
     public string? Role { get; set; } = "user";
+
+    [BsonElement("studentIds")]
+    public List<string> StudentIds { get; set; } = new List<string>();
+
+    [BsonElement("lessonIds")]
+    public List<string> LessonIds { get; set; } = new List<string>();
+
 }

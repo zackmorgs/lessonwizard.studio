@@ -15,19 +15,15 @@ public class Student
     [BsonElement("age")]
     public int Age { get; set; }
 
-    [BsonElement("lessons")]
-    public List<string> Lessons { get; set; } = new List<string>();
+    [BsonElement("lessonIds")]
+    public List<string> LessonIds { get; set; } = new List<string>();
 
-    [BsonElement("songs")]
-    public List<string> Songs { get; set; } = new List<string>();
+    [BsonElement("songIds")]
+    public List<string> SongIds { get; set; } = new List<string>();
 
     [BsonElement("goals")]
     public string Goals { get; set; } = string.Empty;
-}
 
-// - Student
-//     - Name 
-//     - Age
-//     - Lessons
-//     - Songs
-//     - Goals
+    [BsonElement("teacherId")]
+    public string TeacherId { get; set; } = string.Empty;
+}

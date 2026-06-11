@@ -3,29 +3,30 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import Layout from "../components/Layout";
+import { Authenticated, Unauthenticated } from "./../contexts/AuthContext";
+import Dashboard from "../components/Dashboard";
 
 export default function Home() {
   return (
     <Layout>
-      <header id="header_main" className="text-center relative">
-        <div id="header_main_content" className="p-4">
-          {/* <img
+      <Unauthenticated>
+        <header id="header_main" className="text-center relative">
+          <div id="header_main_content" className="p-4">
+            {/* <img
             src="/assets/logo-transparent.png"
             alt="zoilerplate logo"
             className="mb-4"
           /> */}
-          <h1 className="h1 text-4xl font-semibold mb-4">
-            Stop Winging It. Start Teaching with a Plan.
-          </h1>
-          <p className="text-lg">
-            
-          </p>
-          <p className="mt-2 mb-4 text-lg">
-            A free and open-source lesson planning tool for teachers, by
-            teachers.
-          </p>
-          <div className="flex flex-col items-center justify-center">
-            {/* <Link
+            <h1 className="h1 text-4xl font-semibold mb-4">
+              Stop Winging It. Start Teaching with a Plan.
+            </h1>
+            <p className="text-lg"></p>
+            <p className="mt-2 mb-4 text-lg">
+              A free and open-source lesson planning tool for teachers, by
+              teachers.
+            </p>
+            <div className="flex flex-col items-center justify-center">
+              {/* <Link
               to="/login"
               className="btn btn-primary btn-lg mt-8"
               alt="Login button"
@@ -37,21 +38,25 @@ export default function Home() {
               />
               <span className="btn-text">Login</span>
             </Link> */}
-            <Link
-              to="/signup"
-              className="btn btn-primary btn-lg mt-6"
-              alt="Sign Up button"
-            >
-              <img
-                src="/assets/svg/icon-signup.svg"
-                alt="Sign Up Icon"
-                className="icon"
-              />
-              <span className="btn-text">Sign Up</span>
-            </Link>
+              <Link
+                to="/signup"
+                className="btn btn-primary btn-lg mt-6"
+                alt="Sign Up button"
+              >
+                <img
+                  src="/assets/svg/icon-signup.svg"
+                  alt="Sign Up Icon"
+                  className="icon"
+                />
+                <span className="btn-text">Sign Up</span>
+              </Link>
+            </div>
           </div>
-        </div>
-      </header>
+        </header>
+      </Unauthenticated>
+      <Authenticated>
+        <Dashboard />
+      </Authenticated>
     </Layout>
   );
 }

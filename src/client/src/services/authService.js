@@ -16,7 +16,7 @@ export async function getMe() {
   return request("/me");
 }
 
-export function loginWithGoogle(returnUrl = "/account") {
+export function loginWithGoogle(returnUrl = "/") {
   window.location.href = `${BASE}/google?returnUrl=${encodeURIComponent(returnUrl)}`;
 }
 

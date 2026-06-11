@@ -11,16 +11,5 @@
         "name" : "Contact",
         "path" : "/contact"
     },
-    {
-        "name" : "Sign in",
-        "path" : "/login"
-    },
-    {
-        "name" : "Sign up",
-        "path" : "/signup"
-    },
-    {
-        "name" : "Account",
-        "path" : "/account"
-    }
+
 ]

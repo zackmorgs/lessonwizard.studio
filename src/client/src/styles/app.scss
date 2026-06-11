@@ -106,6 +106,12 @@ body {
 
 .h1 {
   line-height: 3rem;
+  font-weight: 800;
+}
+
+.h2 {
+  line-height: 2rem;
+  font-weight: 600;
 }
 
 .btn {
@@ -173,7 +179,7 @@ body {
 }
 
 .lesson-link {
-  border:2px solid #391e4b;
+  border: 2px solid #391e4b;
   // background: #391e4b;
   color: #391e4b;
   border-radius: 1rem;
@@ -181,20 +187,40 @@ body {
   // box-shadow: inset 0px 0px 2rem 1px rgba(0, 0, 0, 0.25);
 }
 
-.day_name {
+#calendar_month {
+  border-bottom: 1px solid #0000001f;
+  padding-bottom: 0.5rem;
+}
+
+.day-name {
   text-align: center;
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  padding-bottom: 0.25rem;
+  border-bottom: #0000001f solid 1px;
+}
+
+.day {
+  padding: 0.5rem;
+  background: #999;
+  color: #f1f1f1;
+  border-radius: 0.5rem;
 }
 
 .empty-day {
+  background: #999;
+  color: #ffffff;
+}
 
-} 
 
-.day {
-  padding:0.5rem;
-  background:#552874;
-  color:#f1f1f1;
-  border-radius: 0.5rem;
+.day-in-month {
+  background: #552874;
+  color: #f1f1f1;
+}
+
+.date-link {
+  text-align:center;
+  display:  block;
 }
 
 #footer_main {

@@ -18,7 +18,7 @@ export default function TodayView() {
     <>
       <section id="today_view">
         <div className="panel p-4">
-          <h2 className="pb-4">Today's Lessons</h2>
+          <h2 className="h2 pb-4">Today's Lessons</h2>
           <hr className="rule-sm" />
             {dummyLessons.length === 0 ? (  
                 <p>You have no lessons scheduled for today.</p>

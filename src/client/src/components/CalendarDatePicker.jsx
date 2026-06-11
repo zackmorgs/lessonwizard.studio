@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+import { Link } from "react-router-dom";
+
 const today = new Date();
 
 export default function CalendarDatePicker() {
@@ -12,11 +14,20 @@ export default function CalendarDatePicker() {
   const monthIndex = viewDate.getMonth();
   const totalDaysInMonth = new Date(year, monthIndex + 1, 0).getDate();
   const firstDayOfMonth = new Date(year, monthIndex, 1).getDay();
+  const totalDaysInPrevMonth = new Date(year, monthIndex, 0).getDate();
+
+  const prevMonthLeadingDays = Array.from(
+    { length: firstDayOfMonth },
+    (_, i) => totalDaysInPrevMonth - firstDayOfMonth + i + 1
+  );
 
   const allDaysInMonth = [
-    ...Array(firstDayOfMonth).fill(null),
     ...Array.from({ length: totalDaysInMonth }, (_, i) => i + 1),
   ];
+
+  const totalCells = firstDayOfMonth + totalDaysInMonth;
+  const trailingDays = (7 - (totalCells % 7)) % 7;
+  const nextMonthDays = Array.from({ length: trailingDays }, (_, i) => i + 1);
 
   const prevMonth = () => setViewDate(new Date(year, monthIndex - 1, 1));
   const nextMonth = () => setViewDate(new Date(year, monthIndex + 1, 1));
@@ -25,7 +36,7 @@ export default function CalendarDatePicker() {
     <>
       <section id="calendar_date_picker">
         <div className="p-4">
-          <h2 className="text-center flex align-center gap-4 justify-center">
+          <h2 id="calendar_month" className="h2 text-center flex align-center gap-4 justify-center">
             <button onClick={prevMonth}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -54,21 +65,37 @@ export default function CalendarDatePicker() {
           </h2>
           <div className="calendar mt-4">
             <div className="days-of-week grid grid-cols-7 gap-2">
-              <div className="day_name">Sun</div>
-              <div className="day_name">Mon</div>
-              <div className="day_name">Tue</div>
-              <div className="day_name">Wed</div>
-              <div className="day_name">Thu</div>
-              <div className="day_name">Fri</div>
-              <div className="day_name">Sat</div>
+              <div className="day-name">Sun</div>
+              <div className="day-name">Mon</div>
+              <div className="day-name">Tue</div>
+              <div className="day-name">Wed</div>
+              <div className="day-name">Thu</div>
+              <div className="day-name">Fri</div>
+              <div className="day-name">Sat</div>
             </div>
-            <div className="grid grid-cols-7 gap-2">
-              {allDaysInMonth.map((day, index) => (
-                <div key={index} className={day ? "day" : "empty-day"}>
-                  {day}
-                </div>
+            <ul className="grid grid-cols-7 gap-2">
+              {prevMonthLeadingDays.map((day, index) => (
+                <li key={`prev-${index}`} className="day empty-day">
+                  <Link to={`/schedule/${year}/${monthIndex}/${day}`} className="date-link">
+                    {day}
+                  </Link>
+                </li>
               ))}
-            </div>
+              {allDaysInMonth.map((day, index) => (
+                <li key={index} className="day-in-month day">
+                  <Link to={`/schedule/${year}/${monthIndex + 1}/${day}`} className="date-link">
+                    {day}
+                  </Link>
+                </li>
+              ))}
+              {nextMonthDays.map((day, index) => (
+                <li key={`next-${index}`} className="day empty-day">
+                  <Link to={`/schedule/${year}/${monthIndex + 1}/${day}`} className="date-link">
+                    {day}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </section>

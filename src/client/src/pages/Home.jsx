@@ -7,8 +7,8 @@ import Layout from "../components/Layout";
 export default function Home() {
   return (
     <Layout>
-      <header id="header_main" className="text-center">
-        <div className="p-4">
+      <header id="header_main" className="text-center relative">
+        <div id="header_main_content" className="p-4">
           {/* <img
             src="/assets/logo-transparent.png"
             alt="zoilerplate logo"

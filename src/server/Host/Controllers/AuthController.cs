@@ -1,5 +1,5 @@
 using System.Security.Claims;
-using Host.Models;
+using Models;
 using Host.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Google;
@@ -19,38 +19,6 @@ public class AuthController : ControllerBase
     {
         _users = users;
         _tokens = tokens;
-    }
-
-    // POST /api/auth/register
-    [HttpPost("register")]
-    public async Task<IActionResult> Register([FromBody] RegisterRequest req)
-    {
-        if (await _users.GetByEmailAsync(req.Email) is not null)
-            return Conflict(new { message = "Email already in use." });
-
-        var user = new User
-        {
-            Email = req.Email.ToLowerInvariant(),
-            DisplayName = req.DisplayName,
-            PasswordHash = BCrypt.Net.BCrypt.HashPassword(req.Password)
-        };
-
-        await _users.CreateAsync(user);
-
-        return Ok(new { token = _tokens.Generate(user), user = ToDto(user) });
-    }
-
-    // POST /api/auth/login
-    [HttpPost("login")]
-    public async Task<IActionResult> Login([FromBody] LoginRequest req)
-    {
-        var user = await _users.GetByEmailAsync(req.Email.ToLowerInvariant());
-
-        if (user is null || user.PasswordHash is null ||
-            !BCrypt.Net.BCrypt.Verify(req.Password, user.PasswordHash))
-            return Unauthorized(new { message = "Invalid email or password." });
-
-        return Ok(new { token = _tokens.Generate(user), user = ToDto(user) });
     }
 
     // GET /api/auth/me
@@ -127,10 +95,7 @@ public class AuthController : ControllerBase
         id          = u.Id,
         email       = u.Email,
         displayName = u.DisplayName,
-        hasPassword = u.PasswordHash is not null,
         hasGoogle   = u.GoogleId is not null
     };
 }
 
-public record RegisterRequest(string Email, string Password, string? DisplayName);
-public record LoginRequest(string Email, string Password);

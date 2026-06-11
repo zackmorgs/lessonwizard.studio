@@ -1,7 +1,7 @@
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace Host.Models;
+namespace Models;
 
 public class User
 {
@@ -18,6 +18,12 @@ public class User
     [BsonElement("googleId")]
     public string? GoogleId { get; set; }
 
+    [BsonElement("displayName")]
+    public string? DisplayName { get; set; }
+
     [BsonElement("createdAt")]
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+
+    [BsonElement("role")]
+    public string? Role { get; set; } = "user";
 }

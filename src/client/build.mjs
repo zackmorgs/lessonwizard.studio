@@ -42,6 +42,7 @@ const config = {
   format: 'esm',
   sourcemap: isDev,
   minify: !isDev,
+  external: ['/assets/*'],
   plugins: [
     postcssPlugin,
     sassPlugin({

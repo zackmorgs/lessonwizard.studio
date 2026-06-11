@@ -1,5 +1,5 @@
 using MongoDB.Driver;
-using Host.Models;
+using Models;
 
 namespace Host.Services;
 

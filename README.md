@@ -1,10 +1,10 @@
-# lessonwizard.studio
+# lessonwizard.studio.studio
 
 A student management and curriculum planning platform built specifically for private music teachers.
 
 ## Overview
 
-lessonwizard.studio helps music instructors organize students, track lesson progress, manage song assignments, and build structured learning paths. It is designed around the realities of private music education, where teachers need quick access to student history, assigned material, and lesson planning tools.
+lessonwizard.studio.studio helps music instructors organize students, track lesson progress, manage song assignments, and build structured learning paths. It is designed around the realities of private music education, where teachers need quick access to student history, assigned material, and lesson planning tools.
 
 ## Core Goals
 
@@ -28,10 +28,7 @@ Each student has a dedicated profile containing:
 - Name
 - Instrument(s)
 - Age
-- Contact information
-- Parent/guardian information
 - Notes
-- Active/inactive status
 
 ### Lesson History
 
@@ -39,13 +36,8 @@ Every lesson can be recorded with:
 
 - Date
 - Notes
-- Concepts covered
+    - Concepts covered
 - Songs worked on
-- Assignments
-- Practice goals
-- Instructor observations
-
-This creates a complete timeline of the student's development.
 
 ---
 
@@ -53,24 +45,23 @@ This creates a complete timeline of the student's development.
 
 One of the most common challenges for music teachers is remembering which songs have been used with which students.
 
-LessonWizard solves this by tracking:
+lessonwizard.studio solves this by tracking:
 
-- Songs currently being learned
-- Songs previously completed
-- Songs attempted but abandoned
-- Date assigned
-- Date completed
-- Difficulty level
-- Associated techniques
+- Lessons model contains this information
+    - Songs currently being learned
+    - Songs previously completed
+    - Songs attempted but abandoned
+    - Date assigned
+    - Date completed
+    - Difficulty level
+    - Associated techniques
 
 ### Benefits
 
 Before assigning a song, teachers can immediately see:
 
 - Whether the student has played it before
-- How long it took to learn
-- Similar songs the student has completed
-- Appropriate next-song recommendations
+
 
 ---
 
@@ -96,7 +87,6 @@ Each song may include:
 
 Example:
 - Seven Nation Army 
-    - Arist
     - #beginner
     - #rock
 
@@ -112,154 +102,31 @@ Example:
     - #indie
 
 
-### 7-String Songs
-
-- Various curated selections
-
 ### Custom Lists
 
-Teachers can create unlimited custom song collections for:
+Teachers can create query tags to get lists of songs.
 
-- Technique development
-- Genre studies
-- Seasonal recitals
-- Student interests
-- Skill milestones
-
----
-
-## Curriculum Paths
-
-Structured learning tracks help teachers maintain consistency.
-
-Example Guitar Curriculum:
-
-### Beginner
-
-- Open chords
-- Strumming patterns
-- Rhythm fundamentals
-- Basic song performance
-
-### Early Intermediate
-
-- Barre chords
-- Power chords
-- Pentatonic scales
-- Basic improvisation
-
-### Intermediate
-
-- Alternate picking
-- Scale positions
-- Ear training
-- Music theory
-
-### Advanced
-
-- Advanced harmony
-- Jazz concepts
-- Improvisation
-- Composition
-- Performance preparation
-
-Teachers can attach songs, exercises, and resources to each stage.
+Ex. #rock, #barre, #metal, #jazz
 
 ---
 
 ## Lesson Planning
 
-Create lesson plans in advance using:
+Create lesson plans in advance using the user interface. 
 
-- Student goals
-- Previous lesson notes
-- Current songs
-- Current curriculum stage
-
----
-
-## Resource Library
-
-Store teaching materials in one place.
-
-Examples:
-
-- PDFs
-- Tabs
-- Sheet music
-- Backing tracks
-- Videos
-- Exercises
-- Scale charts
-- Chord diagrams
-
-Resources can be attached to:
-
-- Students
-- Songs
-- Curriculum stages
-- Lesson plans
+See Models.md for Lesson attributes.
 
 ---
 
 ## Search and Recommendations
 
-Quickly find:
+Quickly find songs using tags:
 
 - Songs by difficulty
 - Songs by technique
 - Songs by tuning
 - Songs by genre
 - Songs used with specific students
-
-Future recommendation engine ideas:
-
-- "Students who completed this song often learned..."
-- "Recommended next songs"
-- "Recommended techniques to introduce"
-
----
-
-## Reporting
-
-View insights such as:
-
-- Active students
-- Most taught songs
-- Average completion times
-- Student attendance
-- Curriculum progress
-
----
-
-## Future Features
-
-### Practice Tracking
-
-Students can log:
-
-- Practice sessions
-- Practice duration
-- Notes
-- Questions
-
-### Recital Management
-
-Track:
-
-- Performance pieces
-- Event preparation
-- Rehearsal status
-- Student participation
-
-### Mobile App
-
-Quick access to:
-
-- Student records
-- Lesson notes
-- Song assignments
-- Resources
 
 ---
 
@@ -279,15 +146,14 @@ Quick access to:
 
 ## Authentication
 
-- Google Authentication
-- Email/Password Authentication
-- BCrypt password hashing
+- Google Authentication only
+
 
 ---
 
 # Vision
 
-LessonWizard aims to become the central operating system for lesson-based music teachers, combining student management, curriculum planning, lesson organization, and song tracking into a single platform that improves the execution and organization of the teaching experience.
+lessonwizard.studio.studio aims to become the central operating system for lesson-based music teachers, combining student management, curriculum planning, lesson organization, and song tracking into a single platform that improves the execution and organization of the teaching experience.
 
 # Developement Notes
 ## Routes

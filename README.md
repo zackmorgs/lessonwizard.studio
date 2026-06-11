@@ -90,47 +90,27 @@ Each song may include:
 - Notes
 - External resources
 - Tabs or sheet music references
+- Tags
+- Files (PDF)
+- has swearing boolean (useful for younger students)
 
----
+Example:
+- Seven Nation Army 
+    - Arist
+    - #beginner
+    - #rock
 
-## Song Lists
+- Viva la Vida
+    - #beginner
+    - #open-chords
+    - #pop
 
-Teachers can organize songs into curated collections.
 
-Examples:
+- Creep - Radiohead
+    - #intermediate-beginner
+    - #barre-chords
+    - #indie
 
-### Beginner Open Chord Songs
-
-- Brown Eyed Girl
-- Knockin' on Heaven's Door
-- Horse With No Name
-- Stand By Me
-- Riptide
-
-### Beginner Barre Chord Songs
-
-- Boulevard of Broken Dreams
-- Zombie
-- Creep
-- House of the Rising Sun
-
-### Power Chord Songs
-
-- Brain Stew
-- Song 2
-- Seven Nation Army
-- All The Small Things
-
-### Fingerstyle Songs
-
-- Blackbird
-- Dust in the Wind
-
-### Intermediate Rock Songs
-
-- Everlong
-- Plush
-- Alive
 
 ### 7-String Songs
 
@@ -195,14 +175,6 @@ Create lesson plans in advance using:
 - Previous lesson notes
 - Current songs
 - Current curriculum stage
-
-Suggested lesson structure:
-
-1. Warm-up
-2. Review assignments
-3. New concept
-4. Song work
-5. Practice goals
 
 ---
 

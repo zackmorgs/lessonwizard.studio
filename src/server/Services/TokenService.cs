@@ -4,7 +4,7 @@ using System.Text;
 using Models;
 using Microsoft.IdentityModel.Tokens;
 
-namespace Host.Services;
+namespace Services;
 
 public class TokenService
 {

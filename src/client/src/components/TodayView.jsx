@@ -91,7 +91,7 @@ export default function TodayView() {
           </div>
           <hr className="rule-sm" />
           <Link
-            to="/schedule/new"
+            to="/lessons/new"
             className="btn btn-success mt-4 block text-center"
           >
             <svg

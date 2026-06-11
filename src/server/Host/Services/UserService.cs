@@ -1,7 +1,7 @@
 using MongoDB.Driver;
 using Models;
 
-namespace Host.Services;
+namespace Services;
 
 public class UserService
 {

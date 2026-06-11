@@ -26,8 +26,11 @@ export default function TodayView() {
                 <ul>
                     {dummyLessons.map((lesson, index) => (
                         <li key={index} className="block">
-                            <Link to={`/lessons/${index}`} className="lesson-link p-4 block mt-4">
-                                {lesson.studentName} - at {lesson.time}
+                            <Link to={`/lessons/${index}`} className="lesson-link p-4 block mt-4 flex flex-row justify-between items-center">
+                                <span>
+                                    {lesson.studentName} - at {lesson.time}
+                                </span>
+                                <svg xmlns="http://www.w3.org/2000/svg" height="2rem" viewBox="0 -960 960 960" width="2rem" fill="currentColor"><path d="M504-480 320-664l56-56 240 240-240 240-56-56 184-184Z"/></svg>
                             </Link>
                         </li>
                     ))}

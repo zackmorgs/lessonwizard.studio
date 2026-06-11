@@ -78,7 +78,7 @@ body {
   z-index: 50;
   border-bottom: 1px solid #f1f1f1;
   padding-bottom: 1rem;
-  z-index:60;
+  z-index: 60;
 }
 
 .nav-link {
@@ -105,7 +105,7 @@ body {
 }
 
 .h1 {
-      line-height: 3rem;
+  line-height: 3rem;
 }
 
 .btn {
@@ -173,16 +173,35 @@ body {
 }
 
 .lesson-link {
-  background: #391e4b;
-  color: #f1f1f1;
-  border-radius:1rem;
+  border:2px solid #391e4b;
+  // background: #391e4b;
+  color: #391e4b;
+  border-radius: 1rem;
+  // background: linear-gradient(13deg, #721aad, #50286a, #721aad);
+  // box-shadow: inset 0px 0px 2rem 1px rgba(0, 0, 0, 0.25);
 }
 
+.day_name {
+  text-align: center;
+  margin-bottom: 0.25rem;
+}
+
+.empty-day {
+
+} 
+
+.day {
+  padding:0.5rem;
+  background:#552874;
+  color:#f1f1f1;
+  border-radius: 0.5rem;
+}
 
 #footer_main {
+  background: #391e4b;
+
   text-align: center;
   box-shadow: inset 0px 2px 20px 7px rgb(0 0 0 / 18%);
-  background: #3f2254;
   color: #f1f1f1;
 }
 

@@ -2,6 +2,7 @@ import React from "react";
 
 import Layout from "../components/Layout";
 import TodayView from "./TodayView";
+import CalendarDatePicker from "../components/CalendarDatePicker";
 
 export default function Dashboard() {
     return (
@@ -10,6 +11,7 @@ export default function Dashboard() {
                 <h1>Dashboard</h1>
             </header>
             <TodayView />
+            <CalendarDatePicker/>
         </>
     );
 }

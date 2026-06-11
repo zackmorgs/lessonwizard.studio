@@ -232,7 +232,7 @@ body {
   border-bottom-left-radius: 1rem;
   // margin:5rem;
   box-shadow: inset 0px 0px 2rem 1px rgba(0, 0, 0, 0.25);
-  
+
   &::-webkit-scrollbar {
     background: #7474e946;
     width: 2px;
@@ -250,7 +250,9 @@ body {
   color: rgb(241 241 241);
   border-radius: 1rem;
   background: linear-gradient(165deg, #593075, #a98179);
-  box-shadow:inset 0px 0px 2rem 1px rgba(0, 0, 0, 0.25), 2px 2px 1rem 0px rgb(1 1 1 / 48%);
+  box-shadow:
+    inset 0px 0px 2rem 1px rgba(0, 0, 0, 0.25),
+    2px 2px 1rem 0px rgb(1 1 1 / 48%);
   text-shadow: 2px 2px 2px rgb(0 0 0 / 26%);
   font-weight: 500;
 
@@ -260,43 +262,43 @@ body {
   }
 }
 .lesson-instrument {
-  font-size:2rem;
-  opacity:0.5;
+  font-size: 2rem;
+  opacity: 0.5;
 }
 .lesson-instrument-piano {
-  background:url("/assets/img/bg-piano.jpg");
+  background: url("/assets/img/bg-piano.jpg");
   background-size: cover;
   background-position: center;
 }
 
 .lesson-instrument-guitar {
-  background:url("/assets/img/bg-guitar.jpg");
+  background: url("/assets/img/bg-guitar.jpg");
   background-size: cover;
   background-position: center;
 }
 
 .lesson-instrument-violin {
-  background:url("/assets/img/bg-violin.jpg");
+  background: url("/assets/img/bg-violin.jpg");
   background-size: cover;
   background-position: center;
 }
 .lesson-instrument-drums {
-  background:url("/assets/img/bg-drums.jpg");
+  background: url("/assets/img/bg-drums.jpg");
   background-size: cover;
   background-position: center;
 }
 
 .lesson-instrument-flute {
-  background:url("/assets/img/bg-flute.jpg");
+  background: url("/assets/img/bg-flute.jpg");
   background-size: cover;
   background-position: center;
 }
 
 .instrument-title {
-  color:#f1f1f1;
-  font-size:1.25rem;
-  text-transform:uppercase;
-  display:none;
+  color: #f1f1f1;
+  font-size: 1.25rem;
+  text-transform: uppercase;
+  display: none;
 }
 
 .lesson-link-icon-container {
@@ -313,8 +315,26 @@ body {
   padding-bottom: 0.5rem;
 }
 
+.accordion-toggle {
+  display: flex;
+  gap: 0.5rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1215686275);
+  .icon {
+    border-radius: 50%;
+    background: #5a366670;
+    padding: 0.25rem;
+    filter: drop-shadow(0px -1px 0px rgba(0, 0, 0, 0.25));
+  }
+}
+.accordion-content {
+  padding: 1rem 0.5rem;
+}
 .calendar-nav-icon {
   color: #9292929e;
+}
+.month-year {
+  font-weight: 600;
+  color: #222;
 }
 
 .day-name {
@@ -356,7 +376,6 @@ body {
   &:hover {
     transform: scale(1.05);
   }
-  
 }
 
 .lesson-dot {

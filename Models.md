@@ -7,7 +7,6 @@
 - Student
     - Name 
     - Age
-    - Contact Info
     - Lessons
     - Songs
     - Goals

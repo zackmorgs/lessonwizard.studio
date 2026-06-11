@@ -4,9 +4,23 @@ import { Link } from "react-router-dom";
 
 const today = new Date();
 
+// TODO: replace with API data
+const lessonDates = [
+  { year: 2026, month: 6, day: 11 },
+  { year: 2026, month: 6, day: 15 },
+  { year: 2026, month: 6, day: 18 },
+  { year: 2026, month: 6, day: 22 },
+];
+
+function hasLesson(year, month, day) {
+  return lessonDates.some(
+    (l) => l.year === year && l.month === month && l.day === day,
+  );
+}
+
 export default function CalendarDatePicker() {
   const [viewDate, setViewDate] = useState(
-    new Date(today.getFullYear(), today.getMonth(), 1)
+    new Date(today.getFullYear(), today.getMonth(), 1),
   );
 
   const month = viewDate.toLocaleString("default", { month: "long" });
@@ -18,7 +32,7 @@ export default function CalendarDatePicker() {
 
   const prevMonthLeadingDays = Array.from(
     { length: firstDayOfMonth },
-    (_, i) => totalDaysInPrevMonth - firstDayOfMonth + i + 1
+    (_, i) => totalDaysInPrevMonth - firstDayOfMonth + i + 1,
   );
 
   const allDaysInMonth = [
@@ -34,9 +48,12 @@ export default function CalendarDatePicker() {
 
   return (
     <>
-      <section id="calendar_date_picker">
-        <div className="p-4">
-          <h2 id="calendar_month" className="h2 text-center flex align-center gap-4 justify-center">
+      <section id="calendar_date_picker" className="section">
+        <div className="panel">
+          <h2
+            id="calendar_month"
+            className="h2 text-center flex align-center gap-4 justify-center"
+          >
             <button onClick={prevMonth}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -44,6 +61,7 @@ export default function CalendarDatePicker() {
                 viewBox="0 -960 960 960"
                 width="24px"
                 fill="currentColor"
+                className="calendar-nav-icon"
               >
                 <path d="M560-240 320-480l240-240 56 56-184 184 184 184-56 56Z" />
               </svg>
@@ -58,6 +76,7 @@ export default function CalendarDatePicker() {
                 viewBox="0 -960 960 960"
                 width="24px"
                 fill="currentColor"
+                className="calendar-nav-icon"
               >
                 <path d="M504-480 320-664l56-56 240 240-240 240-56-56 184-184Z" />
               </svg>
@@ -74,32 +93,48 @@ export default function CalendarDatePicker() {
               <div className="day-name">Sat</div>
             </div>
             <ul className="grid grid-cols-7 gap-2">
+              {/* leading dates from previous month */}
               {prevMonthLeadingDays.map((day, index) => (
-                <li key={`prev-${index}`} className="day empty-day">
-                  <Link to={`/schedule/${year}/${monthIndex}/${day}`} className="date-link">
+                <li key={`prev-${index}`}>
+                  <Link
+                    to={`/schedule/${year}/${monthIndex}/${day}`}
+                    className="day empty-day date-link"
+                  >
                     {day}
                   </Link>
                 </li>
               ))}
+              {/* current month dates */}
               {allDaysInMonth.map((day, index) => (
-                <li key={index} className="day-in-month day">
-                  <Link to={`/schedule/${year}/${monthIndex + 1}/${day}`} className="date-link">
+                <li key={index}>
+                  <Link
+                    to={`/schedule/${year}/${monthIndex + 1}/${day}`}
+                    className="day-in-month day date-link"
+                  >
                     {day}
+                    {hasLesson(year, monthIndex + 1, day) && (
+                      <span className="lesson-dot calendar-lesson-dot" />
+                    )}
                   </Link>
                 </li>
               ))}
+              {/* trailing dates from next month */}
               {nextMonthDays.map((day, index) => (
-                <li key={`next-${index}`} className="day empty-day">
-                  <Link to={`/schedule/${year}/${monthIndex + 1}/${day}`} className="date-link">
+                <li key={`next-${index}`}>
+                  <Link
+                    to={`/schedule/${year}/${monthIndex + 1}/${day}`}
+                    className="day empty-day date-link"
+                  >
                     {day}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
+          <hr className="rule-sm" />
+          <p className="mt-4">Go to a date to view scheduled lessons or to create one on that date.</p>
         </div>
       </section>
     </>
   );
 }
-

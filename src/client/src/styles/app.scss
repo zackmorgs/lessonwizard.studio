@@ -18,7 +18,7 @@ body {
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
-  color: #333;
+  color: #666464;
 }
 
 #nav_menu {
@@ -104,6 +104,10 @@ body {
   text-shadow: 1px 1px 4px rgb(255 255 255 / 63%);
 }
 
+.panel {
+  padding: 1rem;
+}
+
 .h1 {
   line-height: 3rem;
   font-weight: 800;
@@ -116,7 +120,7 @@ body {
 
 .btn {
   display: block;
-  padding: 0.5rem 1rem;
+  padding: 1rem;
   border: none;
   border-radius: 0.25rem;
   cursor: pointer;
@@ -155,6 +159,13 @@ body {
     background-color: #5c3279;
     color: #f1f1f1;
     padding: 1rem;
+    .icon {
+      filter: drop-shadow(0px 0px 0.25rem rgba(0, 0, 0, 0.5));
+    }
+  }
+
+  &.btn-success {
+    background: linear-gradient(45deg, #20ab7a, #0c9666);
   }
 
   &.btn-lg {
@@ -178,39 +189,132 @@ body {
   box-shadow: 0px 0px 1rem 0px rgba(0, 0, 0, 0.1);
 }
 
+.rule-sm {
+  border: none;
+  border-top: 1px solid #0000001f;
+  margin: 1rem 0;
+}
+
 .dashboard-header {
-  box-shadow: inset -3px -3px 1rem 0px rgb(0 0 0 / 14%);
-  color: #333333
+  // box-shadow: inset -3px -3px 1rem 0px rgb(0 0 0 / 14%);
+  color: #333333;
+  padding: 1rem 1rem 0.25rem;
+}
+
+.lesson-count {
+  font-weight: 900;
+  color: #63bbd8;
+}
+
+.well {
+  background: linear-gradient(165deg, #593075, #a98179);
+  box-shadow: inset 0px 0px 2rem 1px rgba(0, 0, 0, 0.25);
+  color: #f1f1f1;
+  border-radius: 1rem;
+  border: 1px solid;
+  font-weight: 500;
+  padding: 1rem;
+}
+
+.well-info {
+  background: linear-gradient(165deg, #1e63b1, #1324504b);
+  border-color: #7474e946;
+  color: white;
+  display: block;
+  text-shadow: 0px 0px 4px rgb(0 0 0 / 50%);
+}
+
+.scrollable {
+  overflow-x: auto;
+  overflow-y: scroll;
+  padding: 0.5rem 1rem;
+  border-top-left-radius: 1rem;
+  border-bottom-left-radius: 1rem;
+  // margin:5rem;
+  box-shadow: inset 0px 0px 2rem 1px rgba(0, 0, 0, 0.25);
+  
+  &::-webkit-scrollbar {
+    background: #7474e946;
+    width: 2px;
+    border-radius: 1rem;
+
+    &-thumb {
+      background: #7474e946;
+      border-radius: 1rem;
+    }
+  }
 }
 
 .lesson-link {
   border: 1px solid hsla(0, 0%, 100%, 0.541);
-  color: #f1f1f1c9;
+  color: rgb(241 241 241);
   border-radius: 1rem;
-  background: linear-gradient(
-    165deg,
-    #593075,
-    #a98179
-  );
-  box-shadow: inset 0px 0px 2rem 1px rgba(0, 0, 0, 0.25);
+  background: linear-gradient(165deg, #593075, #a98179);
+  box-shadow:inset 0px 0px 2rem 1px rgba(0, 0, 0, 0.25), 2px 2px 1rem 0px rgb(1 1 1 / 48%);
   text-shadow: 2px 2px 2px rgb(0 0 0 / 26%);
-      font-weight: 500;
+  font-weight: 500;
+
+  .lesson-time {
+    font-size: 0.75rem;
+    // color: #d0e900e3;
+  }
+}
+.lesson-instrument {
+  font-size:2rem;
+  opacity:0.5;
+}
+.lesson-instrument-piano {
+  background:url("/assets/img/bg-piano.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+.lesson-instrument-guitar {
+  background:url("/assets/img/bg-guitar.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+.lesson-instrument-violin {
+  background:url("/assets/img/bg-violin.jpg");
+  background-size: cover;
+  background-position: center;
+}
+.lesson-instrument-drums {
+  background:url("/assets/img/bg-drums.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+.lesson-instrument-flute {
+  background:url("/assets/img/bg-flute.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+.instrument-title {
+  color:#f1f1f1;
+  font-size:1.25rem;
+  text-transform:uppercase;
+  display:none;
 }
 
 .lesson-link-icon-container {
-  border-radius:50%;
-  border:2px solid rgba(241, 241, 241, 0.5);
-  
+  border-radius: 50%;
+  border: 2px solid rgba(241, 241, 241, 0.5);
 }
 
 .lesson-link-icon-container {
   filter: drop-shadow(0px 0px 2px rgba(0, 0, 0, 0.26));
-
 }
 
 #calendar_month {
   border-bottom: 1px solid #0000001f;
   padding-bottom: 0.5rem;
+}
+
+.calendar-nav-icon {
+  color: #9292929e;
 }
 
 .day-name {
@@ -226,21 +330,62 @@ body {
   background: #999;
   color: #f1f1f1;
   border-radius: 0.5rem;
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.26);
+  box-shadow: 2px 2px 0.5rem rgb(0 0 0 / 18%);
 }
 
 .empty-day {
-  background: #999;
+  background: linear-gradient(165deg, #cdc9c9, #bfbfbf);
   color: #ffffff;
 }
 
 .day-in-month {
-  background: #552874;
-  color: #f1f1f1;
+  background: linear-gradient(165deg, #593075, #a98179);
+  box-shadow: inset 0px 0px 2rem 1px rgba(0, 0, 0, 0.25);
 }
 
 .date-link {
   text-align: center;
   display: block;
+  position: relative;
+  transition: transform 0.15s ease-in-out;
+  &:active {
+    transform: scale(0.95);
+  }
+
+  &:hover {
+    transform: scale(1.05);
+  }
+  
+}
+
+.lesson-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #d0e900e3;
+  box-shadow: 0 0 2px rgb(253 253 253 / 50%);
+}
+
+.today-lesson-dot {
+  height: 0.5rem;
+  width: 0.5rem;
+  display: block;
+  border: 1px solid #ffffff87;
+}
+
+#calendar_date_picker {
+  padding: 0.5rem;
+}
+
+.section {
+  border-top: 1px solid #0000001f;
+}
+
+.calendar-lesson-dot {
+  position: absolute;
+  top: 6px;
+  right: 6px;
 }
 
 #footer_main {

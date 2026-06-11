@@ -12,6 +12,10 @@ public class Lesson
     [BsonElement("date")]
     public DateTime Date { get; set; } = DateTime.UtcNow;
 
+    [BsonElement("instrument")]
+    public string Instrument { get; set; } = string.Empty;
+    
+
     [BsonElement("time")]
     public TimeSpan Time { get; set; } = TimeSpan.Zero;
 

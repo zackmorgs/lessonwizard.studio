@@ -1,6 +1,9 @@
-# lessonwizard.studio.studio
+# lessonwizard.studio
 
 A student management and curriculum planning platform built specifically for private music teachers.
+
+# Progress Videos
+- [Day 2 - Overall Design, Dashboard Progress](https://youtu.be/BanQRwQe-3o)
 
 ## Overview
 

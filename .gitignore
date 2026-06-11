@@ -21,6 +21,9 @@ yarn-error.log*
 .env.*
 !.env.example
 
+# ASP.NET local secrets (may contain API keys, JWT secrets, OAuth credentials)
+src/server/Host/appsettings.Development.json
+
 # .NET build output
 **/bin/
 **/obj/

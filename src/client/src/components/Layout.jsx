@@ -9,7 +9,7 @@ export default function Layout({ children }) {
                 {children}
             </main>
             <footer id="footer_main">
-                <section class="p-4 text-center text-sm">
+                <section className="p-4 text-center text-sm">
                     <p>&copy; {new Date().getFullYear()} lessonwizard.studio - All rights reserved.</p>
                 </section>
             </footer>

@@ -140,6 +140,11 @@ body {
     transform 0.15s ease-in-out,
     background-color 0.3s ease;
 
+  &.btn-sm {
+    padding: 0.5rem;
+    font-size: 0.875rem;
+  }
+
   .icon {
     display: inline-block;
     height: 1.5em;
@@ -164,6 +169,14 @@ body {
     }
   }
 
+  &.btn-info {
+    background: linear-gradient(45deg, #40409f, #3a3add);
+  }
+
+  &.btn-grey {
+    background: linear-gradient(45deg, #797777, #979696);
+  }
+
   &.btn-success {
     background: linear-gradient(45deg, #20ab7a, #0c9666);
   }
@@ -178,6 +191,10 @@ body {
   &:active {
     transform: scale(0.95);
   }
+}
+
+.icon-student {
+  color:#999;
 }
 
 .input {

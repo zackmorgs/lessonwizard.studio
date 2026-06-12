@@ -54,3 +54,4 @@ TestResults/
 # appsettings
 /src/server/Host/appsettings.json
 /src/server/Host/appsettings.Development.json
+design/mascot.psd

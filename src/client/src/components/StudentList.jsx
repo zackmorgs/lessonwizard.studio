@@ -31,11 +31,8 @@ let students_list = [
 
 export default function StudentList() {
   return (
-    <div className="panel">
-      <Accordion
-        title={<h2 className="h2 mb-4">Students</h2>}
-        defaultOpen={true}
-      >
+    <section id="student_list" className="section">
+      <Accordion title={<h2 className="h2">Students</h2>} defaultOpen={true}>
         {students_list.length > 0 ? (
           <div className="scrollable max-h-72">
             <div className="grid grid-cols-2 gap-4">
@@ -56,6 +53,6 @@ export default function StudentList() {
           </div>
         )}
       </Accordion>
-    </div>
+    </section>
   );
 }

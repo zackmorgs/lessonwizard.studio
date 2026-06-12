@@ -312,7 +312,7 @@ body {
 
 #calendar_month {
   border-bottom: 1px solid #0000001f;
-  padding-bottom: 0.5rem;
+  // padding-bottom: 0.5rem;
 }
 
 .accordion-toggle {
@@ -393,12 +393,20 @@ body {
   border: 1px solid #ffffff87;
 }
 
+#today_view {
+  padding: 0.5rem;
+}
+
 #calendar_date_picker {
   padding: 0.5rem;
 }
 
 .section {
   border-top: 1px solid #0000001f;
+}
+
+#student_list {
+  padding: 0.5rem;
 }
 
 .calendar-lesson-dot {

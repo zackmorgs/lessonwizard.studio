@@ -39,7 +39,7 @@ let dummyLessons = [
 
 export default function TodayView() {
   return (
-    <section id="today_view" className="section">
+    <section id="today_view" className="section pt-4">
       <Accordion
         title={
           <h2 className="h2">

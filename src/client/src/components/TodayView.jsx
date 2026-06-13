@@ -63,7 +63,7 @@ export default function TodayView({todaysLessons = []}) {
                       to={`/lessons/${index}`}
                       className="lesson-link p-4 block mt-4 flex flex-row justify-between items-center relative overflow-hidden"
                     >
-                      <div className={"lesson-instrument lesson-instrument" + `-${lesson.instrument}` + " absolute top-0 right-0 bottom-0 left-0 z-0"}></div>
+                      <div className={"lesson-instrument lesson-instrument" + `-${lesson.instrument.toLowerCase()}` + " absolute top-0 right-0 bottom-0 left-0 z-0"}></div>
                       <div className="flex flex-row gap-1 items-center justify-start">
                         <span className="lesson-dot today-lesson-dot mr-2"></span>
                         <div className="lesson-info z-10">

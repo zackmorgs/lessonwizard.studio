@@ -38,7 +38,27 @@ public static class LessonEndpoints
                 .SortBy(l => l.Date)
                 .ToListAsync();
 
-            return Results.Ok(lessons);
+            var studentIds = lessons.Select(l => l.StudentId).Distinct().ToList();
+            var students = await db.GetCollection<Student>("students")
+                .Find(s => studentIds.Contains(s.Id))
+                .ToListAsync();
+            var studentMap = students.ToDictionary(s => s.Id!, s => s.Name);
+
+            var result = lessons.Select(l => new
+            {
+                l.Id,
+                l.StudentId,
+                StudentName = studentMap.TryGetValue(l.StudentId, out var name) ? name : null,
+                l.Date,
+                l.Instrument,
+                l.Time,
+                l.Notes,
+                l.SongIds,
+                l.TagIds,
+                l.TeacherId,
+            });
+
+            return Results.Ok(result);
         });
 
         // GET /api/lessons/{id}

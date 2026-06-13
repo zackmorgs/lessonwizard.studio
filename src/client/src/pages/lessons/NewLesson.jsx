@@ -8,6 +8,7 @@ import InstrumentPicker from "../../components/InstrumentPicker";
 import StudentPicker from "../../components/StudentPicker";
 import SongPicker from "../../components/SongPicker";
 import { getStudentById } from "../../services/studentService";
+import { createLesson } from "../../services/lessonService";
 
 export default function NewLesson() {
   const [searchParams] = useSearchParams();
@@ -39,9 +40,16 @@ export default function NewLesson() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // TODO: POST to API
-    console.log(form);
-    navigate("/");
+    const payload = {
+      ...form,
+      time: form.time ? `${form.time}:00` : "00:00:00",
+      songIds: form.songIds.map((t) => t.id ?? t),
+      tagIds: form.tagIds
+        ? form.tagIds.split(",").map((t) => t.trim()).filter(Boolean)
+        : [],
+    };
+    await createLesson(payload);
+    navigate("/lessons");
   };
 
   return (

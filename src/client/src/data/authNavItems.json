@@ -10,5 +10,9 @@
   {
     "name": "Account",
     "path": "/account"
+  },
+  {
+    "name": "Logout",
+    "path": "/logout"
   }
 ]

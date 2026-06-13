@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import Layout from "../components/Layout";
+import GlobalSearch from  "../components/GlobalSearch";
 import TodayView from "./TodayView";
 import CalendarDatePicker from "../components/CalendarDatePicker";
 import StudentList from "../components/StudentList";
@@ -75,6 +76,7 @@ export default function Dashboard() {
           <span>{name ? `${name}'s` : "My"} Dashboard</span>
         </h1>
       </header>
+      <GlobalSearch />
       <TodayView todaysLessons={lessons} />
       <CalendarDatePicker />
       <StudentList studentList={students} />

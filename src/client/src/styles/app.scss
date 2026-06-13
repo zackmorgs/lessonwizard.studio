@@ -288,11 +288,19 @@ body {
   background-position: center;
 }
 
-.lesson-instrument-guitar {
-  background: url("/assets/img/bg-guitar.jpg");
+.lesson-instrument-acoustic-guitar {
+  background: url("/assets/img/bg-acoustic-guitar.jpg");
   background-size: cover;
   background-position: center;
 }
+
+.lesson-instrument-electric-guitar {
+  background: url("/assets/img/bg-electric-guitar.jpg");
+  background-size: cover;
+  background-position: center;
+background-position: center 13%;
+}
+
 
 .lesson-instrument-violin {
   background: url("/assets/img/bg-violin.jpg");
@@ -424,6 +432,14 @@ body {
 
 #student_list {
   padding: 0.5rem;
+}
+
+.student-item {
+  // background: linear-gradient(165deg, #593075, #a98179);
+  box-shadow: inset 0px 0px 2rem 1px rgba(0, 0, 0, 0.25);
+  // border:1px solid rgba(0, 0, 0, 0.1);
+  // color: #f1f1f1;
+  border-radius: 0.5rem;
 }
 
 .calendar-lesson-dot {

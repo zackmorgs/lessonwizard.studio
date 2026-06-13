@@ -49,90 +49,103 @@ export default function CalendarDatePicker() {
 
   return (
     <section id="calendar_date_picker" className="section">
-      <Accordion title={<h2 className="h2">Calendar</h2>} defaultOpen={false}>
-            <h2
-              id="calendar_month"
-              className="h2 text-center flex align-center gap-4 justify-center"
+      <Accordion
+        title={
+          <h2 className="h2 flex flex-row">
+            {" "}
+            <img
+              src="/assets/svg/icon-calendar-month.svg"
+              alt="Calendar"
+              className="mr-4"
+            />
+            <span>Calendar</span>
+          </h2>
+        }
+        defaultOpen={false}
+      >
+        <h2
+          id="calendar_month"
+          className="h2 text-center flex align-center gap-4 justify-center"
+        >
+          <button onClick={prevMonth}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="24px"
+              viewBox="0 -960 960 960"
+              width="24px"
+              fill="currentColor"
+              className="calendar-nav-icon"
             >
-              <button onClick={prevMonth}>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  height="24px"
-                  viewBox="0 -960 960 960"
-                  width="24px"
-                  fill="currentColor"
-                  className="calendar-nav-icon"
+              <path d="M560-240 320-480l240-240 56 56-184 184 184 184-56 56Z" />
+            </svg>
+          </button>
+          <span className="month-year">
+            {month} {year}
+          </span>
+          <button onClick={nextMonth}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="24px"
+              viewBox="0 -960 960 960"
+              width="24px"
+              fill="currentColor"
+              className="calendar-nav-icon"
+            >
+              <path d="M504-480 320-664l56-56 240 240-240 240-56-56 184-184Z" />
+            </svg>
+          </button>
+        </h2>
+        <div className="calendar mt-4">
+          <div className="days-of-week grid grid-cols-7 gap-2">
+            <div className="day-name">Sun</div>
+            <div className="day-name">Mon</div>
+            <div className="day-name">Tue</div>
+            <div className="day-name">Wed</div>
+            <div className="day-name">Thu</div>
+            <div className="day-name">Fri</div>
+            <div className="day-name">Sat</div>
+          </div>
+          <ul className="grid grid-cols-7 gap-2">
+            {prevMonthLeadingDays.map((day, index) => (
+              <li key={`prev-${index}`}>
+                <Link
+                  to={`/schedule/${year}/${monthIndex}/${day}`}
+                  className="day empty-day date-link"
                 >
-                  <path d="M560-240 320-480l240-240 56 56-184 184 184 184-56 56Z" />
-                </svg>
-              </button>
-              <span className="month-year">
-                {month} {year}
-              </span>
-              <button onClick={nextMonth}>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  height="24px"
-                  viewBox="0 -960 960 960"
-                  width="24px"
-                  fill="currentColor"
-                  className="calendar-nav-icon"
+                  {day}
+                </Link>
+              </li>
+            ))}
+            {allDaysInMonth.map((day, index) => (
+              <li key={index}>
+                <Link
+                  to={`/schedule/${year}/${monthIndex + 1}/${day}`}
+                  className="day-in-month day date-link"
                 >
-                  <path d="M504-480 320-664l56-56 240 240-240 240-56-56 184-184Z" />
-                </svg>
-              </button>
-            </h2>
-            <div className="calendar mt-4">
-              <div className="days-of-week grid grid-cols-7 gap-2">
-                <div className="day-name">Sun</div>
-                <div className="day-name">Mon</div>
-                <div className="day-name">Tue</div>
-                <div className="day-name">Wed</div>
-                <div className="day-name">Thu</div>
-                <div className="day-name">Fri</div>
-                <div className="day-name">Sat</div>
-              </div>
-              <ul className="grid grid-cols-7 gap-2">
-                {prevMonthLeadingDays.map((day, index) => (
-                  <li key={`prev-${index}`}>
-                    <Link
-                      to={`/schedule/${year}/${monthIndex}/${day}`}
-                      className="day empty-day date-link"
-                    >
-                      {day}
-                    </Link>
-                  </li>
-                ))}
-                {allDaysInMonth.map((day, index) => (
-                  <li key={index}>
-                    <Link
-                      to={`/schedule/${year}/${monthIndex + 1}/${day}`}
-                      className="day-in-month day date-link"
-                    >
-                      {day}
-                      {hasLesson(year, monthIndex + 1, day) && (
-                        <span className="lesson-dot calendar-lesson-dot" />
-                      )}
-                    </Link>
-                  </li>
-                ))}
-                {nextMonthDays.map((day, index) => (
-                  <li key={`next-${index}`}>
-                    <Link
-                      to={`/schedule/${year}/${monthIndex + 1}/${day}`}
-                      className="day empty-day date-link"
-                    >
-                      {day}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <hr className="rule-sm" />
-            <p className="mt-4">
-              <b>Go to a date</b> to view scheduled lessons or to create one on
-              that date.
-            </p>
+                  {day}
+                  {hasLesson(year, monthIndex + 1, day) && (
+                    <span className="lesson-dot calendar-lesson-dot" />
+                  )}
+                </Link>
+              </li>
+            ))}
+            {nextMonthDays.map((day, index) => (
+              <li key={`next-${index}`}>
+                <Link
+                  to={`/schedule/${year}/${monthIndex + 1}/${day}`}
+                  className="day empty-day date-link"
+                >
+                  {day}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <hr className="rule-sm" />
+        <p className="mt-4">
+          <b>Go to a date</b> to view scheduled lessons or to create one on that
+          date.
+        </p>
       </Accordion>
     </section>
   );

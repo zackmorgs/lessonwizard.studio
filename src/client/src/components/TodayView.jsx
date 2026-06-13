@@ -38,7 +38,6 @@ import Accordion from "./Accordion";
 // ];
 
 export default function TodayView({ todaysLessons = [] }) {
-
   function formatTime(time) {
     if (!time) return "";
     const [h, m] = time.split(":").map(Number);
@@ -50,9 +49,12 @@ export default function TodayView({ todaysLessons = [] }) {
     <section id="today_view" className="section pt-4">
       <Accordion
         title={
-          <h2 className="h2">
-            Today's Lessons (
-            <span className="lesson-count">{todaysLessons.length}</span>)
+          <h2 className="h2 flex flex-row">
+            <img src="/assets/svg/icon-list.svg" alt="Today's Lessons" className="mr-4"  />
+            <span>
+              Today's Lessons (
+              <span className="lesson-count">{todaysLessons.length}</span>)
+            </span>
           </h2>
         }
         defaultOpen={false}
@@ -83,7 +85,9 @@ export default function TodayView({ todaysLessons = [] }) {
                       <span className="lesson-dot today-lesson-dot mr-2"></span>
                       <div className="lesson-info z-10">
                         <div className="student-name">{lesson.studentName}</div>
-                        <div className="lesson-time">{formatTime(lesson.time)}</div>
+                        <div className="lesson-time">
+                          {formatTime(lesson.time)}
+                        </div>
                       </div>
                     </div>
                     <div className="instrument-title z-10">

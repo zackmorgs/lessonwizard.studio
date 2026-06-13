@@ -15,6 +15,9 @@ public class Student
     [BsonElement("age")]
     public int Age { get; set; }
 
+    [BsonElement("instruments")]
+    public List<string> Instruments { get; set; } = new List<string>();
+
     [BsonElement("lessonIds")]
     public List<string> LessonIds { get; set; } = new List<string>();
 

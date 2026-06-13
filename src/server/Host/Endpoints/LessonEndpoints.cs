@@ -36,6 +36,7 @@ public static class LessonEndpoints
             var lessons = await db.GetCollection<Lesson>("lessons")
                 .Find(l => l.TeacherId == teacherId && l.Date >= todayUtc && l.Date < tomorrowUtc)
                 .SortBy(l => l.Date)
+                .ThenBy(l => l.Time)
                 .ToListAsync();
 
             var studentIds = lessons.Select(l => l.StudentId).Distinct().ToList();

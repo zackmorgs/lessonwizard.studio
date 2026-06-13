@@ -37,6 +37,14 @@ import Accordion from "./Accordion";
 //   },
 // ];
 
+function formatTime(time) {
+  if (!time) return "";
+  const [h, m] = time.split(":").map(Number);
+  const period = h >= 12 ? "PM" : "AM";
+  const hour = h % 12 || 12;
+  return `${hour}:${String(m).padStart(2, "0")} ${period}`;
+}
+
 export default function TodayView({todaysLessons = []}) {
   return (
     <section id="today_view" className="section pt-4">
@@ -70,7 +78,7 @@ export default function TodayView({todaysLessons = []}) {
                           <div className="student-name">
                             {lesson.studentName}
                           </div>
-                          <div className="lesson-time">{lesson.time}</div>
+                          <div className="lesson-time">{formatTime(lesson.time)}</div>
                         </div>
                       </div>
                       <div className="instrument-title z-10">

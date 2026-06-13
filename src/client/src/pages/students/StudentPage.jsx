@@ -83,7 +83,7 @@ export default function StudentPage() {
                 </div>
 
                 {/* Instruments */}
-                <div className="bg-white rounded-lg border border-gray-200 p-5">
+                <div className="">
                     <InstrumentPicker
                         value={student.instruments ?? []}
                         onChange={async (instruments) => {
@@ -111,7 +111,7 @@ export default function StudentPage() {
 
                 {/* Lessons */}
                 <div className="bg-white ">
-                    <LessonList lessons={lessons} />
+                    <LessonList lessons={lessons} studentId={student.id} />
                     {/* <Link to={`/lessons/new?studentId=${id}`} className="btn btn-success mt-4">
                         Add Lesson
                     </Link> */}

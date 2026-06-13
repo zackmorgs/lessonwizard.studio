@@ -84,6 +84,7 @@ app.UseAuthorization();
 app.MapAuthEndpoints();
 app.MapLessonEndpoints();
 app.MapStudentEndpoints();
+app.MapSongEndpoints();
 app.MapSpotifyEndpoints();
 
 // Fall back to index.html for client-side routing

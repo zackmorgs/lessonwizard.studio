@@ -65,10 +65,10 @@ export default function TodayView({todaysLessons = []}) {
               </span>
             ) : (
               <ul id="today_lessons">
-                {todaysLessons.map((lesson, index) => (
-                  <li key={index} className="block">
+                {todaysLessons.map((lesson) => (
+                  <li key={lesson.id} className="block">
                     <Link
-                      to={`/lessons/${index}`}
+                      to={`/lessons/${lesson.id}`}
                       className="lesson-link p-4 block mt-4 flex flex-row justify-between items-center relative overflow-hidden"
                     >
                       <div className={"lesson-instrument lesson-instrument" + `-${lesson.instrument.toLowerCase()}` + " absolute top-0 right-0 bottom-0 left-0 z-0"}></div>

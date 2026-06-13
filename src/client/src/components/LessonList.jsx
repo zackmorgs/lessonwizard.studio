@@ -45,7 +45,7 @@ function formatTime(time) {
   return `${hour}:${String(m).padStart(2, "0")} ${period}`;
 }
 
-export default function LessonList({lessons = []}) {
+export default function LessonList({lessons = [], studentId}) {
   return (
     <section id="lesson_view" className="section pt-4">
       <Accordion
@@ -65,10 +65,10 @@ export default function LessonList({lessons = []}) {
               </span>
             ) : (
               <ul id="today_lessons">
-                {lessons.map((lesson, index) => (
-                  <li key={index} className="block">
+                {lessons.map((lesson) => (
+                  <li key={lesson.id} className="block">
                     <Link
-                      to={`/lessons/${index}`}
+                      to={`/lessons/${lesson.id}`}
                       className="lesson-link p-4 block mt-4 flex flex-row justify-between items-center relative overflow-hidden"
                     >
                       <div className={"lesson-instrument lesson-instrument" + `-${lesson.instrument.toLowerCase()}` + " absolute top-0 right-0 bottom-0 left-0 z-0"}></div>
@@ -76,7 +76,7 @@ export default function LessonList({lessons = []}) {
                         <span className="lesson-dot today-lesson-dot mr-2"></span>
                         <div className="lesson-info z-10">
                           <div className="student-name">
-                            {lesson.studentName}
+                            {lesson.date ? new Date(lesson.date).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" }) : "No date"}
                           </div>
                           <div className="lesson-time">{formatTime(lesson.time)}</div>
                         </div>
@@ -102,7 +102,7 @@ export default function LessonList({lessons = []}) {
           </div>
           <hr className="rule-sm" />
           <Link
-            to="/lessons/new"
+            to={typeof studentId !== "undefined" ? `/lessons/new?studentId=${studentId}` : "/lessons/new"}
             className="btn btn-success mt-4 block text-center"
           >
             <svg
@@ -116,7 +116,7 @@ export default function LessonList({lessons = []}) {
               <path d="M680-80v-120H560v-80h120v-120h80v120h120v80H760v120h-80Zm-480-80q-33 0-56.5-23.5T120-240v-480q0-33 23.5-56.5T200-800h40v-80h80v80h240v-80h80v80h40q33 0 56.5 23.5T760-720v244q-20-3-40-3t-40 3v-84H200v320h280q0 20 3 40t11 40H200Zm0-480h480v-80H200v80Zm0 0v-80 80Z" />
             </svg>
             <span className="btn-text">Plan New Lesson</span>
-          </Link>
+          </Link> 
       </Accordion>
     </section>
   );

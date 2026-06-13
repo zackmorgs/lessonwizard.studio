@@ -114,6 +114,9 @@ export default function StudentPage() {
                     ) : (
                         <p className="text-sm text-gray-400">No lessons yet.</p>
                     )}
+                    <Link to={`/lessons/new?studentId=${id}`} className="btn btn-success mt-4">
+                        Add Lesson
+                    </Link>
                 </div>
 
             </div>

@@ -51,11 +51,11 @@ export default function TodayView({ todaysLessons = [] }) {
       <Accordion
         title={
           <h2 className="h2">
-            Today's Scheduled Lessons (
+            Today's Lessons (
             <span className="lesson-count">{todaysLessons.length}</span>)
           </h2>
         }
-        defaultOpen={true}
+        defaultOpen={false}
       >
         <hr className="rule-sm" />
 

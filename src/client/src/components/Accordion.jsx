@@ -14,7 +14,7 @@ export default function Accordion({ title, children, defaultOpen = false }) {
           src="/assets/svg/icon-arrow-down.svg"
           alt="Toggle"
           height="1rem"
-          className={`transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
+          className={`icon mb-4 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
         />
       </div>
       {isOpen && <div className="accordion-content">{children}</div>}

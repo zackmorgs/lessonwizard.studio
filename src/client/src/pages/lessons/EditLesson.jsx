@@ -159,7 +159,7 @@ export default function EditLesson() {
                 apiKey="scgdo10tw7b74zk4lfomtw3eirvn8xw863dvg77qifj7ctqk"
                 initialValue={form.notes}
                 onEditorChange={(content) =>
-                  setForm({ ...form, goals: content })
+                  setForm((content) => ({ ...form, notes: content }))
                 }
                 init={{
                   height: 400,

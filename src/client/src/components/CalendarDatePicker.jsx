@@ -49,7 +49,7 @@ export default function CalendarDatePicker() {
 
   return (
     <section id="calendar_date_picker" className="section">
-      <Accordion title={<h2 className="h2">Calendar</h2>} defaultOpen={true}>
+      <Accordion title={<h2 className="h2">Calendar</h2>} defaultOpen={false}>
             <h2
               id="calendar_month"
               className="h2 text-center flex align-center gap-4 justify-center"

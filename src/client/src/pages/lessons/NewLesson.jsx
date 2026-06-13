@@ -145,8 +145,8 @@ export default function NewLesson() {
             <div className="flex flex-col">
               <Editor
                 apiKey="scgdo10tw7b74zk4lfomtw3eirvn8xw863dvg77qifj7ctqk"
-                initialValue="<p>This is the initial content of the editor.</p>"
-              onEditorChange={(content) => setForm({ ...form, goals: content })}
+                initialValue={form.notes}
+                 onEditorChange={(content) => setForm((content) => ({ ...form, notes: content }))}
                 init={{
                   height: 500,
                   menubar: false,

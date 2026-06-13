@@ -30,4 +30,7 @@ public class Lesson
 
     [BsonElement("tagIds")]
     public List<string> TagIds { get; set; } = new List<string>();
+
+    [BsonElement("teacherId")]
+    public string TeacherId { get; set; } = string.Empty;
 }

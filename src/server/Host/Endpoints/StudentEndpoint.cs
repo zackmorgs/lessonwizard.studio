@@ -4,52 +4,52 @@ using MongoDB.Driver;
 
 namespace Host.Endpoints;
 
-public static class LessonEndpoints
+public static class StudentEndpoints
 {
-    public static IEndpointRouteBuilder MapLessonEndpoints(this IEndpointRouteBuilder app)
+    public static IEndpointRouteBuilder MapStudentEndpoints(this IEndpointRouteBuilder app)
     {
-        var group = app.MapGroup("api/lessons").RequireAuthorization();
+        var group = app.MapGroup("api/students").RequireAuthorization();
 
-        // GET /api/lessons
+        // GET /api/students
         group.MapGet("/", async (ClaimsPrincipal user, IMongoDatabase db) =>
         {
             var teacherId = user.FindFirstValue(ClaimTypes.NameIdentifier)
                           ?? user.FindFirstValue("sub");
             if (teacherId is null) return Results.Unauthorized();
 
-            var lessons = await db.GetCollection<Lesson>("lessons")
-                .Find(l => l.TeacherId == teacherId)
+            var students = await db.GetCollection<Student>("students")
+                .Find(s => s.TeacherId == teacherId)
                 .ToListAsync();
-            return Results.Ok(lessons);
+            return Results.Ok(students);
         });
 
-        // GET /api/lessons/{id}
+        // GET /api/students/{id}
         group.MapGet("/{id}", async (string id, ClaimsPrincipal user, IMongoDatabase db) =>
         {
             var teacherId = user.FindFirstValue(ClaimTypes.NameIdentifier)
                           ?? user.FindFirstValue("sub");
             if (teacherId is null) return Results.Unauthorized();
 
-            var lesson = await db.GetCollection<Lesson>("lessons")
-                .Find(l => l.Id == id && l.TeacherId == teacherId)
+            var student = await db.GetCollection<Student>("students")
+                .Find(s => s.Id == id && s.TeacherId == teacherId)
                 .FirstOrDefaultAsync();
-            return lesson is null ? Results.NotFound() : Results.Ok(lesson);
+            return student is null ? Results.NotFound() : Results.Ok(student);
         });
 
-        // POST /api/lessons
-        group.MapPost("/", async (Lesson lesson, ClaimsPrincipal user, IMongoDatabase db) =>
+        // POST /api/students
+        group.MapPost("/", async (Student student, ClaimsPrincipal user, IMongoDatabase db) =>
         {
             var teacherId = user.FindFirstValue(ClaimTypes.NameIdentifier)
                           ?? user.FindFirstValue("sub");
             if (teacherId is null) return Results.Unauthorized();
 
-            lesson.TeacherId = teacherId;
-            await db.GetCollection<Lesson>("lessons").InsertOneAsync(lesson);
-            return Results.Created($"/api/lessons/{lesson.Id}", lesson);
+            student.TeacherId = teacherId;
+            await db.GetCollection<Student>("students").InsertOneAsync(student);
+            return Results.Created($"/api/students/{student.Id}", student);
         });
 
-        // PUT /api/lessons/{id}
-        group.MapPut("/{id}", async (string id, Lesson updated, ClaimsPrincipal user, IMongoDatabase db) =>
+        // PUT /api/students/{id}
+        group.MapPut("/{id}", async (string id, Student updated, ClaimsPrincipal user, IMongoDatabase db) =>
         {
             var teacherId = user.FindFirstValue(ClaimTypes.NameIdentifier)
                           ?? user.FindFirstValue("sub");
@@ -57,20 +57,20 @@ public static class LessonEndpoints
 
             updated.Id = id;
             updated.TeacherId = teacherId;
-            var result = await db.GetCollection<Lesson>("lessons")
-                .ReplaceOneAsync(l => l.Id == id && l.TeacherId == teacherId, updated);
+            var result = await db.GetCollection<Student>("students")
+                .ReplaceOneAsync(s => s.Id == id && s.TeacherId == teacherId, updated);
             return result.MatchedCount == 0 ? Results.NotFound() : Results.Ok(updated);
         });
 
-        // DELETE /api/lessons/{id}
+        // DELETE /api/students/{id}
         group.MapDelete("/{id}", async (string id, ClaimsPrincipal user, IMongoDatabase db) =>
         {
             var teacherId = user.FindFirstValue(ClaimTypes.NameIdentifier)
                           ?? user.FindFirstValue("sub");
             if (teacherId is null) return Results.Unauthorized();
 
-            var result = await db.GetCollection<Lesson>("lessons")
-                .DeleteOneAsync(l => l.Id == id && l.TeacherId == teacherId);
+            var result = await db.GetCollection<Student>("students")
+                .DeleteOneAsync(s => s.Id == id && s.TeacherId == teacherId);
             return result.DeletedCount == 0 ? Results.NotFound() : Results.NoContent();
         });
 

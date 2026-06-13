@@ -1,16 +1,122 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useParams, useNavigate, Link } from "react-router-dom";
 
 import Layout from "../../components/Layout";
-
-import { getStudents } from "../../services/studentService";
-
-// note: is individual student page
+import { getStudentById, deleteStudent } from "../../services/studentService";
 
 export default function StudentPage() {
-    console.log(getStudents());
-    return (    
+    const { id } = useParams();
+    const navigate = useNavigate();
+    const [student, setStudent] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        getStudentById(id)
+            .then(setStudent)
+            .catch((err) => setError(err.message))
+            .finally(() => setLoading(false));
+    }, [id]);
+
+    const handleDelete = async () => {
+        if (!confirm(`Delete ${student.name}? This cannot be undone.`)) return;
+        try {
+            await deleteStudent(id);
+            navigate("/students");
+        } catch (err) {
+            setError(err.message);
+        }
+    };
+
+    if (loading) {
+        return (
+            <Layout>
+                <p className="p-6 text-sm text-gray-500">Loading...</p>
+            </Layout>
+        );
+    }
+
+    if (error || !student) {
+        return (
+            <Layout>
+                <p className="p-6 text-sm text-red-600">{error ?? "Student not found."}</p>
+            </Layout>
+        );
+    }
+
+    return (
         <Layout>
-            <h1>Student Page</h1>
+            <div className="panel max-w-2xl mx-auto mt-8 flex flex-col gap-6">
+
+                {/* Header */}
+                <div className="flex items-center justify-between">
+                    <div>
+                        <Link to="/students" className="text-sm text-blue-600 hover:underline">&larr; All Students</Link>
+                        <h1 className="text-3xl font-semibold mt-1">{student.name}</h1>
+                        {student.age > 0 && (
+                            <p className="text-sm text-gray-500 mt-0.5">Age {student.age}</p>
+                        )}
+                    </div>
+                    <div className="flex gap-2">
+                        <Link
+                            to={`/students/${id}/edit`}
+                            className="px-3 py-2 text-sm border border-gray-300 rounded hover:bg-gray-100"
+                        >
+                            Edit
+                        </Link>
+                        <button
+                            onClick={handleDelete}
+                            className="px-3 py-2 text-sm bg-red-600 text-white rounded hover:bg-red-700"
+                        >
+                            Delete
+                        </button>
+                    </div>
+                </div>
+
+                {/* Instruments */}
+                {student.instruments?.length > 0 && (
+                    <div className="bg-white rounded-lg border border-gray-200 p-5">
+                        <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">Instruments</h2>
+                        <div className="flex flex-wrap gap-2">
+                            {student.instruments.map((inst) => (
+                                <span key={inst} className="px-3 py-1 text-sm bg-blue-100 text-blue-800 rounded-full">
+                                    {inst}
+                                </span>
+                            ))}
+                        </div>
+                    </div>
+                )}
+
+                {/* Goals */}
+                {student.goals && (
+                    <div className="bg-white rounded-lg border border-gray-200 p-5">
+                        <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">Goals</h2>
+                        <div
+                            className="prose prose-sm max-w-none text-gray-700"
+                            dangerouslySetInnerHTML={{ __html: student.goals }}
+                        />
+                    </div>
+                )}
+
+                {/* Lessons */}
+                <div className="bg-white rounded-lg border border-gray-200 p-5">
+                    <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">Lessons</h2>
+                    {student.lessonIds?.length > 0 ? (
+                        <ul className="flex flex-col gap-2">
+                            {student.lessonIds.map((lid) => (
+                                <li key={lid}>
+                                    <Link to={`/lessons/${lid}`} className="text-sm text-blue-600 hover:underline">
+                                        Lesson {lid}
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
+                    ) : (
+                        <p className="text-sm text-gray-400">No lessons yet.</p>
+                    )}
+                </div>
+
+            </div>
         </Layout>
     );
 }

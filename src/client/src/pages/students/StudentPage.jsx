@@ -3,18 +3,24 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 
 import Layout from "../../components/Layout";
 import InstrumentPicker from "../../components/InstrumentPicker";
-import { getStudentById, updateStudent, deleteStudent } from "../../services/studentService";
+import LessonList from "../../components/LessonList";
+
+import { getStudentById, getStudentLessons, updateStudent, deleteStudent } from "../../services/studentService";
 
 export default function StudentPage() {
     const { id } = useParams();
     const navigate = useNavigate();
     const [student, setStudent] = useState(null);
+    const [lessons, setLessons] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        getStudentById(id)
-            .then(setStudent)
+        Promise.all([getStudentById(id), getStudentLessons(id)])
+            .then(([studentData, lessonData]) => {
+                setStudent(studentData);
+                setLessons(lessonData);
+            })
             .catch((err) => setError(err.message))
             .finally(() => setLoading(false));
     }, [id]);
@@ -44,6 +50,8 @@ export default function StudentPage() {
             </Layout>
         );
     }
+
+    console.log(student);
 
     return (
         <Layout>
@@ -92,7 +100,7 @@ export default function StudentPage() {
 
                 {/* Goals */}
                 {student.goals && (
-                    <div className="bg-white rounded-lg border border-gray-200 p-5">
+                    <div className="bg-white">
                         <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">Goals</h2>
                         <div
                             className="prose prose-sm max-w-none text-gray-700"
@@ -102,24 +110,11 @@ export default function StudentPage() {
                 )}
 
                 {/* Lessons */}
-                <div className="bg-white rounded-lg border border-gray-200 p-5">
-                    <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">Lessons</h2>
-                    {student.lessonIds?.length > 0 ? (
-                        <ul className="flex flex-col gap-2">
-                            {student.lessonIds.map((lid) => (
-                                <li key={lid}>
-                                    <Link to={`/lessons/${lid}`} className="text-sm text-blue-600 hover:underline">
-                                        Lesson {lid}
-                                    </Link>
-                                </li>
-                            ))}
-                        </ul>
-                    ) : (
-                        <p className="text-sm text-gray-400">No lessons yet.</p>
-                    )}
-                    <Link to={`/lessons/new?studentId=${id}`} className="btn btn-success mt-4">
+                <div className="bg-white ">
+                    <LessonList lessons={lessons} />
+                    {/* <Link to={`/lessons/new?studentId=${id}`} className="btn btn-success mt-4">
                         Add Lesson
-                    </Link>
+                    </Link> */}
                 </div>
 
             </div>

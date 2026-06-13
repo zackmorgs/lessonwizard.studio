@@ -18,9 +18,6 @@ public class Student
     [BsonElement("instruments")]
     public List<string> Instruments { get; set; } = new List<string>();
 
-    [BsonElement("lessonIds")]
-    public List<string> LessonIds { get; set; } = new List<string>();
-
     [BsonElement("songIds")]
     public List<string> SongIds { get; set; } = new List<string>();
 

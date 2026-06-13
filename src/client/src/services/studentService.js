@@ -20,6 +20,10 @@ export async function getStudentById(id) {
   return request(`/${id}`);
 }
 
+export async function getStudentLessons(id) {
+  return request(`/${id}/lessons`);
+}
+
 export async function createStudent(student) {
   return request("/", {
     method: "POST",

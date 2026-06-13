@@ -62,6 +62,27 @@ public static class StudentEndpoints
             return result.MatchedCount == 0 ? Results.NotFound() : Results.Ok(updated);
         });
 
+        // GET /api/students/{id}/lessons
+        group.MapGet("/{id}/lessons", async (string id, ClaimsPrincipal user, IMongoDatabase db) =>
+        {
+            var teacherId = user.FindFirstValue(ClaimTypes.NameIdentifier)
+                          ?? user.FindFirstValue("sub");
+            if (teacherId is null) return Results.Unauthorized();
+
+            // Confirm the student belongs to this teacher
+            var student = await db.GetCollection<Student>("students")
+                .Find(s => s.Id == id && s.TeacherId == teacherId)
+                .FirstOrDefaultAsync();
+            if (student is null) return Results.NotFound();
+
+            var lessons = await db.GetCollection<Lesson>("lessons")
+                .Find(l => l.StudentId == id && l.TeacherId == teacherId)
+                .SortByDescending(l => l.Date)
+                .ToListAsync();
+
+            return Results.Ok(lessons);
+        });
+
         // DELETE /api/students/{id}
         group.MapDelete("/{id}", async (string id, ClaimsPrincipal user, IMongoDatabase db) =>
         {

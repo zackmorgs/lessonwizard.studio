@@ -4,6 +4,7 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import Layout from "../../components/Layout";
 import InstrumentPicker from "../../components/InstrumentPicker";
 import LessonList from "../../components/LessonList";
+import { Editor } from "@tinymce/tinymce-react";
 
 import { getStudentById, getStudentLessons, updateStudent, deleteStudent } from "../../services/studentService";
 
@@ -99,15 +100,58 @@ export default function StudentPage() {
                 </div>
 
                 {/* Goals */}
-                {student.goals && (
-                    <div className="bg-white">
-                        <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">Goals</h2>
-                        <div
-                            className="prose prose-sm max-w-none text-gray-700"
-                            dangerouslySetInnerHTML={{ __html: student.goals }}
-                        />
-                    </div>
-                )}
+                <div className="bg-white">
+                    <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">Goals</h2>
+                    <Editor
+                        apiKey="scgdo10tw7b74zk4lfomtw3eirvn8xw863dvg77qifj7ctqk"
+                        initialValue={student.goals ?? ""}
+                        onBlur={async (_, editor) => {
+                            const goals = editor.getContent();
+                            if (goals === student.goals) return;
+                            const updated = { ...student, goals };
+                            setStudent(updated);
+                            try {
+                                await updateStudent(id, updated);
+                            } catch (err) {
+                                setError(err.message);
+                            }
+                        }}
+                        init={{
+                            height: 300,
+                            menubar: false,
+                            plugins: ["advlist", "autolink", "lists", "link", "charmap", "searchreplace", "visualblocks", "wordcount"],
+                            toolbar: "undo redo | blocks | bold italic | bullist numlist | removeformat",
+                            content_style: "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+                        }}
+                    />
+                </div>
+
+                {/* Notes */}
+                <div className="bg-white">
+                    <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">Notes</h2>
+                    <Editor
+                        apiKey="scgdo10tw7b74zk4lfomtw3eirvn8xw863dvg77qifj7ctqk"
+                        initialValue={student.notes ?? ""}
+                        onBlur={async (_, editor) => {
+                            const notes = editor.getContent();
+                            if (notes === student.notes) return;
+                            const updated = { ...student, notes };
+                            setStudent(updated);
+                            try {
+                                await updateStudent(id, updated);
+                            } catch (err) {
+                                setError(err.message);
+                            }
+                        }}
+                        init={{
+                            height: 300,
+                            menubar: false,
+                            plugins: ["advlist", "autolink", "lists", "link", "charmap", "searchreplace", "visualblocks", "wordcount"],
+                            toolbar: "undo redo | blocks | bold italic | bullist numlist | removeformat",
+                            content_style: "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+                        }}
+                    />
+                </div>
 
                 {/* Lessons */}
                 <div className="bg-white ">

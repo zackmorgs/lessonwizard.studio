@@ -24,6 +24,10 @@ public class Student
     [BsonElement("goals")]
     public string Goals { get; set; } = string.Empty;
 
+    
+    [BsonElement("notes")]
+    public string Notes { get; set; } = string.Empty;
+
     [BsonElement("teacherId")]
     public string TeacherId { get; set; } = string.Empty;
 }

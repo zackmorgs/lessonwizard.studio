@@ -25,7 +25,7 @@ export default function LessonById() {
     const navigate = useNavigate();
     const [lesson, setLesson] = useState(null);
     const [student, setStudent] = useState(null);
-    const [songs, setSongs] = useState([]);
+    const [songs, setSongs] = useState({});
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -39,8 +39,17 @@ export default function LessonById() {
                 }
                 if (lessonData.songIds?.length > 0) {
                     fetches.push(
-                        Promise.all(lessonData.songIds.map((sid) => getSongById(sid).catch(() => null)))
-                            .then((results) => setSongs(results.filter(Boolean)))
+                        Promise.all(
+                            lessonData.songIds.map((sid) =>
+                                getSongById(sid)
+                                    .then((song) => [sid, song])
+                                    .catch(() => [sid, null])
+                            )
+                        ).then((entries) => {
+                            const map = {};
+                            entries.forEach(([sid, song]) => { if (song) map[sid] = song; });
+                            setSongs(map);
+                        })
                     );
                 }
                 return Promise.all(fetches);
@@ -74,6 +83,8 @@ export default function LessonById() {
             </Layout>
         );
     }
+
+    console.log(songs);
 
     return (
         <Layout>
@@ -147,7 +158,7 @@ export default function LessonById() {
                         <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">Songs</h2>
                         <ul className="flex flex-col gap-3">
                             {lesson.songIds.map((sid) => {
-                                const song = songs.find((s) => s.id === sid);
+                                const song = songs[sid];
                                 return (
                                     <li key={sid} className="flex items-center justify-between">
                                         <div>

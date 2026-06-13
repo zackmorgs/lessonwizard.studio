@@ -38,8 +38,27 @@ export default function NewLesson() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+  const [error, setError] = useState(null);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!form.studentId) {
+      setError("Please select a student.");
+      return;
+    }
+    if (!form.date) {
+      setError("Date is required.");
+      return;
+    }
+    if (!form.time) {
+      setError("Time is required.");
+      return;
+    }
+    if (!form.instrument) {
+      setError("Please select an instrument.");
+      return;
+    }
+    setError(null);
     const payload = {
       ...form,
       time: form.time ? `${form.time}:00` : "00:00:00",
@@ -57,6 +76,7 @@ export default function NewLesson() {
       <section id="new_lesson" className="section">
         <div className="panel">
           <h1 className="h1 mb-4">{studentName ? `New Lesson for ${studentName}` : "New Lesson"}</h1>
+          {error && <p className="mb-4 text-sm text-red-600">{error}</p>}
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
             {!studentId && (
               <StudentPicker
@@ -126,7 +146,7 @@ export default function NewLesson() {
               <Editor
                 apiKey="scgdo10tw7b74zk4lfomtw3eirvn8xw863dvg77qifj7ctqk"
                 initialValue="<p>This is the initial content of the editor.</p>"
-                onEditorChange={(content) => setForm({ ...form, notes: content })}
+              onEditorChange={(content) => setForm({ ...form, goals: content })}
                 init={{
                   height: 500,
                   menubar: false,

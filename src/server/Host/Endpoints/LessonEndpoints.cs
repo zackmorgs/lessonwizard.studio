@@ -39,7 +39,11 @@ public static class LessonEndpoints
                 .ThenBy(l => l.Time)
                 .ToListAsync();
 
-            var studentIds = lessons.Select(l => l.StudentId).Distinct().ToList();
+            var studentIds = lessons
+                .Select(l => l.StudentId)
+                .Where(s => !string.IsNullOrEmpty(s))
+                .Distinct()
+                .ToList();
             var students = await db.GetCollection<Student>("students")
                 .Find(s => studentIds.Contains(s.Id))
                 .ToListAsync();
@@ -81,6 +85,15 @@ public static class LessonEndpoints
             var teacherId = user.FindFirstValue(ClaimTypes.NameIdentifier)
                           ?? user.FindFirstValue("sub");
             if (teacherId is null) return Results.Unauthorized();
+
+            if (string.IsNullOrEmpty(lesson.StudentId))
+                return Results.BadRequest(new { message = "studentId is required." });
+            if (lesson.Date == default)
+                return Results.BadRequest(new { message = "date is required." });
+            if (lesson.Time == TimeSpan.Zero)
+                return Results.BadRequest(new { message = "time is required." });
+            if (string.IsNullOrEmpty(lesson.Instrument))
+                return Results.BadRequest(new { message = "instrument is required." });
 
             lesson.TeacherId = teacherId;
             await db.GetCollection<Lesson>("lessons").InsertOneAsync(lesson);

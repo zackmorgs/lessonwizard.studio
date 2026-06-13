@@ -12,6 +12,7 @@ import Account from './pages/auth/Account';
 import Lessons from './pages/lessons/Index';
 import LessonById from './pages/lessons/LessonById';
 import NewLesson from './pages/lessons/NewLesson';
+import EditLesson from './pages/lessons/EditLesson';
 
 import SongLists from './pages/song-lists/Index';
 import SongListById from './pages/song-lists/SongListById';
@@ -41,6 +42,7 @@ export default function App() {
         <Route path="/lessons" element={<Lessons />} />
         <Route path="/lessons/new" element={<NewLesson />} />
         <Route path="/lessons/:id" element={<LessonById />} />
+        <Route path="/lessons/:id/edit" element={<EditLesson />} />
 
         <Route path="/songlists" element={<SongLists />} />
         <Route path="/songlists/:id" element={<SongListById />} />

@@ -9,7 +9,13 @@ import { createStudent } from "../../services/studentService";
 
 export default function NewStudent() {
   const navigate = useNavigate();
-  const [form, setForm] = useState({ name: "", age: "", goals: "", instruments: [] });
+  const [form, setForm] = useState({
+    name: "",
+    age: "",
+    goals: "",
+    notes: "",
+    instruments: [],
+  });
   const [error, setError] = useState(null);
   const [submitting, setSubmitting] = useState(false);
 
@@ -75,6 +81,39 @@ export default function NewStudent() {
             value={form.instruments}
             onChange={(instruments) => setForm({ ...form, instruments })}
           />
+
+          <div className="flex flex-col gap-1">
+            <label
+              htmlFor="notes"
+              className="text-sm font-medium text-gray-700"
+            >
+              Notes
+            </label>
+            <Editor
+              id="notes"
+              apiKey="scgdo10tw7b74zk4lfomtw3eirvn8xw863dvg77qifj7ctqk"
+              initialValue=""
+              onEditorChange={(content) => setForm({ ...form, notes: content })}
+              init={{
+                height: 400,
+                menubar: false,
+                plugins: [
+                  "advlist",
+                  "autolink",
+                  "lists",
+                  "link",
+                  "charmap",
+                  "searchreplace",
+                  "visualblocks",
+                  "wordcount",
+                ],
+                toolbar:
+                  "undo redo | blocks | bold italic | bullist numlist | removeformat",
+                content_style:
+                  "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+              }}
+            />
+          </div>
 
           <div className="flex flex-col gap-1">
             <label

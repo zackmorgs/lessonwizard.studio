@@ -38,6 +38,14 @@ import Accordion from "./Accordion";
 // ];
 
 export default function TodayView({ todaysLessons = [] }) {
+
+  function formatTime(time) {
+    if (!time) return "";
+    const [h, m] = time.split(":").map(Number);
+    const period = h >= 12 ? "PM" : "AM";
+    const hour = h % 12 || 12;
+    return `${hour}:${String(m).padStart(2, "0")} ${period}`;
+  }
   return (
     <section id="today_view" className="section pt-4">
       <Accordion
@@ -58,10 +66,10 @@ export default function TodayView({ todaysLessons = [] }) {
         ) : (
           <div className="scrollable max-h-72">
             <ul id="today_lessons">
-              {todaysLessons.map((lesson, index) => (
-                <li key={index} className="block">
+              {todaysLessons.map((lesson) => (
+                <li key={lesson.id} className="block">
                   <Link
-                    to={`/lessons/${index}`}
+                    to={`/lessons/${lesson.id}`}
                     className="lesson-link p-4 block mt-4 flex flex-row justify-between items-center relative overflow-hidden"
                   >
                     <div
@@ -75,7 +83,7 @@ export default function TodayView({ todaysLessons = [] }) {
                       <span className="lesson-dot today-lesson-dot mr-2"></span>
                       <div className="lesson-info z-10">
                         <div className="student-name">{lesson.studentName}</div>
-                        <div className="lesson-time">{lesson.time}</div>
+                        <div className="lesson-time">{formatTime(lesson.time)}</div>
                       </div>
                     </div>
                     <div className="instrument-title z-10">

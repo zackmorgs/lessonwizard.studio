@@ -3,61 +3,61 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Accordion from "./Accordion";
 
-let dummyLessons = [
-  {
-    studentName: "John Doe",
-    time: "10:00 AM",
-    instrument: "piano",
-  },
-  {
-    studentName: "Jane Doe",
-    time: "10:15 AM",
-    instrument: "violin",
+// let dummyLessons = [
+//   {
+//     studentName: "John Doe",
+//     time: "10:00 AM",
+//     instrument: "piano",
+//   },
+//   {
+//     studentName: "Jane Doe",
+//     time: "10:15 AM",
+//     instrument: "violin",
 
-  },
-  {
-    studentName: "Emily Davis",
-    time: "10:45 AM",
-    instrument: "flute",
-  },
-  {
-    studentName: "Mary Smith",
-    time: "10:30 AM",
-    instrument: "guitar",
-  },
-  {
-    studentName: "Alice Johnson",
-    time: "11:00 AM",
-    instrument: "violin",
-  },
-  {
-    studentName: "Bob Brown",
-    time: "11:30 AM",
-    instrument: "drums",
-  },
-];
+//   },
+//   {
+//     studentName: "Emily Davis",
+//     time: "10:45 AM",
+//     instrument: "flute",
+//   },
+//   {
+//     studentName: "Mary Smith",
+//     time: "10:30 AM",
+//     instrument: "guitar",
+//   },
+//   {
+//     studentName: "Alice Johnson",
+//     time: "11:00 AM",
+//     instrument: "violin",
+//   },
+//   {
+//     studentName: "Bob Brown",
+//     time: "11:30 AM",
+//     instrument: "drums",
+//   },
+// ];
 
-export default function TodayView() {
+export default function TodayView({todaysLessons = []}) {
   return (
     <section id="today_view" className="section pt-4">
       <Accordion
         title={
           <h2 className="h2">
             Today's Scheduled Lessons (
-            <span className="lesson-count">{dummyLessons.length}</span>)
+            <span className="lesson-count">{todaysLessons.length}</span>)
           </h2>
         }
         defaultOpen={true}
       >
           <hr className="rule-sm" />
           <div className="scrollable max-h-72">
-            {dummyLessons.length === 0 ? (
+            {todaysLessons.length === 0 ? (
               <span className="well well-info">
                 <p>You have no lessons scheduled for today.</p>
               </span>
             ) : (
               <ul id="today_lessons">
-                {dummyLessons.map((lesson, index) => (
+                {todaysLessons.map((lesson, index) => (
                   <li key={index} className="block">
                     <Link
                       to={`/lessons/${index}`}

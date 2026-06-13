@@ -1,35 +1,70 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { Editor } from "@tinymce/tinymce-react";
+import { useSearchParams, useNavigate } from "react-router-dom";
 
 import Layout from "../../components/Layout";
+import InstrumentPicker from "../../components/InstrumentPicker";
+import StudentPicker from "../../components/StudentPicker";
+import SongPicker from "../../components/SongPicker";
+import { getStudentById } from "../../services/studentService";
 
 export default function NewLesson() {
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+  const studentId = searchParams.get("studentId");
+  const [studentName, setStudentName] = useState(null);
+
+  useEffect(() => {
+    if (studentId) {
+      getStudentById(studentId)
+        .then((s) => setStudentName(s.name))
+        .catch(() => {});
+    }
+  }, [studentId]);
+
   const [form, setForm] = useState({
-    date: "",
+    date: new Date().toISOString().split("T")[0],
     instrument: "",
     time: "",
     notes: "",
-    songIds: "",
+    songIds: [],
     tagIds: "",
+    studentId: studentId ?? "",
   });
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // TODO: POST to API
     console.log(form);
+    navigate("/");
   };
 
   return (
     <Layout>
       <section id="new_lesson" className="section">
         <div className="panel">
-          <h1 className="h1 mb-4">New Lesson</h1>
+          <h1 className="h1 mb-4">{studentName ? `New Lesson for ${studentName}` : "New Lesson"}</h1>
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+            {!studentId && (
+              <StudentPicker
+                value={form.studentId}
+                onChange={(id) => {
+                  setForm({ ...form, studentId: id });
+                  if (id) {
+                    getStudentById(id)
+                      .then((s) => setStudentName(s.name))
+                      .catch(() => {});
+                  } else {
+                    setStudentName(null);
+                  }
+                }}
+              />
+            )}
             <div className="flex flex-col gap-1">
               <label htmlFor="date">Date</label>
               <input
@@ -60,15 +95,9 @@ export default function NewLesson() {
             </div>
 
             <div className="flex flex-col gap-1">
-              <label htmlFor="instrument">Instrument</label>
-              <input
-                id="instrument"
-                name="instrument"
-                type="text"
-                className="input"
-                placeholder="e.g. Guitar"
-                value={form.instrument}
-                onChange={handleChange}
+              <InstrumentPicker
+                value={form.instrument ? [form.instrument] : []}
+                onChange={(instruments) => setForm({ ...form, instrument: instruments[0] || "" })}
               />
             </div>
 
@@ -123,18 +152,10 @@ export default function NewLesson() {
               />
             </div>
 
-            <div className="flex flex-col gap-1">
-              <label htmlFor="songIds">Song IDs</label>
-              <input
-                id="songIds"
-                name="songIds"
-                type="text"
-                className="input"
-                placeholder="Comma-separated song IDs"
-                value={form.songIds}
-                onChange={handleChange}
-              />
-            </div>
+            <SongPicker
+              value={form.songIds}
+              onChange={(songs) => setForm({ ...form, songIds: songs })}
+            />
 
             <div className="flex flex-col gap-1">
               <label htmlFor="tagIds">Tag IDs</label>

@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 
 import Layout from "../../components/Layout";
-import { getStudentById, deleteStudent } from "../../services/studentService";
+import InstrumentPicker from "../../components/InstrumentPicker";
+import { getStudentById, updateStudent, deleteStudent } from "../../services/studentService";
 
 export default function StudentPage() {
     const { id } = useParams();
@@ -74,18 +75,20 @@ export default function StudentPage() {
                 </div>
 
                 {/* Instruments */}
-                {student.instruments?.length > 0 && (
-                    <div className="bg-white rounded-lg border border-gray-200 p-5">
-                        <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">Instruments</h2>
-                        <div className="flex flex-wrap gap-2">
-                            {student.instruments.map((inst) => (
-                                <span key={inst} className="px-3 py-1 text-sm bg-blue-100 text-blue-800 rounded-full">
-                                    {inst}
-                                </span>
-                            ))}
-                        </div>
-                    </div>
-                )}
+                <div className="bg-white rounded-lg border border-gray-200 p-5">
+                    <InstrumentPicker
+                        value={student.instruments ?? []}
+                        onChange={async (instruments) => {
+                            const updated = { ...student, instruments };
+                            setStudent(updated);
+                            try {
+                                await updateStudent(id, updated);
+                            } catch (err) {
+                                setError(err.message);
+                            }
+                        }}
+                    />
+                </div>
 
                 {/* Goals */}
                 {student.goals && (

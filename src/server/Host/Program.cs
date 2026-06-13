@@ -64,6 +64,7 @@ if (hasGoogle)
 }
 
 builder.Services.AddAuthorization();
+builder.Services.AddHttpClient();
 
 var app = builder.Build();
 
@@ -83,6 +84,7 @@ app.UseAuthorization();
 app.MapAuthEndpoints();
 app.MapLessonEndpoints();
 app.MapStudentEndpoints();
+app.MapSpotifyEndpoints();
 
 // Fall back to index.html for client-side routing
 app.MapFallbackToFile("index.html");

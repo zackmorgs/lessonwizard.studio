@@ -16,6 +16,10 @@ export async function getLessons() {
   return request("/");
 }
 
+export async function todaysLessons() {
+  return request("/today");
+}
+
 export async function getLessonById(id) {
   return request(`/${id}`);
 }

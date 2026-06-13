@@ -4,6 +4,7 @@ import { Link } from "react-router";
 
 import mainNavItems from "../data/navItems";
 import authNavItems from "../data/authNavItems";
+import featureItems from "../data/featureItems";
 
 export default function NavMenu() {
   const [isOpen, setIsOpen] = useState(false);
@@ -51,6 +52,17 @@ export default function NavMenu() {
           className={`nav-list flex flex-col list-none w-full m-0 p-0 ${isOpen ? "" : "hidden"}`}
         >
           {authNavItems.map((item) => (
+            <li key={item.path} className="nav-item block">
+              <Link to={item.path} className="nav-link block">
+                {item.name}
+              </Link>
+            </li>
+          ))}
+        </ul>
+        <ul
+          className={`nav-list flex flex-col list-none w-full m-0 p-0 ${isOpen ? "" : "hidden"}`}
+        >
+          {featureItems.map((item) => (
             <li key={item.path} className="nav-item block">
               <Link to={item.path} className="nav-link block">
                 {item.name}

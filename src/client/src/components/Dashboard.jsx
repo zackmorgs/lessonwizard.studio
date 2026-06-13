@@ -6,6 +6,34 @@ import CalendarDatePicker from "../components/CalendarDatePicker";
 import StudentList from "../components/StudentList";
 import { useAuth } from "../contexts/AuthContext";
 
+let students_list = [
+  {
+    id: "1",
+    name: "John Doe",
+  },
+  {
+    id: "2",
+    name: "Jane Doe",
+  },
+  {
+    id: "3",
+    name: "Emily Davis",
+  },
+  {
+    id: "4",
+    name: "Bob Brown",
+  },
+  {
+    id: "4",
+    name: "Mary Smith",
+  },
+  {
+    id: "4",
+    name: "Alice Johnson",
+  },
+];
+
+
 export default function Dashboard() {
   const { user } = useAuth();
   const name = user?.displayName?.split(" ")[0];
@@ -20,7 +48,8 @@ export default function Dashboard() {
       </header>
       <TodayView />
       <CalendarDatePicker />
-      <StudentList />
+      <StudentList studentList={students_list} />
+      
     </>
   );
 }

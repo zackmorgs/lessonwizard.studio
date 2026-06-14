@@ -57,7 +57,7 @@ export default function TodayView({ todaysLessons = [] }) {
             </span>
           </h2>
         }
-        defaultOpen={false}
+        defaultOpen={true}
       >
         <hr className="rule-sm" />
 

@@ -128,11 +128,11 @@ export default function CalendarDatePicker() {
                   )}
                 </Link>
               </li>
-            ))}
+            ))}    
             {nextMonthDays.map((day, index) => (
               <li key={`next-${index}`}>
                 <Link
-                  to={`/schedule/${year}/${monthIndex + 1}/${day}`}
+                  to={`/calendar/${year}/${monthIndex + 1}/${day}`}
                   className="day empty-day date-link"
                 >
                   {day}

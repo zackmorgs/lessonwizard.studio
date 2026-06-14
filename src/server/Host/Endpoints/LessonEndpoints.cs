@@ -66,6 +66,27 @@ public static class LessonEndpoints
             return Results.Ok(result);
         });
 
+        // GET /api/lessons/date/{date}
+        group.MapGet("/date/{date}", async (string date, ClaimsPrincipal user, IMongoDatabase db) =>
+        {
+            var teacherId = user.FindFirstValue(ClaimTypes.NameIdentifier)
+                          ?? user.FindFirstValue("sub");
+            if (teacherId is null) return Results.Unauthorized();
+
+            if (!DateTime.TryParse(date, out var parsedDate))
+                return Results.BadRequest(new { message = "Invalid date format. Use YYYY-MM-DD." });
+
+            var dayStartUtc = parsedDate.Date;
+            var dayEndUtc = dayStartUtc.AddDays(1);
+
+            var lessons = await db.GetCollection<Lesson>("lessons")
+                .Find(l => l.TeacherId == teacherId && l.Date >= dayStartUtc && l.Date < dayEndUtc)
+                .SortBy(l => l.Time)
+                .ToListAsync();
+
+            return Results.Ok(lessons);
+        });
+
         // GET /api/lessons/{id}
         group.MapGet("/{id}", async (string id, ClaimsPrincipal user, IMongoDatabase db) =>
         {

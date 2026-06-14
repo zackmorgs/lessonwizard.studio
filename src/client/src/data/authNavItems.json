@@ -1,18 +1,12 @@
 [
   {
-    "name": "Sign in",
-    "path": "/login"
-  },
-  {
-    "name": "Sign up",
-    "path": "/signup"
-  },
-  {
     "name": "Account",
+    "icon": "icon-account-box",
     "path": "/account"
   },
   {
     "name": "Logout",
+    "icon": "icon-logout",
     "path": "/logout"
   }
 ]

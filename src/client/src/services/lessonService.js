@@ -20,6 +20,12 @@ export async function todaysLessons() {
   return request("/today");
 }
 
+// /api/lessons/date/{date}
+export async function getLessonsOndDate(date) {
+  return request(`/date/${date}`);
+}
+
+
 export async function getLessonById(id) {
   return request(`/${id}`);
 }

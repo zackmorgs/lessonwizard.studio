@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 import { Editor } from "@tinymce/tinymce-react";
 import { useSearchParams, useNavigate } from "react-router-dom";
@@ -15,6 +15,7 @@ export default function NewLesson() {
   const navigate = useNavigate();
   const studentId = searchParams.get("studentId");
   const [studentName, setStudentName] = useState(null);
+  const notesRef = useRef("");
 
   useEffect(() => {
     if (studentId) {
@@ -61,6 +62,7 @@ export default function NewLesson() {
     setError(null);
     const payload = {
       ...form,
+      notes: notesRef.current,
       time: form.time ? `${form.time}:00` : "00:00:00",
       songIds: form.songIds.map((t) => t.id ?? t),
       tagIds: form.tagIds
@@ -146,7 +148,9 @@ export default function NewLesson() {
               <Editor
                 apiKey="scgdo10tw7b74zk4lfomtw3eirvn8xw863dvg77qifj7ctqk"
                 initialValue={form.notes}
-                 onEditorChange={(content) => setForm((content) => ({ ...form, notes: content }))}
+                onEditorChange={(content) => {
+                  notesRef.current = content;
+                }}
                 init={{
                   height: 500,
                   menubar: false,

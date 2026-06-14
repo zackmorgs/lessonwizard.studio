@@ -2,6 +2,9 @@ import React, { useState } from "react";
 
 import { Link } from "react-router";
 
+import AuthorizedView from "./../components/AuthorizedView";
+import UnauthorizedView from "./../components/UnauthorizedView";
+
 import mainNavItems from "../data/navItems";
 import authNavItems from "../data/authNavItems";
 import featureItems from "../data/featureItems";
@@ -36,7 +39,10 @@ export default function NavMenu() {
           <span></span>
         </button>
       </div>
-      <div className="flex flex-col fixed flex m-0 p-0 w-full">
+      <div id="nav_list_container" className={`flex flex-col fixed flex m-0 p-0 w-full ${isOpen ? "" : "hidden"}`}>
+        <div className="nav-title p-4">
+          <h3 className="h3">Navigation</h3>
+        </div>
         <ul
           className={`nav-list flex flex-col list-none w-full m-0 p-0 ${isOpen ? "" : "hidden"}`}
         >
@@ -48,28 +54,40 @@ export default function NavMenu() {
             </li>
           ))}
         </ul>
-        <ul
-          className={`nav-list flex flex-col list-none w-full m-0 p-0 ${isOpen ? "" : "hidden"}`}
-        >
-          {authNavItems.map((item) => (
-            <li key={item.path} className="nav-item block">
-              <Link to={item.path} className="nav-link block">
-                {item.name}
-              </Link>
-            </li>
-          ))}
-        </ul>
-        <ul
-          className={`nav-list flex flex-col list-none w-full m-0 p-0 ${isOpen ? "" : "hidden"}`}
-        >
-          {featureItems.map((item) => (
-            <li key={item.path} className="nav-item block">
-              <Link to={item.path} className="nav-link block">
-                {item.name}
-              </Link>
-            </li>
-          ))}
-        </ul>
+        <AuthorizedView>
+          <div className="nav-title p-4">
+            <h3 className="h3">Features</h3>
+          </div>
+          <ul
+            className={`nav-list flex flex-col list-none w-full m-0 p-0`}
+          >
+            {featureItems.map((item) => (
+              <li key={item.path} className="nav-item block">
+                <Link to={item.path} className="nav-link block">
+                  {item.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </AuthorizedView>
+        <AuthorizedView>
+          <div className="nav-title p-4">
+            <h3 className="h3">Account</h3>
+          </div>
+          <ul
+            id="account_nav_list"
+            className={`nav-list flex flex-row justify-start list-none w-full m-0 p-0`}
+          >
+            {authNavItems.map((item) => (
+              <li key={item.path} className="nav-item block">
+                <Link to={item.path} className="nav-link block flex flex-col items-center justify-center">
+                  <img src={`/assets/svg/${item.icon}.svg`} alt={`${item.name} icon`} className="icon"/>
+                  <span className="nav-text">{item.name}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </AuthorizedView>
       </div>
     </nav>
   );

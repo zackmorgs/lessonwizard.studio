@@ -2,8 +2,7 @@ import React, { useState } from "react";
 
 import { Link } from "react-router";
 
-import AuthorizedView from "./../components/AuthorizedView";
-import UnauthorizedView from "./../components/UnauthorizedView";
+import { Authenticated } from "../contexts/AuthContext";
 
 import mainNavItems from "../data/navItems";
 import authNavItems from "../data/authNavItems";
@@ -54,7 +53,7 @@ export default function NavMenu() {
             </li>
           ))}
         </ul>
-        <AuthorizedView>
+        <Authenticated>
           <div className="nav-title p-4">
             <h3 className="h3">Features</h3>
           </div>
@@ -69,8 +68,8 @@ export default function NavMenu() {
               </li>
             ))}
           </ul>
-        </AuthorizedView>
-        <AuthorizedView>
+        </Authenticated>
+        <Authenticated>
           <div className="nav-title p-4">
             <h3 className="h3">Account</h3>
           </div>
@@ -87,7 +86,7 @@ export default function NavMenu() {
               </li>
             ))}
           </ul>
-        </AuthorizedView>
+        </Authenticated>
       </div>
     </nav>
   );

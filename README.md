@@ -3,7 +3,8 @@
 A student management and curriculum planning platform built specifically for private music teachers.
 
 # Progress Videos
-- [Day 2 - Overall Design, Dashboard Progress](https://youtu.be/BanQRwQe-3o)
+<!-- - [Day 2 - Overall Design, Dashboard Progress](https://youtu.be/BanQRwQe-3o) -->
+- [Progress 6/14](https://youtu.be/upE-J4Up5Ys)
 
 ## Overview
 

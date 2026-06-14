@@ -8,7 +8,7 @@ A student management and curriculum planning platform built specifically for pri
 
 ## Overview
 
-lessonwizard.studio.studio helps music instructors organize students, track lesson progress, manage song assignments, and build structured learning paths. It is designed around the realities of private music education, where teachers need quick access to student history, assigned material, and lesson planning tools.
+lessonwizard.studio helps music instructors organize students, track lesson progress, manage song assignments, and build structured learning paths. It is designed around the realities of private music education, where teachers need quick access to student history, assigned material, and lesson planning tools.
 
 ## Core Goals
 

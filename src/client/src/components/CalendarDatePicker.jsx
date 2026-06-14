@@ -1,35 +1,32 @@
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
 import { Link } from "react-router-dom";
 import Accordion from "./Accordion";
+import { getLessonDaysInMonth } from "../services/lessonService";
 
 const today = new Date();
-
-// TODO: replace with API data
-const lessonDates = [
-  { year: 2026, month: 6, day: 11 },
-  { year: 2026, month: 6, day: 15 },
-  { year: 2026, month: 6, day: 18 },
-  { year: 2026, month: 6, day: 22 },
-];
-
-function hasLesson(year, month, day) {
-  return lessonDates.some(
-    (l) => l.year === year && l.month === month && l.day === day,
-  );
-}
 
 export default function CalendarDatePicker() {
   const [viewDate, setViewDate] = useState(
     new Date(today.getFullYear(), today.getMonth(), 1),
   );
+  const [lessonDays, setLessonDays] = useState([]);
 
   const month = viewDate.toLocaleString("default", { month: "long" });
   const year = viewDate.getFullYear();
   const monthIndex = viewDate.getMonth();
+  const monthNumber = monthIndex + 1;
   const totalDaysInMonth = new Date(year, monthIndex + 1, 0).getDate();
   const firstDayOfMonth = new Date(year, monthIndex, 1).getDay();
   const totalDaysInPrevMonth = new Date(year, monthIndex, 0).getDate();
+
+  const prevMonthDate = new Date(year, monthIndex - 1, 1);
+  const prevMonthYear = prevMonthDate.getFullYear();
+  const prevMonthNumber = prevMonthDate.getMonth() + 1;
+
+  const nextMonthDate = new Date(year, monthIndex + 1, 1);
+  const nextMonthYear = nextMonthDate.getFullYear();
+  const nextMonthNumber = nextMonthDate.getMonth() + 1;
 
   const prevMonthLeadingDays = Array.from(
     { length: firstDayOfMonth },
@@ -43,6 +40,14 @@ export default function CalendarDatePicker() {
   const totalCells = firstDayOfMonth + totalDaysInMonth;
   const trailingDays = (7 - (totalCells % 7)) % 7;
   const nextMonthDays = Array.from({ length: trailingDays }, (_, i) => i + 1);
+
+  useEffect(() => {
+    getLessonDaysInMonth(year, monthNumber)
+      .then((days) => setLessonDays(Array.isArray(days) ? days : []))
+      .catch(() => setLessonDays([]));
+  }, [year, monthNumber]);
+
+  const lessonDaySet = useMemo(() => new Set(lessonDays), [lessonDays]);
 
   const prevMonth = () => setViewDate(new Date(year, monthIndex - 1, 1));
   const nextMonth = () => setViewDate(new Date(year, monthIndex + 1, 1));
@@ -109,7 +114,7 @@ export default function CalendarDatePicker() {
             {prevMonthLeadingDays.map((day, index) => (
               <li key={`prev-${index}`}>
                 <Link
-                  to={`/schedule/${year}/${monthIndex}/${day}`}
+                  to={`/schedule/${prevMonthYear}/${prevMonthNumber}/${day}`}
                   className="day empty-day date-link"
                 >
                   {day}
@@ -119,11 +124,11 @@ export default function CalendarDatePicker() {
             {allDaysInMonth.map((day, index) => (
               <li key={index}>
                 <Link
-                  to={`/schedule/${year}/${monthIndex + 1}/${day}`}
+                  to={`/schedule/${year}/${monthNumber}/${day}`}
                   className="day-in-month day date-link"
                 >
                   {day}
-                  {hasLesson(year, monthIndex + 1, day) && (
+                  {lessonDaySet.has(day) && (
                     <span className="lesson-dot calendar-lesson-dot" />
                   )}
                 </Link>
@@ -132,7 +137,7 @@ export default function CalendarDatePicker() {
             {nextMonthDays.map((day, index) => (
               <li key={`next-${index}`}>
                 <Link
-                  to={`/calendar/${year}/${monthIndex + 1}/${day}`}
+                  to={`/schedule/${nextMonthYear}/${nextMonthNumber}/${day}`}
                   className="day empty-day date-link"
                 >
                   {day}

@@ -87,6 +87,42 @@ public static class LessonEndpoints
             return Results.Ok(lessons);
         });
 
+        // GET /api/lessons/month/{year}/{month}
+        group.MapGet("/month/{year:int}/{month:int}", async (int year, int month, ClaimsPrincipal user, IMongoDatabase db) =>
+        {
+            var teacherId = user.FindFirstValue(ClaimTypes.NameIdentifier)
+                          ?? user.FindFirstValue("sub");
+            if (teacherId is null) return Results.Unauthorized();
+
+            if (month < 1 || month > 12)
+                return Results.BadRequest(new { message = "month must be between 1 and 12." });
+
+            DateTime monthStartUtc;
+            try
+            {
+                monthStartUtc = new DateTime(year, month, 1, 0, 0, 0, DateTimeKind.Utc);
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                return Results.BadRequest(new { message = "Invalid year or month." });
+            }
+
+            var monthEndUtc = monthStartUtc.AddMonths(1);
+
+            var lessons = await db.GetCollection<Lesson>("lessons")
+                .Find(l => l.TeacherId == teacherId && l.Date >= monthStartUtc && l.Date < monthEndUtc)
+                .Project(l => l.Date)
+                .ToListAsync();
+
+            var days = lessons
+                .Select(d => d.Day)
+                .Distinct()
+                .OrderBy(d => d)
+                .ToList();
+
+            return Results.Ok(days);
+        });
+
         // GET /api/lessons/{id}
         group.MapGet("/{id}", async (string id, ClaimsPrincipal user, IMongoDatabase db) =>
         {

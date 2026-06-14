@@ -21,9 +21,16 @@ export async function todaysLessons() {
 }
 
 // /api/lessons/date/{date}
-export async function getLessonsOndDate(date) {
+export async function getLessonsOnDate(date) {
   return request(`/date/${date}`);
 }
+
+export async function getLessonDaysInMonth(year, month) {
+  return request(`/month/${year}/${month}`);
+}
+
+// Backward compatibility for existing imports.
+export const getLessonsOndDate = getLessonsOnDate;
 
 
 export async function getLessonById(id) {

@@ -95,6 +95,8 @@ public static class LessonEndpoints
             if (string.IsNullOrEmpty(lesson.Instrument))
                 return Results.BadRequest(new { message = "instrument is required." });
 
+            Console.WriteLine("Lesson DateTime" + lesson.Date.ToString());
+
             lesson.TeacherId = teacherId;
             await db.GetCollection<Lesson>("lessons").InsertOneAsync(lesson);
             return Results.Created($"/api/lessons/{lesson.Id}", lesson);

@@ -61,11 +61,11 @@ export default function NewLesson() {
     setError(null);
     const payload = {
       ...form,
-      time: form.time ? `${form.time}:00` : "00:00:00",
-      songIds: form.songIds.map((t) => t.id ?? t),
-      tagIds: form.tagIds
-        ? form.tagIds.split(",").map((t) => t.trim()).filter(Boolean)
-        : [],
+      // time: form.time ? `${form.time}:00` : "00:00:00",
+      // songIds: form.songIds.map((t) => t.id ?? t),
+      // tagIds: form.tagIds
+      //   ? form.tagIds.split(",").map((t) => t.trim()).filter(Boolean)
+      //   : [],
     };
     await createLesson(payload);
     navigate("/lessons");

@@ -40,7 +40,7 @@ export default function NavMenu() {
       </div>
       <div id="nav_list_container" className={`flex flex-col fixed flex m-0 p-0 w-full ${isOpen ? "" : "hidden"}`}>
         <div className="nav-title p-4">
-          <h3 className="h3">Navigation</h3>
+          <h3 className="h3">Main</h3>
         </div>
         <ul
           className={`nav-list flex flex-col list-none w-full m-0 p-0 ${isOpen ? "" : "hidden"}`}

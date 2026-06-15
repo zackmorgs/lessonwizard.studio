@@ -1,5 +1,6 @@
 import React from "react";
 
+import { loginWithGoogle } from "../services/authService";
 import { Link } from "react-router-dom";
 
 import Layout from "../components/Layout";
@@ -38,18 +39,18 @@ export default function Home() {
               />
               <span className="btn-text">Login</span>
             </Link> */}
-              <Link
-                to="/signup"
+              <button
                 className="btn btn-primary btn-lg mt-6"
-                alt="Sign Up button"
+                alt="Log In button"
+                onClick={() => loginWithGoogle()}
               >
                 <img
-                  src="/assets/svg/icon-signup.svg"
-                  alt="Sign Up Icon"
+                  src="/assets/svg/icon-login.svg"
+                  alt="Login Icon"
                   className="icon"
                 />
-                <span className="btn-text">Sign Up</span>
-              </Link>
+                <span className="btn-text">Log In with Google</span>
+              </button>
             </div>
           </div>
         </header>

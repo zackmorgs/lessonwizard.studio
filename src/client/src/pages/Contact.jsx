@@ -4,7 +4,16 @@ import Layout from '../components/Layout';
 export default function Contact() {
   return (
     <Layout>
-        <h1 className="text-4xl font-semibold">Contact</h1>
+        <header className="header">
+          <div className="p-4">
+            <h1 className="text-4xl font-semibold text-center">Contact</h1>
+          </div>
+        </header>
+        <section className="section">
+          <div className="panel">
+            <p>This project was created with love by <a href="https://www.zackmorgenthaler.com" target="_blank" rel="noopener noreferrer" className="text-link">Zack Morgenthaler</a>.</p>
+          </div>
+        </section>
     </Layout>
   );
 }

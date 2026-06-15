@@ -21,6 +21,18 @@ body {
   color: #666464;
 }
 
+.text-link {
+  color: #5c3279;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+  border-bottom:1px solid #5c3279;
+  &:hover {
+    color: #7a4b9e;
+    border-bottom:1px solid #7a4b9e;
+  }
+}
+
 #nav_menu {
   background: linear-gradient(328deg, #c279f5, #9a41d8);
 }

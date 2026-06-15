@@ -16,6 +16,10 @@ export async function getLessons() {
   return request("/");
 }
 
+export async function getPertinentLessons() {
+  return request("/pertinent");
+}
+
 export async function todaysLessons() {
   return request("/today");
 }

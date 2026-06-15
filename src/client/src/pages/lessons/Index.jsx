@@ -5,7 +5,7 @@ import LessonList from "../../components/LessonList";
 
 import Layout from "../../components/Layout";
 import { useAuth } from "../../contexts/AuthContext";
-import { getLessons } from "../../services/lessonService";
+import { getPertinentLessons } from "../../services/lessonService";
 
 export default function Lessons() {
     const { user } = useAuth();
@@ -14,7 +14,7 @@ export default function Lessons() {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        getLessons()
+        getPertinentLessons()
             .then(setLessons)
             .catch((err) => setError(err.message))
             .finally(() => setLoading(false));

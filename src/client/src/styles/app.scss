@@ -234,6 +234,11 @@ body {
     font-size: 1.5rem;
   }
 
+  &.btn-danger {
+    background: linear-gradient(45deg, #e74c3c, #c0392b);
+    color: #f1f1f1;
+  }
+
   &:hover {
     transform: scale(1.025);
   }
@@ -259,9 +264,9 @@ body {
   box-shadow: 0px 0px 1rem 0px rgba(0, 0, 0, 0.1);
 }
 
-.checkbox {
-  background-color:red;
-}
+// .checkbox {
+//   background-color:red;
+// }
 
 .rule-sm {
   border: none;

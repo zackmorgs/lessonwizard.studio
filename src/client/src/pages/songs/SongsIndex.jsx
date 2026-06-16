@@ -28,7 +28,7 @@ export default function Songs() {
             ) : error ? (
                 <p className="p-4 text-red-600">{error}</p>
             ) : (
-                <SongList songList={songs} />
+                <SongList songList={songs} defaultOpen={true} />
             )}
         </Layout>
     );

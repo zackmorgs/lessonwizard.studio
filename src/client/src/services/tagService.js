@@ -26,3 +26,14 @@ export async function createTag(name) {
     body: JSON.stringify({ name }),
   });
 }
+
+export async function renameTag(id, name) {
+  return request(`/${id}`, {
+    method: "PUT",
+    body: JSON.stringify({ name }),
+  });
+}
+
+export async function deleteTag(id) {
+  return request(`/${id}`, { method: "DELETE" });
+}

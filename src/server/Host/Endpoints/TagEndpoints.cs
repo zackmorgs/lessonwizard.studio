@@ -67,6 +67,23 @@ public static class TagEndpoints
             return Results.Created($"/api/tags/{tag.Id}", tag);
         });
 
+        // PUT /api/tags/{id}
+        group.MapPut("/{id}", async (string id, Tag updated, IMongoDatabase db) =>
+        {
+            updated.Id = id;
+            var result = await db.GetCollection<Tag>("tags")
+                .ReplaceOneAsync(t => t.Id == id, updated);
+            return result.MatchedCount == 0 ? Results.NotFound() : Results.Ok(updated);
+        });
+
+        // DELETE /api/tags/{id}
+        group.MapDelete("/{id}", async (string id, IMongoDatabase db) =>
+        {
+            var result = await db.GetCollection<Tag>("tags")
+                .DeleteOneAsync(t => t.Id == id);
+            return result.DeletedCount == 0 ? Results.NotFound() : Results.NoContent();
+        });
+
         return app;
     }
 }

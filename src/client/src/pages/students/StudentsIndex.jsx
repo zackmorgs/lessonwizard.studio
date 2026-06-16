@@ -30,7 +30,7 @@ export default function StudentPage() {
             ) : error ? (
                 <p className="text-red-600">{error}</p>
             ) : (
-                <StudentList studentList={students} />
+                <StudentList studentList={students} defaultOpen={true} />
             )}
         </Layout>
     );

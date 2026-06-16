@@ -5,6 +5,7 @@ import GlobalSearch from  "../components/GlobalSearch";
 import TodayView from "./TodayView";
 import CalendarDatePicker from "../components/CalendarDatePicker";
 import StudentList from "../components/StudentList";
+import Tags from "../components/Tags";
 
 import { useAuth } from "../contexts/AuthContext";
 import { getStudents } from "../services/studentService";
@@ -80,6 +81,7 @@ export default function Dashboard() {
       <TodayView todaysLessons={lessons} />
       <CalendarDatePicker />
       <StudentList studentList={students} />
+      <Tags />
     </>
   );
 }

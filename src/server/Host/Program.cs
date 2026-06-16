@@ -86,6 +86,7 @@ app.MapLessonEndpoints();
 app.MapStudentEndpoints();
 app.MapSongEndpoints();
 app.MapSpotifyEndpoints();
+app.MapTagEndpoints();
 
 // Fall back to index.html for client-side routing
 app.MapFallbackToFile("index.html");

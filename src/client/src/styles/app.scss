@@ -479,7 +479,8 @@ background-position: center 13%;
   border-top: 1px solid #0000001f;
 }
 
-#student_list {
+#student_list,
+#tags {
   padding: 0.5rem;
 }
 
@@ -495,6 +496,24 @@ background-position: center 13%;
   position: absolute;
   top: 6px;
   right: 6px;
+}
+
+.tag-link {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 0.5rem;
+  background: #f1f1f1;
+  color: #222;
+  text-decoration: none;
+  transition: background 0.3s, color 0.3s;
+  &:before {
+    content:"#";
+  }
+  &:hover {
+    background: #222;
+    color: #f1f1f1;
+  }
 }
 
 #footer_main {

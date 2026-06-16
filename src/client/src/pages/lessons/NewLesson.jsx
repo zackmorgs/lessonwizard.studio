@@ -7,6 +7,7 @@ import Layout from "../../components/Layout";
 import InstrumentPicker from "../../components/InstrumentPicker";
 import StudentPicker from "../../components/StudentPicker";
 import SongPicker from "../../components/SongPicker";
+import TagPicker from '../../components/TagPicker';
 import { getStudentById } from "../../services/studentService";
 import { createLesson } from "../../services/lessonService";
 
@@ -31,7 +32,7 @@ export default function NewLesson() {
     time: "",
     notes: "",
     songIds: [],
-    tagIds: "",
+    tagIds: [],
     studentId: studentId ?? "",
   });
 
@@ -65,9 +66,7 @@ export default function NewLesson() {
       notes: notesRef.current,
       time: form.time ? `${form.time}:00` : "00:00:00",
       songIds: form.songIds.map((t) => t.id ?? t),
-      tagIds: form.tagIds
-        ? form.tagIds.split(",").map((t) => t.trim()).filter(Boolean)
-        : [],
+      tagIds: Array.isArray(form.tagIds) ? form.tagIds : [],
     };
     await createLesson(payload);
     navigate("/lessons");
@@ -191,7 +190,7 @@ export default function NewLesson() {
 
             <div className="flex flex-col gap-1">
               <label htmlFor="tagIds">Tag IDs</label>
-              <input
+              {/* <input
                 id="tagIds"
                 name="tagIds"
                 type="text"
@@ -199,10 +198,14 @@ export default function NewLesson() {
                 placeholder="Comma-separated tag IDs"
                 value={form.tagIds}
                 onChange={handleChange}
+              /> */}
+              <TagPicker
+                value={form.tagIds}
+                onChange={(tags) => setForm({ ...form, tagIds: tags })}
               />
             </div>
 
-            <button type="submit" className="btn btn-primary mt-2">
+            <button type="submit" className="btn btn-primary mt-6">
               Create Lesson
             </button>
           </form>

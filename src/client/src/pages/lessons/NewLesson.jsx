@@ -6,7 +6,7 @@ import { useSearchParams, useNavigate } from "react-router-dom";
 import Layout from "../../components/Layout";
 import InstrumentPicker from "../../components/InstrumentPicker";
 import StudentPicker from "../../components/StudentPicker";
-import SongPicker from "../../components/SongPicker";
+import SongPicker from "../../components/SongsPicker";
 import TagPicker from '../../components/TagPicker';
 import { getStudentById } from "../../services/studentService";
 import { createLesson } from "../../services/lessonService";

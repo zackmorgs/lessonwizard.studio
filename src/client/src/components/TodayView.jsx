@@ -37,7 +37,7 @@ import Accordion from "./Accordion";
 //   },
 // ];
 
-export default function TodayView({ todaysLessons = [] }) {
+export default function TodayView({ todaysLessons = [], defaultOpen = false }) {
   function formatTime(time) {
     if (!time) return "";
     const [h, m] = time.split(":").map(Number);
@@ -52,17 +52,17 @@ export default function TodayView({ todaysLessons = [] }) {
           <h2 className="h2 flex flex-row">
             <img src="/assets/svg/icon-list.svg" alt="Today's Lessons" className="mr-4"  />
             <span>
-              Today's Lessons (
-              <span className="lesson-count">{todaysLessons.length}</span>)
+              Today's Lessons{todaysLessons.length > 0 && (
+                <> (<Link to="/lessons/today" className="lesson-count" onClick={(e) => e.stopPropagation()}>{todaysLessons.length}</Link>)</>)}
             </span>
           </h2>
         }
-        defaultOpen={true}
+        defaultOpen={defaultOpen}
       >
         <hr className="rule-sm" />
 
         {todaysLessons.length === 0 ? (
-          <span className="well well-info">
+          <span className="well well-info text-center">
             <p>You have no lessons scheduled for today.</p>
           </span>
         ) : (

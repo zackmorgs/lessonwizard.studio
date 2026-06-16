@@ -77,6 +77,55 @@ public static class SpotifyEndpoints
             return Results.Ok(results);
         });
 
+        // GET /api/spotify/track/{id}/album-art/
+        group.MapGet("/track/{id}/album-art/", async (string id, IConfiguration config, IHttpClientFactory http) =>
+        {
+            var clientId     = config["Spotify:ClientId"];
+            var clientSecret = config["Spotify:ClientSecret"];
+
+            if (string.IsNullOrEmpty(clientId) || string.IsNullOrEmpty(clientSecret))
+                return Results.Problem("Spotify credentials are not configured.");
+
+            var client = http.CreateClient();
+
+            var credentials = Convert.ToBase64String(Encoding.UTF8.GetBytes($"{clientId}:{clientSecret}"));
+            var tokenRequest = new HttpRequestMessage(HttpMethod.Post, "https://accounts.spotify.com/api/token")
+            {
+                Headers = { Authorization = new AuthenticationHeaderValue("Basic", credentials) },
+                Content = new FormUrlEncodedContent([new("grant_type", "client_credentials")])
+            };
+
+            var tokenResponse = await client.SendAsync(tokenRequest);
+            if (!tokenResponse.IsSuccessStatusCode)
+                return Results.Problem("Failed to authenticate with Spotify.");
+
+            var tokenJson   = await tokenResponse.Content.ReadAsStringAsync();
+            var tokenDoc    = JsonDocument.Parse(tokenJson);
+            var accessToken = tokenDoc.RootElement.GetProperty("access_token").GetString();
+
+            var trackRequest = new HttpRequestMessage(HttpMethod.Get, $"https://api.spotify.com/v1/tracks/{id}");
+            trackRequest.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+            var trackResponse = await client.SendAsync(trackRequest);
+            if (!trackResponse.IsSuccessStatusCode)
+                return Results.NotFound("Track not found.");
+
+            var trackJson = await trackResponse.Content.ReadAsStringAsync();
+            var trackDoc  = JsonDocument.Parse(trackJson);
+
+            var images = trackDoc.RootElement
+                .GetProperty("album")
+                .GetProperty("images")
+                .EnumerateArray()
+                .ToList();
+
+            if (images.Count == 0)
+                return Results.NotFound("No album art found.");
+
+            var url = images[0].GetProperty("url").GetString();
+            return Results.Ok(new { url });
+        });
+
         return app;
     }
 }

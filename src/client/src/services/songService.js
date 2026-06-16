@@ -37,3 +37,7 @@ export async function updateSong(id, song) {
 export async function deleteSong(id) {
   return request(`/${id}`, { method: "DELETE" });
 }
+
+export async function getSongsByTag(tag) {
+  return request(`/tag/${tag}/songs/`);
+}

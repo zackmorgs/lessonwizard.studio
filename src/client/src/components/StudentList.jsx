@@ -4,10 +4,10 @@ import { Link } from "react-router-dom";
 import Accordion from "../components/Accordion";
 
 
-export default function StudentList({ studentList }) {
+export default function StudentList({ studentList, defaultOpen = false }) {
   return (
     <section id="student_list" className="section">
-      <Accordion title={<h2 className="h2 flex flex-row"><img src="/assets/svg/icon-person.svg" alt="Students" className="mr-4" /><span>Students</span></h2>} defaultOpen={false}>
+      <Accordion title={<h2 className="h2 flex flex-row"><img src="/assets/svg/icon-person.svg" alt="Students" className="mr-4" /><span>Students{studentList.length > 0 && <> (<Link to="/students" className="lesson-count" onClick={(e) => e.stopPropagation()}>{studentList.length}</Link>)</>}</span></h2>} defaultOpen={defaultOpen}>
         {studentList.length > 0 ? (
           <div className="scrollable max-h-72">
             <div className="grid grid-cols-2 gap-4">

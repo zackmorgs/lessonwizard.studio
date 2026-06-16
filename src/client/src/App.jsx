@@ -21,11 +21,11 @@ import EditLesson from "./pages/lessons/EditLesson";
 import SongLists from "./pages/song-lists/Index";
 import SongListById from "./pages/song-lists/SongListById";
 
-import Songs from "./pages/songs/Index";
+import Songs from "./pages/songs/SongsIndex";
 import SongById from "./pages/songs/SongById";
 import NewSong from "./pages/songs/NewSong";
 
-import Students from "./pages/students/Index";
+import Students from "./pages/students/StudentsIndex";
 import NewStudent from "./pages/students/NewStudent";
 import StudentPage from "./pages/students/StudentPage";
 import LessonsOnDate from "./pages/calendar/LessonsOnDate";

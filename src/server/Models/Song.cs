@@ -29,4 +29,7 @@ public class Song
 
     [BsonElement("isExplicit")]
     public bool IsExplicit { get; set; } = false;
+
+    [BsonElement("spotifyTrackId")]
+    public string? SpotifyTrackId { get; set; }
 }

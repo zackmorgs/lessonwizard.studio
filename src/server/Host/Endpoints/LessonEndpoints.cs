@@ -23,6 +23,19 @@ public static class LessonEndpoints
             return Results.Ok(lessons);
         });
 
+        // GET /api/lessons/tag/{tag}
+        group.MapGet("/tag/{tag}", async (string tag, ClaimsPrincipal user, IMongoDatabase db) =>
+        {
+            var teacherId = user.FindFirstValue(ClaimTypes.NameIdentifier)
+                          ?? user.FindFirstValue("sub");
+            if (teacherId is null) return Results.Unauthorized();
+
+            var lessons = await db.GetCollection<Lesson>("lessons")
+                .Find(l => l.TeacherId == teacherId && l.TagIds != null && l.TagIds.Contains(tag))
+                .ToListAsync();
+            return Results.Ok(lessons);
+        });
+
         // GET /api/lessons/pertinent
         group.MapGet("/pertinent", async (ClaimsPrincipal user, IMongoDatabase db) =>
         {

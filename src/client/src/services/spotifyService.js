@@ -15,3 +15,7 @@ async function request(path, options = {}) {
 export async function searchTracks(q) {
   return request(`/search?q=${encodeURIComponent(q)}`);
 }
+
+export async function getTrackAlbumArt(id) {
+  return request(`/track/${id}/album-art/`);
+}

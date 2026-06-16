@@ -6,11 +6,13 @@ import TodayView from "./TodayView";
 import CalendarDatePicker from "../components/CalendarDatePicker";
 import StudentList from "../components/StudentList";
 import Tags from "../components/Tags";
+import SongList from '../components/SongList';
 
 import { useAuth } from "../contexts/AuthContext";
 import { getStudents } from "../services/studentService";
-import { todaysLessons } from "../services/lessonService";
-
+import { todaysLessons } from "../services/lessonService"
+import { getLessonDaysInMonth } from "../services/lessonService";
+import { getSongs } from '../services/songService';
 // let students_list = [
 //   {
 //     id: "1",
@@ -43,7 +45,7 @@ export default function Dashboard() {
   const name = user?.displayName?.split(" ")[0];
 
   const [students, setStudents] = useState([]);
-  const [lessons, setLessons] = useState([]);
+  const [todaysLessonsList, setTodaysLessonsList] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -56,7 +58,15 @@ export default function Dashboard() {
 
   useEffect(() => {
     todaysLessons()
-      .then(setLessons)
+      .then(setTodaysLessonsList)
+      .catch((err) => setError(err.message))
+      .finally(() => setLoading(false));
+  }, []);
+  
+  const [songs, setSongs] = useState([]);
+  useEffect(() => {
+    getSongs()
+      .then(setSongs)
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false));
   }, []);
@@ -78,10 +88,11 @@ export default function Dashboard() {
         </h1>
       </header>
       <GlobalSearch />
-      <TodayView todaysLessons={lessons} />
-      <CalendarDatePicker />
-      <StudentList studentList={students} />
-      <Tags />
+      <TodayView todaysLessons={todaysLessons} defaultOpen={true} />
+      <CalendarDatePicker getLessonDaysInMonth={getLessonDaysInMonth} defaultOpen={false} />
+      <StudentList studentList={students} defaultOpen={false} />
+      <SongList songList={songs} defaultOpen={false} />
+      <Tags defaultOpen={false} />
     </>
   );
 }

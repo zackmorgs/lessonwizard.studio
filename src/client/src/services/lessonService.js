@@ -58,3 +58,7 @@ export async function updateLesson(id, lesson) {
 export async function deleteLesson(id) {
   return request(`/${id}`, { method: "DELETE" });
 }
+
+export async function getLessonsByTag(tag) {
+  return request(`/tag/${tag}`);
+}

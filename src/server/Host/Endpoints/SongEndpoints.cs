@@ -56,6 +56,38 @@ public static class SongEndpoints
             return result.DeletedCount == 0 ? Results.NotFound() : Results.NoContent();
         });
 
+        group.MapGet("/tag/{tag}/songs/", async (string tag, IMongoDatabase db) =>
+        {
+            var tagEntity = await db.GetCollection<Models.Tag>("tags")
+     .Find(t => t.Id == tag)
+     .FirstOrDefaultAsync();
+
+            if (tagEntity is null) return Results.NotFound();
+
+            var songs = await db.GetCollection<Song>("songs")
+                .Find(s => s.TagIds != null && tagEntity.Id != null && s.TagIds.Contains(tagEntity.Id))
+                .ToListAsync();
+                
+            return Results.Ok(songs);
+        });
+
+
+        group.MapGet("/tag/{tag}/lessons/", async (string tag, IMongoDatabase db) =>
+        {
+            var tagEntity = await db.GetCollection<Models.Tag>("tags")
+                .Find(t => t.Id == tag)
+                .FirstOrDefaultAsync();
+
+            if (tagEntity is null) return Results.NotFound();
+
+            var lessons = await db.GetCollection<Models.Lesson>("lessons")
+                .Find(s => s.TagIds != null && tagEntity.Id != null && s.TagIds.Contains(tagEntity.Id))
+                .ToListAsync();
+
+            return Results.Ok(lessons);
+        });
+
+
         return app;
     }
 }

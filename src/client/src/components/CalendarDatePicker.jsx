@@ -6,7 +6,7 @@ import { getLessonDaysInMonth } from "../services/lessonService";
 
 const today = new Date();
 
-export default function CalendarDatePicker() {
+export default function CalendarDatePicker({ defaultOpen = false }) {
   const [viewDate, setViewDate] = useState(
     new Date(today.getFullYear(), today.getMonth(), 1),
   );
@@ -63,10 +63,10 @@ export default function CalendarDatePicker() {
               alt="Calendar"
               className="mr-4"
             />
-            <span>Calendar</span>
+            <span>Calendar{lessonDays.length > 0 && <> (<Link to="/calendar" className="lesson-count" onClick={(e) => e.stopPropagation()}>{lessonDays.length}</Link>)</>}</span>
           </h2>
         }
-        defaultOpen={false}
+        defaultOpen={defaultOpen}
       >
         <h2
           id="calendar_month"

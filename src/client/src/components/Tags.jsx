@@ -45,7 +45,7 @@ import Accordion from "./Accordion";
 //   }
 // ];
 
-export default function Tags() {
+export default function Tags({ defaultOpen = false }) {
   const [tags, setTags] = React.useState([]);
   const [counts, setCounts] = React.useState({});
 
@@ -64,10 +64,10 @@ export default function Tags() {
               alt="Tags"
               className="mr-4"
             />
-            Tags
+            Tags{tags.length > 0 && <> (<Link to="/tags" className="lesson-count" onClick={(e) => e.stopPropagation()}>{tags.length}</Link>)</>}
           </h2>
         }
-        defaultOpen={true}
+        defaultOpen={defaultOpen}
       >
         <ul id="tag_list" className="flex flex-wrap gap-2">
           {[...tags]

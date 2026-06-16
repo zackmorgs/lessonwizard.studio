@@ -16,6 +16,10 @@ export async function getTags() {
   return request("/");
 }
 
+export async function getTagCounts() {
+  return request("/counts");
+}
+
 export async function createTag(name) {
   return request("/", {
     method: "POST",

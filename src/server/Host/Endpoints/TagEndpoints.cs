@@ -1,3 +1,4 @@
+using MongoDB.Bson;
 using MongoDB.Driver;
 using Tag = Models.Tag;
 
@@ -16,6 +17,40 @@ public static class TagEndpoints
                 .Find(_ => true)
                 .ToListAsync();
             return Results.Ok(tags);
+        });
+
+        // GET /api/tags/counts
+        // Returns { tagName: totalCount } across lessons + songs
+        group.MapGet("/counts", async (IMongoDatabase db) =>
+        {
+            var pipeline = new[]
+            {
+                new BsonDocument("$unwind", "$tagIds"),
+                new BsonDocument("$group", new BsonDocument
+                {
+                    { "_id", "$tagIds" },
+                    { "count", new BsonDocument("$sum", 1) }
+                })
+            };
+
+            var lessonCounts = await db.GetCollection<BsonDocument>("lessons")
+                .Aggregate<BsonDocument>(pipeline)
+                .ToListAsync();
+
+            var songCounts = await db.GetCollection<BsonDocument>("songs")
+                .Aggregate<BsonDocument>(pipeline)
+                .ToListAsync();
+
+            var merged = new Dictionary<string, int>();
+
+            foreach (var doc in lessonCounts.Concat(songCounts))
+            {
+                var name = doc["_id"].AsString;
+                var count = doc["count"].AsInt32;
+                merged[name] = merged.TryGetValue(name, out var existing) ? existing + count : count;
+            }
+
+            return Results.Ok(merged);
         });
 
         // POST /api/tags

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { getTags} from './../services/tagService';
+import { getTags, getTagCounts } from './../services/tagService';
 
 import {Link} from 'react-router'
 
@@ -47,9 +47,11 @@ import Accordion from "./Accordion";
 
 export default function Tags() {
   const [tags, setTags] = React.useState([]);
+  const [counts, setCounts] = React.useState({});
 
   React.useEffect(() => {
     getTags().then(setTags).catch(() => {});
+    getTagCounts().then(setCounts).catch(() => {});
   }, []);
 
   return (
@@ -68,13 +70,21 @@ export default function Tags() {
         defaultOpen={true}
       >
         <ul id="tag_list" className="flex flex-wrap gap-2">
-          {tags.map((tag) => (
+          {[...tags]
+            .sort((a, b) => {
+              const diff = (counts[b.name] ?? 0) - (counts[a.name] ?? 0);
+              return diff !== 0 ? diff : a.name.localeCompare(b.name);
+            })
+            .map((tag) => (
             <li key={tag.id}>
               <Link to={`/tags/${tag.name}`} className="tag-link p-4">
                 {tag.name}
+                {counts[tag.name] !== undefined && (
+                  <span className="tag-count">{counts[tag.name]}</span>
+                )}
               </Link>
             </li>
-          ))}
+            ))}
         </ul>
       </Accordion>
     </section>

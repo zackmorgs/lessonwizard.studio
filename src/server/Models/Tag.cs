@@ -11,4 +11,8 @@ public class Tag
 
     [BsonElement("name")]
     public string Name { get; set; } = string.Empty;
+
+    [BsonElement("count")]
+    public int Count { get; set; } = 1;
+
 }

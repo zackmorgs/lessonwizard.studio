@@ -77,7 +77,7 @@ export default function Tags({ defaultOpen = false }) {
             })
             .map((tag) => (
             <li key={tag.id}>
-              <Link to={`/tags/${tag.name}`} className="tag-link p-4">
+              <Link to={`/tags/${tag.name}`} className="tag-link p-4 flex flex-row items-center relative">
                 {tag.name}
                 {counts[tag.name] !== undefined && (
                   <span className="tag-count">{counts[tag.name]}</span>

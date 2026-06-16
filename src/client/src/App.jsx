@@ -30,6 +30,8 @@ import NewStudent from "./pages/students/NewStudent";
 import StudentPage from "./pages/students/StudentPage";
 import LessonsOnDate from "./pages/calendar/LessonsOnDate";
 
+import CalendarIndex from './pages/calendar/CalendarIndex';
+
 import TagsIndex from './pages/tags/TagsIndex';
 import TagPage from './pages/tags/TagPage';
 
@@ -206,6 +208,15 @@ export default function App() {
           element={
             <AuthorizedView>
               <LessonsOnDate />
+            </AuthorizedView>
+          }
+        />
+
+        <Route
+          path="/calendar"
+          element={
+            <AuthorizedView>
+              <CalendarIndex />
             </AuthorizedView>
           }
         />

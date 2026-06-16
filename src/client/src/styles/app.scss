@@ -532,12 +532,39 @@ body {
 }
 
 .tag-count {
-  border-radius: 1rem;
-  border: 1px solid #4e2b64c7;
-  color: #4e2b63b8;
-  padding: 0.25rem;
-  margin-left: 0.5rem;
   font-size: 0.75rem;
+  padding: 0.25rem ;
+  margin-left: 0.5rem;
+  border-radius: 0.25rem;
+  // aspect-ratio:1/1;
+  border:#1e63b180 solid 1px;
+  color:#1e63b1;
+  background: #e6f0ff;  
+}
+
+.song-info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  border-bottom:1px solid rgba(0, 0, 0, 0.1215686275);
+  padding:0.5rem 0rem 0.5rem;
+}
+
+.song-title {
+  font-size:1rem;
+}
+
+.song-artist {
+  font-size:0.875rem;
+  color: #666;
+}
+
+.song-album-art {
+  max-width:3rem;
+  height:auto;
+  border-radius:0.125rem;
+  border:1px solid rgba(0, 0, 0, 0.1215686275);
 }
 
 #footer_main {

@@ -71,7 +71,8 @@ public static class SpotifyEndpoints
                 previewUrl = track.TryGetProperty("preview_url", out var prev) && prev.ValueKind == JsonValueKind.String
                              ? prev.GetString()
                              : null,
-                spotifyUrl = track.GetProperty("external_urls").GetProperty("spotify").GetString()
+                spotifyUrl = track.GetProperty("external_urls").GetProperty("spotify").GetString(),
+                isExplicit = track.TryGetProperty("explicit", out var exp) && exp.ValueKind == JsonValueKind.True
             }).ToList();
 
             return Results.Ok(results);

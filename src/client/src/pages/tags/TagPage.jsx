@@ -8,6 +8,8 @@ import { getSongsByTag } from "./../../services/songService";
 import { getLessonsByTag } from "./../../services/lessonService";
 
 import Layout from "./../../components/Layout";
+import SongList from "./../../components/SongList";
+import LessonList from "./../../components/LessonList";
 
 export default function TagPage() {
   const { name } = useParams();
@@ -94,43 +96,9 @@ export default function TagPage() {
         </div>
       </header>
 
-      <section id="tagged_songs" className="section">
-        <div className="panel">
-          <h2 className="h2 mb-3">Songs ({songs.length})</h2>
-          {songs.length === 0 ? (
-            <div className="well well-info"><p>No songs with this tag.</p></div>
-          ) : (
-            <ul className="flex flex-col gap-2">
-              {songs.map((song) => (
-                <li key={song.id}>
-                  <Link to={`/songs/${song.id}`} className="hover:underline">
-                    {song.title}{song.artist ? ` — ${song.artist}` : ""}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
-      </section>
+      <SongList songList={songs} defaultOpen={true} />
 
-      <section id="tagged_lessons" className="section">
-        <div className="panel">
-          <h2 className="h2 mb-3">Lessons ({lessons.length})</h2>
-          {lessons.length === 0 ? (
-            <div className="well well-info"><p>No lessons with this tag.</p></div>
-          ) : (
-            <ul className="flex flex-col gap-2">
-              {lessons.map((lesson) => (
-                <li key={lesson.id}>
-                  <Link to={`/lessons/${lesson.id}`} className="hover:underline">
-                    {new Date(lesson.date).toLocaleDateString()} — {lesson.instrument}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
-      </section>
+      <LessonList lessons={lessons} />
     </Layout>
   );
 }

@@ -28,19 +28,44 @@ export default function SongList({ songList, defaultOpen = false }) {
               alt="Today's Lessons"
               className="mr-4"
             />
-            Songs{(songList?.length ?? 0) > 0 && <> (<Link to="/songs" className="lesson-count" onClick={(e) => e.stopPropagation()}>{songList.length}</Link>)</>}
+            Songs
+            {(songList?.length ?? 0) > 0 && (
+              <>
+                {" "}
+                (
+                <Link
+                  to="/songs"
+                  className="lesson-count"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  {songList.length}
+                </Link>
+                )
+              </>
+            )}
           </h2>
         }
       >
         {songList?.length > 0 ? (
-          <ul>
+          <ul className="scrollable max-h-72">
             {songList.map((song, index) => (
               <li key={song.id}>
-                <Link to={`/songs/${song.id}`}>
-                  <div className="flex flex-row">
-                    <img src={songAlbumArt[song.id] || "/assets/svg/icon-music-note.svg"} alt={song.title} className="mr-4" />
-                    {song.title}
-                    {song.artist ? ` — ${song.artist}` : ""}
+                <Link
+                  to={`/songs/${song.id}`}
+                  className="song-info flex flex-row items-center justify-start"
+                >
+                  <img
+                    src={
+                      songAlbumArt[song.id] || "/assets/svg/icon-music-note.svg"
+                    }
+                    alt={song.title}
+                    className="mr-4 song-album-art"
+                  />
+                  <div className="flex flex-col">
+                    <span className="song-title">{song.title}</span>
+                  <span className="song-artist">
+                    <b>{song.artist ? `${song.artist}` : ""}</b>
+                  </span>
                   </div>
                 </Link>
               </li>

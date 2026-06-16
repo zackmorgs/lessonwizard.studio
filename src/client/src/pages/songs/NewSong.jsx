@@ -57,6 +57,7 @@ export default function NewSong() {
                     title: track?.name ?? "",
                     artist: track?.artist ?? "",
                     spotifyTrackId: track?.id ?? "",
+                    isExplicit: track?.isExplicit ?? false,
                   });
                 }}
               />

@@ -1,24 +1,75 @@
-using System.Net.Http.Headers;
-using System.Text;
-using System.Text.Json;
+using System.Security.Claims;
+using MongoDB.Driver;
+using Models;
 
 namespace Host.Endpoints;
 
-// public class SearchEndpoint : Endpoint
-// {
-//     public SearchEndpoint(HttpClient httpClient) : base(httpClient)
-//     {
-//     }
+public static class SearchEndpoints
+{
+    public static IEndpointRouteBuilder MapSearchEndpoints(this IEndpointRouteBuilder app)
+    {
+        // GET /api/search?q=...
+        app.MapGet("api/search", async (string q, ClaimsPrincipal user, IMongoDatabase db) =>
+        {
+            if (string.IsNullOrWhiteSpace(q))
+                return Results.BadRequest("Query parameter 'q' is required.");
 
-//     public async Task<List<SearchResult>> Search(string query)
-//     {
-//         var request = new HttpRequestMessage(HttpMethod.Get, $"search?query={Uri.EscapeDataString(query)}");
-//         request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            var teacherId = user.FindFirstValue(ClaimTypes.NameIdentifier)
+                          ?? user.FindFirstValue("sub");
+            if (teacherId is null) return Results.Unauthorized();
 
-//         var response = await _httpClient.SendAsync(request);
-//         response.EnsureSuccessStatusCode();
+            var lower = q.ToLowerInvariant();
+            var results = new List<SearchResult>();
 
-//         var content = await response.Content.ReadAsStringAsync();
-//         return JsonSerializer.Deserialize<List<SearchResult>>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true }) ?? new List<SearchResult>();
-//     }
-// }
+            // Students
+            var students = await db.GetCollection<Student>("students")
+                .Find(s => s.TeacherId == teacherId && s.Name.ToLower().Contains(lower))
+                .ToListAsync();
+            results.AddRange(students.Select(s => new SearchResult
+            {
+                Id = s.Id ?? "",
+                Title = s.Name,
+                Type = "student"
+            }));
+
+            // Songs
+            var songs = await db.GetCollection<Song>("songs")
+                .Find(s => s.Title.ToLower().Contains(lower) || s.Artist.ToLower().Contains(lower))
+                .ToListAsync();
+            results.AddRange(songs.Select(s => new SearchResult
+            {
+                Id = s.Id ?? "",
+                Title = $"{s.Title} — {s.Artist}",
+                Type = "song",
+                SpotifyTrackId = s.SpotifyTrackId
+            }));
+
+            // Tags
+            var tags = await db.GetCollection<Models.Tag>("tags")
+                .Find(t => t.Name.ToLower().Contains(lower))
+                .ToListAsync();
+            results.AddRange(tags.Select(t => new SearchResult
+            {
+                Id = t.Id ?? "",
+                Title = $"#{t.Name}",
+                Type = "tag"
+            }));
+
+            // Lessons (match by instrument or notes)
+            // var lessons = await db.GetCollection<Lesson>("lessons")
+            //     .Find(l => l.TeacherId == teacherId &&
+            //                (l.Instrument.ToLower().Contains(lower) || l.Notes.ToLower().Contains(lower)))
+            //     .ToListAsync();
+            // results.AddRange(lessons.Select(l => new SearchResult
+            // {
+            //     Id = l.Id ?? "",
+            //     Title = $"{l.Date:MMM d, yyyy} — {l.Instrument}",
+            //     Type = "lesson"
+            // }));
+
+            return Results.Ok(results);
+        }).RequireAuthorization();
+
+        return app;
+    }
+}

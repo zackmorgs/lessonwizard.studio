@@ -61,7 +61,7 @@ export default function GlobalSearch() {
           <input
             id="global_search"
             type="text"
-            placeholder="Search students, lessons, songs, etc."
+            placeholder="Search students, songs, tags, etc."
             className="input input-lg w-full"
             value={query}
             onChange={(e) => setQuery(e.target.value)}

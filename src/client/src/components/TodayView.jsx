@@ -76,8 +76,8 @@ export default function TodayView({ todaysLessons = [], defaultOpen = false }) {
                   >
                     <div
                       className={
-                        "lesson-instrument lesson-instrument" +
-                        `-${lesson.instrument.toLowerCase().replace(/\s+/g, "-")}` +
+                        "lesson-instrument lesson-instrument-" +
+                        `${lesson.instrument.toLowerCase().replace(/\s+/g, "-")}` +
                         " absolute top-0 right-0 bottom-0 left-0 z-0"
                       }
                     ></div>

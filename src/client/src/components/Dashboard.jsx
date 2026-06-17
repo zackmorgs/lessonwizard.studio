@@ -88,7 +88,7 @@ export default function Dashboard() {
         </h1>
       </header>
       <GlobalSearch />
-      <TodayView todaysLessons={todaysLessons} defaultOpen={true} />
+      <TodayView todaysLessons={todaysLessonsList} defaultOpen={true} />
       <CalendarDatePicker getLessonDaysInMonth={getLessonDaysInMonth} defaultOpen={false} />
       <StudentList studentList={students} defaultOpen={false} />
       <SongList songList={songs} defaultOpen={false} />

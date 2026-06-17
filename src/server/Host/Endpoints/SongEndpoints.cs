@@ -74,6 +74,15 @@ public static class SongEndpoints
         });
 
 
+        group.MapGet("/student/{studentId}", async (string studentId, IMongoDatabase db) =>
+        {
+            var songs = await db.GetCollection<Models.Song>("songs")
+                .Find(s => s.StudentIds != null && s.StudentIds.Contains(studentId))
+                .ToListAsync();
+            return Results.Ok(songs);
+        });
+
+
         return app;
     }
 }

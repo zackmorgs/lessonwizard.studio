@@ -65,6 +65,8 @@ if (hasGoogle)
 
 builder.Services.AddAuthorization();
 builder.Services.AddHttpClient();
+builder.Services.ConfigureHttpJsonOptions(opts =>
+    opts.SerializerOptions.PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase);
 
 var app = builder.Build();
 

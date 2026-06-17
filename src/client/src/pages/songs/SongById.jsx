@@ -3,6 +3,7 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 
 import Layout from "../../components/Layout";
 import TagPicker from "../../components/TagPicker";
+import StudentsPicker from "../../components/StudentsPicker";
 import {
   getSongById,
   updateSong,
@@ -175,6 +176,12 @@ export default function SongById() {
               <TagPicker
                 value={form.tagIds}
                 onChange={(tags) => setForm({ ...form, tagIds: tags })}
+              />
+            </div>
+            <div className="flex flex-col gap-1">
+              <StudentsPicker
+                value={form.studentIds ?? []}
+                onChange={(ids) => setForm({ ...form, studentIds: ids })}
               />
             </div>
             <button onClick={handleDelete} className="btn btn-danger">

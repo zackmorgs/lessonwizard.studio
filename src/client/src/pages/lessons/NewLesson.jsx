@@ -10,6 +10,7 @@ import SongPicker from "../../components/SongsPicker";
 import TagPicker from '../../components/TagPicker';
 import { getStudentById } from "../../services/studentService";
 import { createLesson } from "../../services/lessonService";
+import { createSong, getSongs } from "../../services/songService";
 
 export default function NewLesson() {
   const [searchParams] = useSearchParams();
@@ -61,12 +62,35 @@ export default function NewLesson() {
       return;
     }
     setError(null);
+
+    // For each selected Spotify track, find or create a DB song and collect its ID
+    const tags = Array.isArray(form.tagIds) ? form.tagIds : [];
+    const allDbSongs = await getSongs();
+    const songDbIds = await Promise.all(
+      form.songIds.map(async (track) => {
+        // track is a Spotify track object from SongsPicker
+        const spotifyId = track.id ?? track;
+        const existing = allDbSongs.find((s) => s.spotifyTrackId === spotifyId);
+        if (existing) {
+          return existing.id;
+        }
+        const created = await createSong({
+          title: track.name ?? "",
+          artist: track.artist ?? "",
+          spotifyTrackId: spotifyId,
+          isExplicit: track.isExplicit ?? false,
+          tagIds: tags,
+        });
+        return created.id;
+      })
+    );
+
     const payload = {
       ...form,
       notes: notesRef.current,
       time: form.time ? `${form.time}:00` : "00:00:00",
-      songIds: form.songIds.map((t) => t.id ?? t),
-      tagIds: Array.isArray(form.tagIds) ? form.tagIds : [],
+      songIds: songDbIds,
+      tagIds: tags,
     };
     await createLesson(payload);
     navigate("/lessons");

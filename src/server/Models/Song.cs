@@ -32,4 +32,7 @@ public class Song
 
     [BsonElement("spotifyTrackId")]
     public string? SpotifyTrackId { get; set; }
+
+    [BsonElement("studentIds")]
+    public List<string> StudentIds { get; set; } = new List<string>();
 }

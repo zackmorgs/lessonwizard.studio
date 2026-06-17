@@ -186,6 +186,28 @@ public static class LessonEndpoints
 
             lesson.TeacherId = teacherId;
             await db.GetCollection<Lesson>("lessons").InsertOneAsync(lesson);
+
+            // Add songs to student's SongIds
+            if (lesson.SongIds.Count > 0)
+            {
+                var studentUpdate = Builders<Student>.Update.AddToSetEach(s => s.SongIds, lesson.SongIds);
+                await db.GetCollection<Student>("students")
+                    .UpdateOneAsync(s => s.Id == lesson.StudentId, studentUpdate);
+
+                // Also add the student to each song's StudentIds (used by getSongsByStudent)
+                var songStudentUpdate = Builders<Song>.Update.AddToSet(s => s.StudentIds, lesson.StudentId);
+                await db.GetCollection<Song>("songs")
+                    .UpdateManyAsync(s => lesson.SongIds.Contains(s.Id), songStudentUpdate);
+            }
+
+            // Merge lesson tags onto each song
+            if (lesson.SongIds.Count > 0 && lesson.TagIds.Count > 0)
+            {
+                var songUpdate = Builders<Song>.Update.AddToSetEach(s => s.TagIds, lesson.TagIds);
+                await db.GetCollection<Song>("songs")
+                    .UpdateManyAsync(s => lesson.SongIds.Contains(s.Id), songUpdate);
+            }
+
             return Results.Created($"/api/lessons/{lesson.Id}", lesson);
         });
 

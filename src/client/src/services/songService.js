@@ -41,3 +41,8 @@ export async function deleteSong(id) {
 export async function getSongsByTag(tag) {
   return request(`/tag/${tag}/songs/`);
 }
+
+
+export async function getSongsByStudent(studentId) {
+  return request(`/student/${studentId}`);
+}

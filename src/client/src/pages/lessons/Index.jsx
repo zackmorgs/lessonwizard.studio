@@ -8,27 +8,32 @@ import { useAuth } from "../../contexts/AuthContext";
 import { getPertinentLessons } from "../../services/lessonService";
 
 export default function Lessons() {
-    const { user } = useAuth();
-    const [lessons, setLessons] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+  const { user } = useAuth();
+  const [lessons, setLessons] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-    useEffect(() => {
-        getPertinentLessons()
-            .then(setLessons)
-            .catch((err) => setError(err.message))
-            .finally(() => setLoading(false));
-    }, []);
+  useEffect(() => {
+    getPertinentLessons()
+      .then(setLessons)
+      .catch((err) => setError(err.message))
+      .finally(() => setLoading(false));
+  }, []);
 
-    return (
-        <Layout>
-            <header id="user_lessons">
-                <div className="panel">
-                    <h2 className="h2">{user?.displayName ? `${user.displayName}'s Lessons (${lessons.length})` : "Lessons"}</h2>
-                </div>
-            </header>
-            <LessonList lessons={lessons} />
-        </Layout>
-    );
+  return (
+    <Layout>
+      <div className="md:max-w-md mx-auto">
+        <header id="user_lessons">
+          <div className="panel">
+            <h2 className="h2">
+              {user?.displayName
+                ? `${user.displayName}'s Lessons (${lessons.length})`
+                : "Lessons"}
+            </h2>
+          </div>
+        </header>
+        <LessonList lessons={lessons} />
+      </div>
+    </Layout>
+  );
 }
-

@@ -20,12 +20,14 @@ export default function LessonsOnDate() {
 
 	return (
 		<Layout>
-			<section className="section">
-				<div className="panel">
-					<h1 className="h1">Lessons on {`${year}-${month}-${day}`}</h1>
-				</div>
-			</section>
-            <LessonList lessons={lessons} />
+			<div className="md:max-w-md mx-auto">
+				<section className="section">
+					<div className="panel">
+						<h1 className="h1">Lessons on {`${year}-${month}-${day}`}</h1>
+					</div>
+				</section>
+				<LessonList lessons={lessons} />
+			</div>
 		</Layout>
 	);
 }

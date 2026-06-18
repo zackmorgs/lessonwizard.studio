@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 
-import { Link } from 'react-router';
+import { Link } from "react-router";
 
-import Layout from './../../components/Layout';
-import { getTags, getTagCounts, createTag } from './../../services/tagService';
+import Layout from "./../../components/Layout";
+import { getTags, getTagCounts, createTag } from "./../../services/tagService";
 import Tags from "../../components/Tags";
 
 export default function TagsIndex() {
@@ -13,8 +13,12 @@ export default function TagsIndex() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    getTags().then(setTags).catch(() => {});
-    getTagCounts().then(setCounts).catch(() => {});
+    getTags()
+      .then(setTags)
+      .catch(() => {});
+    getTagCounts()
+      .then(setCounts)
+      .catch(() => {});
   }, []);
 
   const handleCreate = async (e) => {
@@ -36,11 +40,13 @@ export default function TagsIndex() {
 
   return (
     <Layout>
-      <section className="section">
-        <div className="panel">
-          <Tags defaultOpen={true} />
-        </div>
-      </section>
+      <div className="md:max-w-lg mx-auto">
+        <section className="section">
+          <div className="panel">
+            <Tags defaultOpen={true} />
+          </div>
+        </section>
+      </div>
     </Layout>
   );
 }

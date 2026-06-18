@@ -27,43 +27,42 @@ export default function Songs() {
 
   return (
     <Layout>
-      <header>
-        <div className="panel">
-          <h1 className="h1">
-            Songs ({filtered.length}
-            {query.trim() ? ` of ${songs.length}` : ""})
-          </h1>
-        </div>
-      </header>
-      <section id="song_search">
-        <div className="panel">
-          <div className="form-group relative">
-            <img
-              src="/assets/svg/icon-search.svg"
-              alt="Search Icon"
-              className="search-icon absolute left-4 top-4 bottom-4"
-            />
-            <input
-              id="global_search"
-              type="text"
-              placeholder="Search songs..."
-              className="input input-lg w-full"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              onKeyDown={(e) => {
-                console.log("Search query:", query);
-              }}
-            />
+      <div className="md:max-w-md mx-auto">
+        <header>
+          <div className="panel">
+            <h1 className="h1">
+              Songs ({filtered.length}
+              {query.trim() ? ` of ${songs.length}` : ""})
+            </h1>
           </div>
-        </div>
-      </section>
-      {loading ? (
-        <p className="p-4">Loading...</p>
-      ) : error ? (
-        <p className="p-4 text-red-600">{error}</p>
-      ) : (
-        <SongList songList={filtered} defaultOpen={true} />
-      )}
+        </header>
+        <section id="song_search">
+          <div className="panel">
+            <div className="form-group relative">
+              <img
+                src="/assets/svg/icon-search.svg"
+                alt="Search Icon"
+                className="search-icon absolute left-4 top-4 bottom-4"
+              />
+              <input
+                id="global_search"
+                type="text"
+                placeholder="Search songs..."
+                className="input input-lg w-full"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+              />
+            </div>
+          </div>
+        </section>
+        {loading ? (
+          <p className="p-4">Loading...</p>
+        ) : error ? (
+          <p className="p-4 text-red-600">{error}</p>
+        ) : (
+          <SongList songList={filtered} defaultOpen={true} />
+        )}
+      </div>
     </Layout>
   );
 }

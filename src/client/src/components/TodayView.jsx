@@ -51,10 +51,11 @@ export default function TodayView({ todaysLessons = [], defaultOpen = false }) {
         title={
           <h2 className="h2 flex flex-row">
             <img src="/assets/svg/icon-list.svg" alt="Today's Lessons" className="mr-4"  />
-            <span>
+            <span>Today's Lessons</span>
+            {/* <span>
               Today's Lessons{todaysLessons.length > 0 && (
                 <> (<Link to="/lessons/today" className="lesson-count" onClick={(e) => e.stopPropagation()}>{todaysLessons.length}</Link>)</>)}
-            </span>
+            </span> */}
           </h2>
         }
         defaultOpen={defaultOpen}

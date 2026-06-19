@@ -78,6 +78,7 @@ export default function NewLesson() {
           title: track.name ?? "",
           artist: track.artist ?? "",
           spotifyTrackId: spotifyId,
+          albumArtUrl: track.albumArtUrl ?? "",
           isExplicit: track.isExplicit ?? false,
           tagIds: tags,
         });

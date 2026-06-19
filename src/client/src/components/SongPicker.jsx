@@ -126,7 +126,7 @@ export default function SongPicker({ value = null, onChange }) {
                     <img
                       src={track.albumArtUrl}
                       alt=""
-                      className="w-8 h-8 rounded object-cover shrink-0"
+                      className="w-8 h-8 rounded object-cover shrink-0"11
                     />
 
                     <div className="min-w-0">

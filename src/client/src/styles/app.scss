@@ -42,6 +42,7 @@ body {
 
 #nav_menu {
   background: linear-gradient(328deg, #c279f5, #9a41d8);
+
   backdrop-filter: blur(1rem);
 }
 
@@ -57,6 +58,7 @@ body {
 }
 
 #nav_logo_link {
+  
   font-size: 1.25rem;
   font-weight: 600;
   color: #f1f1f1;
@@ -368,8 +370,10 @@ body {
 
   &.btn-success {
     // background: linear-gradient(45deg, #20ab7a, #0c9666);
-    background: linear-gradient(45deg, #6F3BA8, #8E5DAF);
+    // background: linear-gradient(45deg, #6F3BA8, #8E5DAF);
     background-color: #5c3279;
+    background:linear-gradient(45deg, #593075, #a97aa1);
+    box-shadow:0.25rem 0.25rem 9px rgba(0, 0, 0, 0.18);
   }
 
   &.btn-lg {
@@ -423,9 +427,11 @@ body {
   padding: 2rem 1rem 0.25rem;
   // margin-top:1rem;1
   border-bottom: 1px solid rgb(107 107 107 / 16%);
-  border-top-right-radius: 1rem;
-  border-top-left-radius: 1rem;
+  // border-top-right-radius: 1rem;
+  // border-top-left-radius: 1rem;
   // box-shadow: 0px 0px 1rem rgba(0,0,0,0.25)
+  background: #e3e3e3;
+  background:linear-gradient(45deg, #e7e7e7, #f1f1f1, #e3e3e3)
 }
 
 .header {
@@ -767,7 +773,11 @@ body {
     justify-content: space-between;
     right: 0;
     left: 0;
-    background: rgba(91, 50, 120, 0.9);
+    // background: rgba(91, 50, 120, 0.9);
+    background:linear-gradient(
+      165deg,
+      #593075,
+      #a98179)
   }
 
   .nav-bar {
@@ -876,8 +886,8 @@ body {
     margin: 0;
     padding: 1rem;
     border-bottom: 1px solid rgba(241, 241, 241, 0.2);
-    s &.active {
-      background: rgba(0, 0, 0, 0.2);
+    &.active {
+      background: rgb(0 0 0 / 5%);
     }
     .nav-text {
       padding: 0;

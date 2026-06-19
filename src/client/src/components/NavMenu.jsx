@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 import { NavLink } from "react-router";
+import Logo from "./Logo";
 
 import { Authenticated } from "../contexts/AuthContext";
 
@@ -29,9 +30,7 @@ export default function NavMenu() {
       <div className="nav-bar flex flex-row justify-between items-center p-4">
         <div className="nav-logo">
           <NavLink to="/" id="nav_logo_link" onClick={closeNav}>
-            <span>lessonwizard</span>
-            <span>.</span>
-            <span>studio</span>
+            <Logo height="2.5rem"/>
           </NavLink>
         </div>
         <button

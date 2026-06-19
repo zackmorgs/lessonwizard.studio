@@ -74,7 +74,7 @@ export default function Dashboard() {
   return (
     <>
       <div className="md:max-w-md lg:max-w-full mx-auto">
-        <header className="dashboard-header p-4 lg:max-w-md mx-auto">
+        <header className="dashboard-header p-4 mx-auto">
           <h1 className="h1 flex items-center justify-left gap-2 lg:justify-center lg:text-3xl">
             <svg
               xmlns="http://www.w3.org/2000/svg"

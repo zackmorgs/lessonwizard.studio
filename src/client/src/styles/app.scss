@@ -100,7 +100,7 @@ body {
   // background: rgba(0, 0, 0, 0.5);
   background: rgb(91 50 120 / 90%);
   z-index: 50;
-  border-bottom: 1px solid #f1f1f1;
+  border-bottom:1px solid #f1f1f138;
   padding-bottom: 1rem;
   z-index: 60;
 }
@@ -286,7 +286,12 @@ body {
 .dashboard-header {
   // box-shadow: inset -3px -3px 1rem 0px rgb(0 0 0 / 14%);
   color: #333333;
-  padding: 1rem 1rem 0.25rem;
+  padding: 2rem 1rem 0.25rem;
+  // margin-top:1rem;
+  border-bottom:1px solid rgb(107 107 107 / 16%);
+  border-top-right-radius:1rem;
+  border-top-left-radius:1rem;
+  // box-shadow: 0px 0px 1rem rgba(0,0,0,0.25)
 }
 
 .lesson-count {

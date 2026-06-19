@@ -8,7 +8,7 @@ export default function About() {
       <div className="md:max-w-4xl mx-auto">
         <header className="header">
           <div className="p-4 text-center">
-            <h1 className="h1 text-4xl">About</h1>
+            <h1 className="h1 text-4xl mb-4">About</h1>
             <p className="subtitle">
               Built for music teachers who are tired of juggling spreadsheets,
               sticky notes, and their brain.

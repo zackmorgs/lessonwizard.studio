@@ -57,7 +57,8 @@ export default function TagPage() {
 
   return (
     <Layout>
-      <header>
+      <div className="md:max-w-lg mx-auto">
+        <header>
         <div className="panel">
           <div>
             <Link to="/tags" className="text-sm text-blue-600 hover:underline flex flex-row">
@@ -99,6 +100,7 @@ export default function TagPage() {
       <SongList songList={songs} defaultOpen={true} />
 
       <LessonList lessons={lessons} />
+      </div>
     </Layout>
   );
 }

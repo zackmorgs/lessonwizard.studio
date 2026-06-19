@@ -18,9 +18,11 @@ export default function Home() {
             alt="zoilerplate logo"
             className="mb-4"
           /> */}
-            <h1 className="text-4xl font-semibold mb-4 lg:text-6xl">
-              Stop Winging It. Start Teaching with a Plan.
+            <h1 className="text-4xl font-semibold mb-4 lg:text-6xl leading-20">
+              Lesson Planning on Steroids
             </h1>
+           
+
             {/* <p className="text-lg"></p> */}
             <p className="mt-2 mb-4 text-lg lg:text-2xl lg:mt-6">
               A free and open-source lesson planning tool for teachers, by

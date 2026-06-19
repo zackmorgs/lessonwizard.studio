@@ -14,7 +14,7 @@ export default function Contact() {
         
         <section className="section">
           <div className="panel">
-            <p className="text-center">
+            <p className="text-center mt-4">
               This project was created with love by{" "}
               <a
                 href="https://www.zackmorgenthaler.com"
@@ -26,7 +26,7 @@ export default function Contact() {
               </a>
               .
             </p>
-            <div className="items-center flex flex-row justify-center mt-4">
+            <div className="items-center flex flex-row justify-center mt-8">
               <Link
                 to="mailto:zackmorgenthaler@gmail.com"
                 className="btn btn-success mx-auto text-center"

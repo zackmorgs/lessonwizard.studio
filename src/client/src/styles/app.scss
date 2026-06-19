@@ -61,6 +61,18 @@ body {
   color: #f1f1f1;
   text-decoration: none;
   text-shadow: -2px 1px 2px rgb(0 0 0 / 46%);
+
+  & span:first-child {
+    color: #dadf0b;
+  }
+
+  & span:nth-child(2) {
+    color: #62ff23;
+  }
+
+  & span:last-child {
+    color: #f75e95;
+  }
 }
 
 #nav_toggle {
@@ -641,6 +653,7 @@ body {
     background: none;
     display: inline-flex;
     flex-direction: row;
+    border: 0;
   }
   #nav_logo_link {
     transition:

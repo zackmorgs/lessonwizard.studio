@@ -55,7 +55,7 @@ export default function TagsIndex() {
         </section>
       </div>
       <section className="section">
-        <div className="panel">
+        <div className="panel lg:max-w-lg mx-auto">
           <TagPicker value={selectedTags} onChange={setSelectedTags} />
         </div>
       </section>

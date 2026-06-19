@@ -9,7 +9,7 @@ import authNavItems from "../data/authNavItems";
 import featureItems from "../data/featureItems";
 
 export default function NavMenu() {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const _today = new Date();
   const today = `${_today.getFullYear()}/${_today.getMonth() + 1}/${_today.getDate()}`;
 

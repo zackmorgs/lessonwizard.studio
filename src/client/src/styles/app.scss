@@ -105,7 +105,16 @@ body {
 #nav_list_container {
   backdrop-filter: blur(1rem);
   box-shadow: 2px 2px 1rem rgba(0, 0, 0, 0.25);
+  display:none;
 }
+
+.nav-open {
+  #nav_list_container {
+    display:flex;
+  }
+}
+
+
 
 .nav-text {
   display: flex;

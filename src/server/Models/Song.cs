@@ -35,4 +35,7 @@ public class Song
 
     [BsonElement("studentIds")]
     public List<string> StudentIds { get; set; } = new List<string>();
+
+    [BsonElement("albumArtUrl")]
+    public string? AlbumArtUrl { get; set; }
 }

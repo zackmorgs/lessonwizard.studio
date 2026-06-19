@@ -57,6 +57,7 @@ export default function NewSong() {
                     title: track?.name ?? "",
                     artist: track?.artist ?? "",
                     spotifyTrackId: track?.id ?? "",
+                    albumArtUrl: track?.albumArtUrl ?? "",
                     isExplicit: track?.isExplicit ?? false,
                   });
                 }}
@@ -96,6 +97,18 @@ export default function NewSong() {
               <TagPicker
                 value={form.tagIds}
                 onChange={(tags) => setForm({ ...form, tagIds: tags })}
+              />
+            </div>
+            <div className="hidden form-group">
+              <label htmlFor="albumArtUrl" className="label">Album Art URL</label>
+              <input
+                id="albumArtUrl"
+                name="albumArtUrl"
+                type="text"
+                className="input"
+                placeholder="Album art URL..."
+                value={form.albumArtUrl}
+                onChange={handleChange}
               />
             </div>
             <button type="submit" className="btn btn-primary mt-4">

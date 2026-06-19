@@ -61,12 +61,12 @@ public static class SpotifyEndpoints
                 name       = track.GetProperty("name").GetString(),
                 artist     = track.GetProperty("artists")[0].GetProperty("name").GetString(),
                 album      = track.GetProperty("album").GetProperty("name").GetString(),
-                albumArt   = track.GetProperty("album")
+                albumArtUrl = track.GetProperty("album")
                                   .GetProperty("images")
                                   .EnumerateArray()
-                                  .LastOrDefault()
+                                  .FirstOrDefault()
                                   .ValueKind != JsonValueKind.Undefined
-                             ? track.GetProperty("album").GetProperty("images").EnumerateArray().Last().GetProperty("url").GetString()
+                             ? track.GetProperty("album").GetProperty("images").EnumerateArray().First().GetProperty("url").GetString()
                              : null,
                 previewUrl = track.TryGetProperty("preview_url", out var prev) && prev.ValueKind == JsonValueKind.String
                              ? prev.GetString()

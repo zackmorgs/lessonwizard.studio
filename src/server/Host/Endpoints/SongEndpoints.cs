@@ -35,6 +35,7 @@ public static class SongEndpoints
         // POST /api/songs
         group.MapPost("/", async (Song song, IMongoDatabase db) =>
         {
+            Console.WriteLine($"Creating song: {song.AlbumArtUrl}");
             await db.GetCollection<Song>("songs").InsertOneAsync(song);
             return Results.Created($"/api/songs/{song.Id}", song);
         });

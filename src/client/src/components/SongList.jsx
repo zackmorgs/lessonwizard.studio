@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-import { getTrackAlbumArt } from "./../services/spotifyService";
+// import { getTrackAlbumArt } from "./../services/spotifyService";
 
 import { Link } from "react-router";
 import Accordion from "../components/Accordion";
@@ -8,14 +8,17 @@ import Accordion from "../components/Accordion";
 export default function SongList({ songList, defaultOpen = false }) {
   let [songAlbumArt, setSongAlbumArt] = React.useState([]);
 
-  useEffect(() => {
-    songList.forEach(async (song) => {
-      if (song.spotifyTrackId) {
-        const albumArt = await getTrackAlbumArt(song.spotifyTrackId);
-        setSongAlbumArt((prev) => ({ ...prev, [song.id]: albumArt.url }));
-      }
-    });
-  }, [songList]);
+  console.log("test");
+  console.log(songList);
+
+  // useEffect(() => {
+  //   songList.forEach(async (song) => {
+  //     if (song.spotifyTrackId) {
+  //       const albumArt = await getTrackAlbumArt(song.spotifyTrackId);
+  //       setSongAlbumArt((prev) => ({ ...prev, [song.id]: albumArt.url }));
+  //     }
+  //   });
+  // }, [songList]);
 
   return (
     <section id="song-list" className="section">
@@ -56,7 +59,7 @@ export default function SongList({ songList, defaultOpen = false }) {
                 >
                   <img
                     src={
-                      songAlbumArt[song.id] || "/assets/svg/icon-music-note.svg"
+                      song.albumArtUrl || "/assets/svg/icon-music-note.svg"
                     }
                     alt={song.title}
                     className="mr-4 song-album-art"

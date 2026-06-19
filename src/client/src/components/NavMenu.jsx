@@ -17,6 +17,10 @@ export default function NavMenu() {
     setIsOpen((prev) => !prev);
   };
 
+  const closeNav = () => {
+    setIsOpen(false);
+  };
+  
   return (
     <nav
       id="nav_menu"
@@ -24,7 +28,7 @@ export default function NavMenu() {
     >
       <div className="nav-bar flex flex-row justify-between items-center p-4">
         <div className="nav-logo">
-          <Link to="/" id="nav_logo_link">
+          <Link to="/" id="nav_logo_link" onClick={closeNav}>
             <span>lessonwizard</span>
             <span>.</span>
             <span>studio</span>

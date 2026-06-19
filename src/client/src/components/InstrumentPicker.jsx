@@ -80,15 +80,16 @@ export default function InstrumentPicker({ value = [], onChange }) {
           onChange={(e) => setInputVal(e.target.value)}
           onKeyDown={handleKeyDown}
           onBlur={() => setTimeout(() => setSuggestions([]), 100)}
-          className="flex-1 border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="input"
           autoComplete="off"
         />
         <button
           type="button"
           onClick={() => addInstrument(inputVal)}
-          className="px-3 py-2 text-sm bg-gray-100 border border-gray-300 rounded hover:bg-gray-200"
+          className="btn btn-primary"
         >
-          Add
+          <img src="/assets/svg/icon-plus.svg" alt="Add instrument" className="icon" />
+          <span className="btn-text">Add Instrument</span>
         </button>
 
         {suggestions.length > 0 && (

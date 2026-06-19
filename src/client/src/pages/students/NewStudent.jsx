@@ -39,8 +39,8 @@ export default function NewStudent() {
 
   return (
     <Layout>
-      <div className="max-w-lg mx-auto mt-8 p-6 bg-white rounded-lg shadow">
-        <h1 className="text-2xl font-semibold mb-6">New Student</h1>
+      <div className="max-w-lg mx-auto  p-6">
+        <h1 className="text-2xl font-semibold mb-6 mt-6">New Student</h1>
 
         {error && <p className="mb-4 text-sm text-red-600">{error}</p>}
 
@@ -57,7 +57,7 @@ export default function NewStudent() {
               value={form.name}
               onChange={handleChange}
               required
-              className="border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="input"
             />
           </div>
 
@@ -73,7 +73,7 @@ export default function NewStudent() {
               placeholder="Age"
               value={form.age}
               onChange={handleChange}
-              className="border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="input"
             />
           </div>
 
@@ -163,7 +163,7 @@ export default function NewStudent() {
           <button
             type="submit"
             disabled={submitting}
-            className="btn btn-success mt-4"
+            className="btn btn-success mt-4 inline-flex items-center"
           >
             {submitting ? (
               "Saving..."

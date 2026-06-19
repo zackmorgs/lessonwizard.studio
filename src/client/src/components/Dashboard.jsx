@@ -75,7 +75,7 @@ export default function Dashboard() {
     <>
       <div className="md:max-w-md lg:max-w-full mx-auto">
         <header className="dashboard-header p-4 lg:max-w-md mx-auto">
-          <h1 className="h1 flex items-center justify-left gap-2 lg:justify-center">
+          <h1 className="h1 flex items-center justify-left gap-2 lg:justify-center lg:text-3xl">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               height="1.5em"
@@ -106,7 +106,7 @@ export default function Dashboard() {
             <SongList songList={songs} defaultOpen={false} />
           </div>
         </div>
-        <div className="lg:max-w-lg mx-auto">
+        <div className="lg:max-w-4xl mx-auto">
           <Tags defaultOpen={false} />
         </div>
       </div>

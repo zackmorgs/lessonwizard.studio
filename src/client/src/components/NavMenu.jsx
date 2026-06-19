@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { Link } from "react-router";
+import { Link, NavLink } from "react-router";
 
 import { Authenticated } from "../contexts/AuthContext";
 
@@ -49,9 +49,9 @@ export default function NavMenu() {
         >
           {mainNavItems.map((item) => (
             <li key={item.path} className="nav-item block">
-              <Link to={item.path} className="nav-link block">
+              <NavLink to={item.path} className={({ isActive }) => `nav-link block${isActive ? " active" : ""}`}>
                 {item.name}
-              </Link>
+              </NavLink>
             </li>
           ))}
         </ul>
@@ -64,12 +64,12 @@ export default function NavMenu() {
           >
             {featureItems.map((item) => (
               <li key={item.path} className="nav-item block">
-                <Link
+                <NavLink
                   to={item.name === "Schedule" ? `/schedule/${today}` : item.path}
-                  className="nav-link block"
+                  className={({ isActive }) => `nav-link block${isActive ? " active" : ""}`}
                 >
                   {item.name}
-                </Link>
+                </NavLink>
               </li>
             ))}
           </ul>
@@ -84,10 +84,10 @@ export default function NavMenu() {
           >
             {authNavItems.map((item) => (
               <li key={item.path} className="nav-item block">
-                <Link to={item.path} className="nav-link block flex flex-col items-center justify-center">
+                <NavLink to={item.path} className={({ isActive }) => `nav-link block flex flex-col items-center justify-center${isActive ? " active" : ""}`}>
                   <img src={`/assets/svg/${item.icon}.svg`} alt={`${item.name} icon`} className="icon"/>
                   <span className="nav-text">{item.name}</span>
-                </Link>
+                </NavLink>
               </li>
             ))}
           </ul>

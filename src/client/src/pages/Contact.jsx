@@ -8,7 +8,7 @@ export default function Contact() {
       <div className="md:max-w-4xl mx-auto">
         <header className="header">
           <div className="p-4">
-            <h1 className="text-4xl font-semibold text-center mb-4">Contact</h1>
+            <h1 className="h1 text-4xl mb-4 text-center">Contact</h1>
           </div>
         </header>
         

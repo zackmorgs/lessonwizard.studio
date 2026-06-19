@@ -55,8 +55,8 @@ export default function SongPicker({ value = null, onChange }) {
 
       {value?.name ? (
         <div className="flex items-center gap-3 p-2 border border-gray-200 rounded bg-gray-50">
-          {value.albumArt && (
-            <img src={value.albumArt} alt="" className="w-10 h-10 rounded object-cover shrink-0" />
+          {value.albumArtUrl && (
+            <img src={value.albumArtUrl} alt="" className="w-10 h-10 rounded object-cover shrink-0" />
           )}
           <div className="flex-1 min-w-0">
             <p className="text-sm font-medium truncate">{value.name}</p>

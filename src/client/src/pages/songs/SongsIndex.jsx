@@ -33,14 +33,6 @@ export default function Songs() {
         </div>
       </header>
       <div className="md:max-w-md mx-auto">
-        <header>
-          <div className="panel">
-            <h1 className="h1">
-              Songs ({filtered.length}
-              {query.trim() ? ` of ${songs.length}` : ""})
-            </h1>
-          </div>
-        </header>
         <section id="song_search">
           <div className="panel">
             <div className="form-group relative">

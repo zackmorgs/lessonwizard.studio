@@ -69,8 +69,11 @@ export default function Tags({ defaultOpen = false }) {
         }
         defaultOpen={defaultOpen}
       >
-        <ul id="tag_list" className="flex flex-wrap gap-2">
-          {[...tags]
+        <ul id="tag_list" className="flex flex-wrap gap-2 md:w-max-md">
+          {tags.length === 0 ? (
+            <div className="well well-info text-center"><p>No tags found.</p></div>
+          ) : (
+            [...tags]
             .sort((a, b) => {
               const diff = (counts[b.name] ?? 0) - (counts[a.name] ?? 0);
               return diff !== 0 ? diff : a.name.localeCompare(b.name);
@@ -84,7 +87,7 @@ export default function Tags({ defaultOpen = false }) {
                 )}
               </Link>
             </li>
-            ))}
+            )))}
         </ul>
       </Accordion>
     </section>

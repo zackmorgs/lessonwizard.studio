@@ -101,7 +101,7 @@ export default function NewLesson() {
       <div className="md:max-w-lg mx-auto">
         <section id="new_lesson" className="section">
         <div className="panel">
-          <h1 className="h1 mb-4">{studentName ? `New Lesson for ${studentName}` : "New Lesson"}</h1>
+          <h1 className="h1 mb-4 text-2xl mt-8">{studentName ? `New Lesson for ${studentName}` : "New Lesson"}</h1>
           {error && <p className="mb-4 text-sm text-red-600">{error}</p>}
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
             {!studentId && (

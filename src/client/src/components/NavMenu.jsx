@@ -45,12 +45,14 @@ export default function NavMenu() {
           <h3 className="h3">Main</h3>
         </div>
         <ul
+          id="main_nav_list"
           className={`nav-list flex flex-col list-none w-full m-0 p-0 ${isOpen ? "" : "hidden"}`}
         >
           {mainNavItems.map((item) => (
-            <li key={item.path} className="nav-item block">
+            <li key={item.path} className="nav-item">
               <NavLink to={item.path} className={({ isActive }) => `nav-link block${isActive ? " active" : ""}`}>
-                {item.name}
+                <img src={`/assets/svg/icon-${item.icon}.svg`} alt={`${item.name} icon`} className="icon"/>
+                <span className="nav-text mt-2 mb-0">{item.name}</span>
               </NavLink>
             </li>
           ))}
@@ -63,12 +65,14 @@ export default function NavMenu() {
             className={`nav-list flex flex-col list-none w-full m-0 p-0`}
           >
             {featureItems.map((item) => (
-              <li key={item.path} className="nav-item block">
+              <li key={item.path} className="nav-item">
                 <NavLink
                   to={item.name === "Schedule" ? `/schedule/${today}` : item.path}
                   className={({ isActive }) => `nav-link block${isActive ? " active" : ""}`}
                 >
-                  {item.name}
+                  <span className="text">
+                    {item.name}
+                  </span>
                 </NavLink>
               </li>
             ))}

@@ -98,7 +98,8 @@ export default function NewLesson() {
 
   return (
     <Layout>
-      <section id="new_lesson" className="section">
+      <div className="md:max-w-lg mx-auto">
+        <section id="new_lesson" className="section">
         <div className="panel">
           <h1 className="h1 mb-4">{studentName ? `New Lesson for ${studentName}` : "New Lesson"}</h1>
           {error && <p className="mb-4 text-sm text-red-600">{error}</p>}
@@ -235,6 +236,7 @@ export default function NewLesson() {
           </form>
         </div>
       </section>
+      </div>
     </Layout>
   );
 }

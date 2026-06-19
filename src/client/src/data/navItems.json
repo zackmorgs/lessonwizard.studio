@@ -1,14 +1,17 @@
 [
     {
         "name" : "Home",
-        "path" : "/"
+        "path" : "/",
+        "icon" : "home"
     },
     {
         "name" : "About",
-        "path" : "/about"
+        "path" : "/about",
+        "icon" : "info"
     },
     {
         "name" : "Contact",
-        "path" : "/contact"
+        "path" : "/contact",
+        "icon" : "support"
     }
 ]

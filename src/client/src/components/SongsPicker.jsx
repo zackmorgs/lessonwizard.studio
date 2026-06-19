@@ -50,6 +50,8 @@ export default function SongPicker({ value = [], onChange }) {
     else if (e.key === "Enter" && activeIndex >= 0) { e.preventDefault(); addTrack(results[activeIndex]); }
   };
 
+  console.log({ query, results, loading, activeIndex });
+
   return (
     <div className="flex flex-col gap-2">
       <label className="text-sm font-medium text-gray-700">Songs</label>
@@ -80,9 +82,8 @@ export default function SongPicker({ value = [], onChange }) {
                   idx === activeIndex ? "bg-blue-50" : "hover:bg-gray-50"
                 }`}
               >
-                {track.albumArt && (
-                  <img src={track.albumArt} alt="" className="w-8 h-8 rounded object-cover shrink-0" />
-                )}
+                <img src={track.albumArtUrl} alt="" className="w-8 h-8 rounded object-cover shrink-0" />
+                
                 <div className="min-w-0">
                   <p className="text-sm font-medium truncate">{track.name}</p>
                   <p className="text-xs text-gray-500 truncate">{track.artist} &mdash; {track.album}</p>
@@ -97,8 +98,8 @@ export default function SongPicker({ value = [], onChange }) {
         <ul className="flex flex-col gap-2">
           {value.map((track) => (
             <li key={track.id} className="flex items-center gap-3 p-2 border border-gray-200 rounded bg-gray-50">
-              {track.albumArt && (
-                <img src={track.albumArt} alt="" className="w-10 h-10 rounded object-cover shrink-0" />
+              {track.albumArtUrl && (
+                <img src={track.albumArtUrl} alt="" className="w-10 h-10 rounded object-cover shrink-0" />
               )}
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-medium truncate">{track.name}</p>

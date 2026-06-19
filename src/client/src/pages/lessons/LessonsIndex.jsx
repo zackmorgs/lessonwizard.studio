@@ -7,7 +7,7 @@ import Layout from "../../components/Layout";
 import { useAuth } from "../../contexts/AuthContext";
 import { getPertinentLessons } from "../../services/lessonService";
 
-export default function Lessons() {
+export default function LessonsIndex() {
   const { user } = useAuth();
   const [lessons, setLessons] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -22,6 +22,11 @@ export default function Lessons() {
 
   return (
     <Layout>
+      <header className="header">
+        <div className="p-4 text-center">
+          <h1 className="text-3xl font-semibold">Lessons</h1>
+        </div>
+      </header>
       <div className="md:max-w-md mx-auto">
         <header id="user_lessons">
           <div className="panel">

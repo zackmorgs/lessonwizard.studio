@@ -27,6 +27,11 @@ export default function Songs() {
 
   return (
     <Layout>
+      <header className="header">
+        <div className="p-4 text-center">
+          <h1 className="text-3xl font-semibold">Songs</h1>
+        </div>
+      </header>
       <div className="md:max-w-md mx-auto">
         <header>
           <div className="panel">

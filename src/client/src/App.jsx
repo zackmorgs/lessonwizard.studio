@@ -13,7 +13,7 @@ import SignUp from "./pages/auth/SignUp";
 import Account from "./pages/auth/Account";
 import Logout from "./pages/auth/Logout";
 
-import Lessons from "./pages/lessons/Index";
+import LessonsIndex from "./pages/lessons/LessonsIndex";
 import LessonById from "./pages/lessons/LessonById";
 import NewLesson from "./pages/lessons/NewLesson";
 import EditLesson from "./pages/lessons/EditLesson";
@@ -74,7 +74,7 @@ export default function App() {
           path="/lessons"
           element={
             <AuthorizedView>
-              <Lessons />
+              <LessonsIndex />
             </AuthorizedView>
           }
         />

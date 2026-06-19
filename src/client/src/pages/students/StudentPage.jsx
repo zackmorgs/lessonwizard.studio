@@ -155,7 +155,7 @@ export default function StudentPage() {
         </div>
 
         {/* Notes */}
-        <div className="bg-white">
+        <div className="">
           <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">
             Notes
           </h2>
@@ -195,12 +195,12 @@ export default function StudentPage() {
         </div>
 
         {/* Lessons */}
-        <div className="bg-white ">
+        <div className=" ">
           <LessonList lessons={lessons} studentId={student.id} />
         </div>
 
         {/* Songs */}
-        <div className="bg-white">
+        <div className="">
           <SongList songList={songs} />
         </div>
       </div>

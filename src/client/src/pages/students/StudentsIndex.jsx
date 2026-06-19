@@ -20,13 +20,18 @@ export default function StudentPage() {
 
   return (
     <Layout>
+      <header className="header">
+        <div className="p-4 text-center">
+          <h1 className="text-3xl font-semibold">Students</h1>
+        </div>
+      </header>
       <div className="md:max-w-md mx-auto">
         <header id="user_students">
           <div className="panel">
             <h2 className="h2">
-              {user?.displayName
+              {/* {user?.displayName
                 ? `${user.displayName}'s Students (${students.length})`
-                : "Students"}
+                : "Students"} */}
             </h2>
           </div>
         </header>

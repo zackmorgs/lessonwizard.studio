@@ -12,9 +12,12 @@ $brandPurple: #391e4b;
 :root {
   font-size: 16px;
 }
-
+#root {
+  background: #222;
+}
 main {
-  min-height:100vh;1
+  min-height:100vh;
+  background:#f1f1f1;
 }
 
 body {

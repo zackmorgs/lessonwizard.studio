@@ -67,7 +67,7 @@ export default function StudentPage() {
 
   return (
     <Layout>
-      <div className="panel md:max-w-md mx-auto mt-8 flex flex-col gap-6">
+      <div className="panel lg:max-w-lg mx-auto mt-8 flex flex-col gap-6">
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
@@ -115,7 +115,7 @@ export default function StudentPage() {
         </div>
 
         {/* Goals */}
-        <div className="bg-white">
+        <div>
           <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">
             Goals
           </h2>

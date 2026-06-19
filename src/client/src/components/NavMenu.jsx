@@ -10,6 +10,8 @@ import featureItems from "../data/featureItems";
 
 export default function NavMenu() {
   const [isOpen, setIsOpen] = useState(false);
+  const _today = new Date();
+  const today = `${_today.getFullYear()}/${_today.getMonth() + 1}/${_today.getDate()}`;
 
   const handleNavToggle = () => {
     setIsOpen((prev) => !prev);
@@ -62,7 +64,10 @@ export default function NavMenu() {
           >
             {featureItems.map((item) => (
               <li key={item.path} className="nav-item block">
-                <Link to={item.path} className="nav-link block">
+                <Link
+                  to={item.name === "Schedule" ? `/schedule/${today}` : item.path}
+                  className="nav-link block"
+                >
                   {item.name}
                 </Link>
               </li>

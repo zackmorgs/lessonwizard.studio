@@ -1,14 +1,18 @@
 [
-    {
-        "name" : "Students",
-        "path" : "/students"
-    },
-    {
-        "name" : "Lessons",
-        "path" : "/lessons"
-    },
-    {
-        "name" : "Schedule",
-        "path" : "/schedule"
-    }
+  {
+    "name": "Students",
+    "path": "/students"
+  },
+  {
+    "name": "Lessons",
+    "path": "/lessons"
+  },
+  {
+    "name": "Songs",
+    "path": "/songs"
+  },
+  {
+    "name": "Tags",
+    "path": "/tags"
+  }
 ]

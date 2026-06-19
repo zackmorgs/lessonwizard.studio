@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import Layout from "../components/Layout";
 
 export default function Contact() {
@@ -10,9 +11,10 @@ export default function Contact() {
             <h1 className="text-4xl font-semibold text-center">Contact</h1>
           </div>
         </header>
+        
         <section className="section">
           <div className="panel">
-            <p>
+            <p className="text-center">
               This project was created with love by{" "}
               <a
                 href="https://www.zackmorgenthaler.com"
@@ -24,6 +26,16 @@ export default function Contact() {
               </a>
               .
             </p>
+            <div className="items-center flex flex-row justify-center mt-4">
+              <Link
+                to="mailto:zackmorgenthaler@gmail.com"
+                className="btn btn-success mx-auto text-center"
+              >
+                <img src="/assets/svg/icon-mail.svg" className="icon"/>
+
+                <span className="btn-text">Contact Me</span>
+              </Link>
+            </div>
           </div>
         </section>
       </div>

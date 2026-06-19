@@ -42,6 +42,7 @@ body {
 
 #nav_menu {
   background: linear-gradient(328deg, #c279f5, #9a41d8);
+  backdrop-filter:blur(1rem);
 }
 
 .nav-bar {
@@ -754,6 +755,7 @@ body {
     min-width: 12ch;
   }
 
+    
   #nav_menu {
     // background: none;d
     width: 100%;
@@ -774,6 +776,9 @@ body {
     display: inline-flex;
     flex-direction: row;
     border: 0;
+    border-top-right-radius:0.5rem;;
+    border-bottom-right-radius: 0.5rem;
+    backdrop-filter:none;
   }
 
   #nav_logo_link {
@@ -803,6 +808,8 @@ body {
     flex-direction: row;
     box-shadow: none;
     justify-content: flex-start;
+    background:transparent;
+    backdrop-filter:none;
     &.hidden {
       display: flex;
     }
@@ -828,9 +835,11 @@ body {
     border: 0;
     width: auto;
     background: rgba(0, 0, 0, 0.1);
+    backdrop-filter: none;
     margin: 0.5rem;
     border-radius: 0.5rem;
     overflow: hidden;
+    backdrop-filter: none;
   }
 
   #main_nav_list {

@@ -88,7 +88,7 @@ export default function LessonById() {
 
     return (
         <Layout>
-            <div className="panel max-w-2xl mx-auto mt-8 flex flex-col gap-6">
+            <div className="panel max-w-2xl mx-auto flex flex-col gap-6">
 
                 {/* Header */}
                 <div className="flex items-center justify-between">

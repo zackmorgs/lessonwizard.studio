@@ -1,18 +1,22 @@
 [
   {
     "name": "Students",
-    "path": "/students"
+    "path": "/students",
+    "icon" : "person"
   },
   {
     "name": "Lessons",
-    "path": "/lessons"
+    "path": "/lessons",
+    "icon" : "list"
   },
   {
     "name": "Songs",
-    "path": "/songs"
+    "path": "/songs",
+    "icon" : "music-note"
   },
   {
     "name": "Tags",
-    "path": "/tags"
+    "path": "/tags",
+    "icon" : "hashtag"
   }
 ]

@@ -107,6 +107,11 @@ body {
   box-shadow: 2px 2px 1rem rgba(0, 0, 0, 0.25);
 }
 
+.nav-text {
+  display: flex;
+  flex-direction: row;
+}
+
 .nav-link {
   transition: background-color 0.3s ease-in-out;
 
@@ -114,14 +119,28 @@ body {
     background: rgba(0, 0, 0, 0.125);
   }
 }
+#feature_nav_list {
+  .nav-text {
+    display: flex;
+    flex-direction: row;
+    border: 0;
+    border-bottom: 1px solid rgba(241, 241, 241, 0.2);
 
+    .icon {
+      margin-right: 1rem;
+    }
+  }
+  .nav-link {
+    padding-right:0;
+  }
+}
 #main_nav_list {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
   padding: 1rem;
-  margin: 0.5rem 0;
+  // margin: 0.5rem 0;
   // border-radius:0.5rem;
 
   .icon {
@@ -161,6 +180,10 @@ body {
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
+
+    .nav-text {
+      border-bottom: 1px solid rgba(241, 241, 241, 0.2);
+    }
   }
 
   .active {
@@ -180,6 +203,7 @@ body {
   border-bottom: 1px solid #f1f1f138;
   padding-bottom: 1rem;
   z-index: 60;
+  margin: 0;
 
   .active {
     background: rgba(0, 0, 0, 0.25);
@@ -187,11 +211,12 @@ body {
 }
 
 #account_nav_list {
+  justify-content: center;
   .nav-link {
     border: none;
     border-radius: 50%;
     padding: 1rem;
-    background: rgba(241, 241, 241, 0.1);
+    // background: rgba(241, 241, 241, 0.1);
     margin-top: 1rem;
     height: 5rem;
     width: 5rem;
@@ -223,14 +248,14 @@ body {
   align-items: center;
   justify-content: start;
   .nav-text {
-    border-bottom: 1px solid rgba(241, 241, 241, 0.2);
+    // border-bottom: 1px solid rgba(241, 241, 241, 0.2);
     display: block;
     width: 100%;
     padding-bottom: 0.5rem;
   }
   &.active {
     .text {
-      border-bottom: 1px solid rgba(241, 241, 241, 0.5);
+      // border-bottom: 1px solid rgba(241, 241, 241, 0.5);
     }
   }
 }
@@ -741,6 +766,7 @@ body {
     flex-direction: row;
     border: 0;
   }
+
   #nav_logo_link {
     transition:
       background 0.3s,
@@ -780,7 +806,7 @@ body {
     display: flex;
     overflow: hidden;
   }
-  
+
   .nav-list {
     display: flex;
     flex-direction: row;
@@ -799,19 +825,19 @@ body {
   }
 
   #main_nav_list {
-    display:flex;
-    flex-direction:row;
-    margin:0.5rem;
-    padding:0;
-    min-height:60px;
+    display: flex;
+    flex-direction: row;
+    margin: 0.5rem;
+    padding: 0;
+    min-height: 60px;
     .nav-item {
       padding: 0;
     }
     .nav-link {
       padding: 0.75em;
-      min-width:auto;
+      min-width: auto;
       .nav-text {
-        display:none;
+        display: none;
       }
       .icon {
         width: 1.75rem;
@@ -830,54 +856,70 @@ body {
   .nav-link {
     margin: 0;
     padding: 1rem;
-    &.active {
+    border-bottom: 1px solid rgba(241, 241, 241, 0.2);
+    s &.active {
       background: rgba(0, 0, 0, 0.2);
     }
     .nav-text {
-      padding:0;
-      border:none;
+      padding: 0;
+      border: none;
     }
   }
+
   &:hover {
     background: rgba(0, 0, 0, 0.25);
   }
-}
 
-#account_nav_list {
-  align-items: center;
-  justify-content: center;
-  .nav-item {
-    display: flex;
+  #account_nav_list {
     align-items: center;
     justify-content: center;
+    .nav-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-link {
+      height: auto;
+      width: auto;
+      margin-top: 0;
+      padding: 1rem;
+      background: none;
+      border-radius: 0;
+      border-bottom: 1px solid rgba(241, 241, 241, 0.2);
+      &.active {
+        background: rgba(0, 0, 0, 0.25);
+      }
+      .nav-text {
+        display: none;
+      }
+
+      &:hover {
+        background: rgba(0, 0, 0, 0.25);
+        cursor: pointer;
+        border-radius: 0.5rem;
+      }
+    }
+
+    .icon {
+      width: 1.75rem;
+      height: auto;
+    }
   }
 
-  .nav-link {
-    height: auto;
-    width: auto;
-    margin-top: 0;
-    padding: 1rem;
-    border-bottom: 1px solid rgba(241, 241, 241, 0.2);
-    background: none;
-    border-radius: 0;
-
-    &.active {
-      background: rgba(0, 0, 0, 0.25);
-    }
-    .nav-text {
+  #feature_nav_list {
+    .text {
       display: none;
     }
-
-    &:hover {
-      background: rgba(0, 0, 0, 0.25);
-      cursor: pointer;
-      border-radius: 0.5rem;
+    
+    .nav-text { border:0;
+      .icon {
+        margin: 0;
+      }
     }
-  }
-
-  .icon {
-    width: 1.75rem;
-    height: auto;
+    .nav-link {
+      padding:1rem;
+    }
   }
 }
 

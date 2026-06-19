@@ -9,7 +9,7 @@ import authNavItems from "../data/authNavItems";
 import featureItems from "../data/featureItems";
 
 export default function NavMenu() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
   const _today = new Date();
   const today = `${_today.getFullYear()}/${_today.getMonth() + 1}/${_today.getDate()}`;
 
@@ -52,7 +52,7 @@ export default function NavMenu() {
           <div className="nav-title p-4">
             <h3 className="h3">Features</h3>
           </div>
-          <ul className={`nav-list flex flex-col list-none w-full m-0 p-0`}>
+          <ul id="feature_nav_list"className={`nav-list flex flex-col list-none w-full m-0 p-0`}>
             {featureItems.map((item) => (
               <li key={item.path} className="nav-item">
                 <NavLink
@@ -63,7 +63,14 @@ export default function NavMenu() {
                     `nav-link block${isActive ? " active" : ""}`
                   }
                 >
-                  <span className="nav-text">{item.name}</span>
+                  <span className="nav-text">
+                    <img
+                      src={`/assets/svg/icon-${item.icon}.svg`}
+                      alt={`${item.name} icon`}
+                      className="icon"
+                    />
+                    <span className="text">{item.name}</span>
+                  </span>
                 </NavLink>
               </li>
             ))}

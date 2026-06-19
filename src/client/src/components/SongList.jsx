@@ -8,8 +8,8 @@ import Accordion from "../components/Accordion";
 export default function SongList({ songList, defaultOpen = false }) {
   let [songAlbumArt, setSongAlbumArt] = React.useState([]);
 
-  console.log("test");
-  console.log(songList);
+  // console.log("test");
+  // console.log(songList);
 
   // useEffect(() => {
   //   songList.forEach(async (song) => {

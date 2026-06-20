@@ -388,6 +388,18 @@ body {
   box-shadow: 0px 0px 1rem 0px rgba(0, 0, 0, 0.1);
 }
 
+.form-search {
+  position: relative;
+  .icon {
+    position: absolute;
+    top: 50%;
+    bottom: 50%;
+    left: 0.75rem;
+    transform: translateY(-50%);
+    height: 2rem;
+  }
+}
+
 .rule-sm {
   border: none;
   border-top: 1px solid #0000001f;

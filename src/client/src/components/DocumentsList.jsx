@@ -158,21 +158,21 @@ export default function DocumentsList({ defaultOpen = false }) {
       >
         {documents.length > 0 ? (
           <>
-            <div id="document_controls" className="mb-4">
-              <button className="btn btn-primary">
+            <div className="flex flex-col justify-start  md:flex-row-reverse md:justify-between items-center mb-4">
+              <button className="btn btn-primary sm:w-full">
                 <img src="/assets/svg/icon-plus.svg" className="icon" />
                 <span className="btn-text">Add Document</span>
               </button>
+              <div className="form-group form-search mt-4 md:m-0 w-full md:min-w-2/3 md:w-auto md:w-min-md">
+                <img src="/assets/svg/icon-search.svg" className="icon" />
+                <input
+                  type="search"
+                  id="document_search"
+                  className="input w-full md:w-max-12"
+                  placeholder="Search by title..."
+                />
+              </div>
             </div>
-            <div className="form-group">
-              <input
-                type="text"
-                id="document_search"
-                className="input w-full mb-4"
-                placeholder="Search by title..."
-              />
-            </div>
-
             <div className="scrollable max-h-100">
               <ul
                 id="documents_list"

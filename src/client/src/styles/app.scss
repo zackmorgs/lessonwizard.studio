@@ -731,13 +731,17 @@ $instruments: (
 
   #nav_logo_link {
     transition:
-      background 0.3s,
-      padding 0.3s;
+      background-color 0.3s,
+      padding 0.3s,
+      filter 0.3s;
     &:hover {
       background: $overlay;
       padding: 0.25rem;
       cursor: pointer;
       border-radius: 0.5rem;
+    }
+    &:active {
+      filter: drop-shadow(0px 0px 19px rgba(224,224,224,0.5));
     }
   }
 

@@ -39,8 +39,6 @@ src/server/Host/appsettings.Development.json
 /src/client/node_modules/
 /src/client/dist/
 /dist/
-src/server/Host/wwwroot/*
-!src/server/Host/wwwroot/.gitkeep
 
 # Local databases and runtime files
 *.db
@@ -56,3 +54,7 @@ TestResults/
 /src/server/Host/appsettings.Development.json
 design/mascot.psd
 TODO.md
+src/server/Host/wwwroot/assets/app.css
+src/server/Host/wwwroot/assets/app.css.map
+src/server/Host/wwwroot/assets/app.js
+src/server/Host/wwwroot/assets/app.js.map

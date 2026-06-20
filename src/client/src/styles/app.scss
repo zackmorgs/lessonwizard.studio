@@ -701,6 +701,11 @@ $instruments: (
 }
 
 @media (min-width: 1024px) {
+  .max-w-custom {
+    max-width:1024px;
+    display:flex;
+  }
+
   .btn {
     display: inline-flex;
     width: auto;
@@ -883,4 +888,14 @@ $instruments: (
       padding: 1rem;
     }
   }
+}
+
+@media (min-width: 1400px) {
+  .max-w-custom {
+    min-width:1250px;
+    display:flex;
+    flex-direction:row; 
+    justify-content:space-between;
+  }
+
 }

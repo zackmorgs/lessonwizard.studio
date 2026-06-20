@@ -13,7 +13,8 @@ $brandPurple: #391e4b;
   font-size: 16px;
 }
 #root {
-  background: #222;
+  // background: #222;
+  background: #f1f1f1;
 }
 main {
   min-height: 100vh;
@@ -39,13 +40,10 @@ body {
     border-bottom: 1px solid #7a4b9e;
   }
 }
-
 #nav_menu {
-  background: linear-gradient(328deg, #c279f5, #9a41d8);
-
-  backdrop-filter: blur(1rem);
+  background: linear-gradient(165deg, rgb(89 48 117 / 89%), rgb(169 129 121 / 84%));
+  backdrop-filter: blur(0.25rem);
 }
-
 .nav-bar {
   // box-shadow:
   //   inset -4px 3px 12px 11px rgba(255, 255, 255, 0.1),
@@ -58,7 +56,6 @@ body {
 }
 
 #nav_logo_link {
-  
   font-size: 1.25rem;
   font-weight: 600;
   color: #f1f1f1;
@@ -372,8 +369,8 @@ body {
     // background: linear-gradient(45deg, #20ab7a, #0c9666);
     // background: linear-gradient(45deg, #6F3BA8, #8E5DAF);
     background-color: #5c3279;
-    background:linear-gradient(45deg, #593075, #a97aa1);
-    box-shadow:0.25rem 0.25rem 9px rgba(0, 0, 0, 0.18);
+    background: linear-gradient(45deg, #593075, #a97aa1);
+    box-shadow: 0.25rem 0.25rem 9px rgba(0, 0, 0, 0.18);
   }
 
   &.btn-lg {
@@ -431,7 +428,7 @@ body {
   // border-top-left-radius: 1rem;
   // box-shadow: 0px 0px 1rem rgba(0,0,0,0.25)
   background: #e3e3e3;
-  background:linear-gradient(45deg, #e7e7e7, #f1f1f1, #e3e3e3)
+  background: linear-gradient(45deg, #e7e7e7, #f1f1f1, #e3e3e3);
 }
 
 .header {
@@ -441,14 +438,14 @@ body {
 .lesson-count {
   font-weight: 900;
   // color: #63bbd8;
-  color : rgb(152 78 195);
+  color: rgb(152 78 195);
 }
 
 .well {
   // background: linear-gradient(165deg, #593075, #a98179);
   box-shadow: inset 0px 0px 2rem 1px rgba(0, 0, 0, 0.25);
   // color: #f1f1f1;
-  color: rgba(0,0,0,0.87);
+  color: rgba(0, 0, 0, 0.87);
   border-radius: 1rem;
   border: 1px solid;
   font-weight: 500;
@@ -774,10 +771,12 @@ body {
     right: 0;
     left: 0;
     // background: rgba(91, 50, 120, 0.9);
-    background:linear-gradient(
-      165deg,
-      #593075,
-      #a98179)
+    // background:linear-gradient(
+    //   165deg,
+    //   #593075,
+    //   #a98179)
+
+    backdrop-filter: blur(0.25rem);
   }
 
   .nav-bar {

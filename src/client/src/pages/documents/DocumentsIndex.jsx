@@ -10,7 +10,9 @@ export default function DocumentsIndex() {
             <header className="header">
                 <h1 className="h1 text-xl text-center">Documents</h1>
             </header>
-            <DocumentsList />
+            <div className="md:max-w-2xl mx-auto">
+                <DocumentsList  defaultOpen={true} />
+            </div>
         </Layout>
     );
 }

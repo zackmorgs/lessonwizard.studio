@@ -579,7 +579,8 @@ $instruments: (
 
 #student_list,
 #tags,
-#song-list {
+#song-list,
+#documents_list_container {
   padding: 0.5rem;
 }
 
@@ -657,6 +658,7 @@ $instruments: (
 
   .icon {
     filter: drop-shadow(0px 0px 0.75rem rgba(0, 0, 0, 0.125));
+    color: #4927677d;
   }
 }
 

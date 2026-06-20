@@ -7,6 +7,7 @@ import CalendarDatePicker from "../components/CalendarDatePicker";
 import StudentList from "../components/StudentList";
 import Tags from "../components/Tags";
 import SongList from "../components/SongList";
+import DocumentsList from "../components/DocumentsList";
 
 import { useAuth } from "../contexts/AuthContext";
 import { getStudents } from "../services/studentService";
@@ -105,6 +106,9 @@ export default function Dashboard() {
             <StudentList studentList={students} defaultOpen={false} />
             <SongList songList={songs} defaultOpen={false} />
           </div>
+        </div>
+        <div className="lg:max-w-4xl mx-auto">
+          <DocumentsList defaultOpen={false} />
         </div>
         <div className="lg:max-w-4xl mx-auto">
           <Tags defaultOpen={false} />

@@ -14,7 +14,7 @@ $brandPurple: #391e4b;
 }
 #root {
   // background: #222;
-  background: #f1f1f1;
+  background: #000000;
 }
 main {
   min-height: 100vh;
@@ -41,7 +41,11 @@ body {
   }
 }
 #nav_menu {
-  background: linear-gradient(165deg, rgb(89 48 117 / 89%), rgb(169 129 121 / 84%));
+  background: linear-gradient(
+    165deg,
+    rgb(89 48 117 / 89%),
+    rgb(169 129 121 / 84%)
+  );
   backdrop-filter: blur(0.25rem);
 }
 .nav-bar {
@@ -73,6 +77,9 @@ body {
   // & span:last-child {
   //   color: grey;
   // }
+  svg {
+    filter: drop-shadow(0px 0px 0.5rem rgba(225, 225, 225, 0.25));
+  }
 }
 
 #nav_toggle {
@@ -205,7 +212,9 @@ body {
 .nav-list {
   color: #f1f1f1;
   // background: rgba(0, 0, 0, 0.5);
-  background: rgb(91 50 120 / 90%);
+  // background: rgb(91 50 120 / 90%);
+  background: rgb(91 50 120 / 97%);
+  backdrop-filter: blur(0.5rem);
   z-index: 50;
   border-bottom: 1px solid #f1f1f138;
   padding-bottom: 1rem;

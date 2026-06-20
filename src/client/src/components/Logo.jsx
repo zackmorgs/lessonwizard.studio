@@ -13,6 +13,7 @@ export default function Logo({ height = 30 }) {
       overflow="visible"
       role="img"
       aria-label="LessonWizard Studio"
+      id="logo"
     >
       <title>LessonWizard Studio</title>
       <defs>

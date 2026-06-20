@@ -159,10 +159,10 @@ export default function DocumentsList({ defaultOpen = false }) {
         {documents.length > 0 ? (
           <>
             <div className="flex flex-col justify-start  md:flex-row-reverse md:justify-between items-center mb-4">
-              <button className="btn btn-primary sm:w-full">
+              <Link to="/documents/new" className="btn btn-primary sm:w-full">
                 <img src="/assets/svg/icon-plus.svg" className="icon" />
                 <span className="btn-text">Add Document</span>
-              </button>
+              </Link>
               <div className="form-group form-search mt-4 md:m-0 w-full md:min-w-2/3 md:w-auto md:w-min-md">
                 <img src="/assets/svg/icon-search.svg" className="icon" />
                 <input

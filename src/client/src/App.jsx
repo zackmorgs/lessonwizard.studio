@@ -30,12 +30,13 @@ import NewStudent from "./pages/students/NewStudent";
 import StudentPage from "./pages/students/StudentPage";
 import LessonsOnDate from "./pages/calendar/LessonsOnDate";
 
-import CalendarIndex from './pages/calendar/CalendarIndex';
+import CalendarIndex from "./pages/calendar/CalendarIndex";
 
-import DocumentsIndex from './pages/documents/DocumentsIndex';
+import DocumentsIndex from "./pages/documents/DocumentsIndex";
+import NewDocument from './pages/documents/NewDocument'
 
-import TagsIndex from './pages/tags/TagsIndex';
-import TagPage from './pages/tags/TagPage';
+import TagsIndex from "./pages/tags/TagsIndex";
+import TagPage from "./pages/tags/TagPage";
 
 export default function App() {
   return (
@@ -73,7 +74,7 @@ export default function App() {
         <Route path="/students/:id" element={<StudentPage />} />
 
         <Route path="/documents" element={<DocumentsIndex />} />
-    
+        <Route path="/documents/new" element={<NewDocument />} />
 
         <Route path="/tags" element={<TagsIndex />} />
         <Route path="/tags/:name" element={<TagPage />} />

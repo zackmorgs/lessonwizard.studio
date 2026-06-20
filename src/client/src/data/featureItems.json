@@ -15,6 +15,11 @@
     "icon": "music-gallery"
   },
   {
+    "name" : "Documents",
+    "path" : "/documents",
+    "icon" : "file-upload"
+  },
+  {
     "name": "Tags",
     "path": "/tags",
     "icon": "hashtag"

@@ -32,6 +32,8 @@ import LessonsOnDate from "./pages/calendar/LessonsOnDate";
 
 import CalendarIndex from './pages/calendar/CalendarIndex';
 
+import DocumentsIndex from './pages/documents/DocumentsIndex';
+
 import TagsIndex from './pages/tags/TagsIndex';
 import TagPage from './pages/tags/TagPage';
 
@@ -69,6 +71,9 @@ export default function App() {
         <Route path="/students" element={<Students />} />
         <Route path="/students/new" element={<NewStudent />} />
         <Route path="/students/:id" element={<StudentPage />} />
+
+        <Route path="/documents" element={<DocumentsIndex />} />
+    
 
         <Route path="/tags" element={<TagsIndex />} />
         <Route path="/tags/:name" element={<TagPage />} />

@@ -30,4 +30,7 @@ public class Student
 
     [BsonElement("teacherId")]
     public string TeacherId { get; set; } = string.Empty;
+
+    [BsonElement("documentIds")]
+    public List<string> DocumentIds { get; set; } = new List<string>();
 }

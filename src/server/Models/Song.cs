@@ -24,8 +24,8 @@ public class Song
     [BsonElement("tagIds")]
     public List<string> TagIds { get; set; } = new List<string>();
 
-    [BsonElement("pdfUrl")]
-    public string? pdfUrl { get; set; }
+    [BsonElement("documentsId")]
+    public List<string> documentsId { get; set; } = new List<string>(); 
 
     [BsonElement("isExplicit")]
     public bool IsExplicit { get; set; } = false;

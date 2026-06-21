@@ -674,6 +674,20 @@ $instruments: (
   }
 }
 
+.file-upload {
+  border: 2px dashed rgb(204 204 204 / 38%);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  text-align: center;
+  font-weight:500;
+  cursor: pointer;
+  transition: border-color 0.3s;
+  &:hover {
+    border-color: #929292;
+  }
+}
+
+
 #footer_main {
   background: #391e4b;
 

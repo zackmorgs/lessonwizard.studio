@@ -2,130 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Accordion from "./Accordion";
 
-let documents = [
-  {
-    id: 1,
-    title: "Pentatonic Scale Chart",
-    description:
-      "Major and minor pentatonic scale patterns across all 5 positions on the fretboard.",
-  },
-  {
-    id: 2,
-    title: "Circle of Fifths",
-    description:
-      "Full-color reference sheet showing key signatures, relative minors, and chord relationships.",
-  },
-  {
-    id: 3,
-    title: "Beginner Chord Diagrams",
-    description:
-      "Open chord shapes for G, C, D, E, A, Am, Em — essential first chords for new students.",
-  },
-  {
-    id: 4,
-    title: "Barre Chord Shapes",
-    description:
-      "E-shape and A-shape major and minor barre chords with finger placement guides.",
-  },
-  {
-    id: 5,
-    title: "Sight Reading: Grade 1",
-    description:
-      "10 short exercises in 4/4 and 3/4 time using quarter, half, and whole notes.",
-  },
-  {
-    id: 6,
-    title: "Blues Scale & Licks",
-    description:
-      "Blues scale in the key of A with 8 classic lick patterns and suggested fingerings.",
-  },
-  {
-    id: 7,
-    title: "Rhythm Notation Worksheet",
-    description:
-      "Fill-in exercises covering quarter, eighth, sixteenth, and dotted rhythms.",
-  },
-  {
-    id: 8,
-    title: "Fingerpicking Patterns",
-    description:
-      "Travis-picking and arpeggio patterns in 4/4, with notation and tab for both hands.",
-  },
-  {
-    id: 9,
-    title: "Music Theory: Intervals",
-    description:
-      "Reference guide covering major, minor, perfect, augmented, and diminished intervals with ear-training tips.",
-  },
-  {
-    id: 10,
-    title: "CAGED System Guide",
-    description:
-      "How to connect the 5 chord shapes across the entire fretboard using the CAGED framework.",
-  },
-  {
-    id: 11,
-    title: "Major Scale Modes",
-    description:
-      "All 7 modes of the major scale with scale degrees, characteristic notes, and mood descriptions.",
-  },
-  {
-    id: 12,
-    title: "Chord Construction Worksheet",
-    description:
-      "Step-by-step exercises building triads and seventh chords from scale degrees.",
-  },
-  {
-    id: 13,
-    title: "Strumming Patterns: Beginner",
-    description:
-      "8 essential strumming patterns in 4/4 with down/up arrow notation and accent guides.",
-  },
-  {
-    id: 14,
-    title: "Nashville Number System",
-    description:
-      "Quick-reference chart explaining the NNS with examples in common keys for session playing.",
-  },
-  {
-    id: 15,
-    title: "Ear Training: Melodic Dictation",
-    description:
-      "20 short melodic phrases to transcribe by ear, graded from stepwise motion to leaps.",
-  },
-  {
-    id: 16,
-    title: "Capo Chord Transposition Chart",
-    description:
-      "Lookup table showing how open chord shapes transpose when a capo is placed on frets 1–7.",
-  },
-  {
-    id: 17,
-    title: "Sight Reading: Grade 2",
-    description:
-      "Exercises introducing dotted rhythms, ties, and simple syncopation across both treble and bass clef.",
-  },
-  {
-    id: 18,
-    title: "Practice Log Template",
-    description:
-      "Weekly practice tracking sheet with columns for date, exercises, BPM goals, and notes.",
-  },
-  {
-    id: 19,
-    title: "Drop D Tuning Guide",
-    description:
-      "Common chord shapes, power chord positions, and riff ideas specific to Drop D tuning.",
-  },
-  {
-    id: 20,
-    title: "Harmonics Reference Sheet",
-    description:
-      "Natural and artificial harmonic positions on guitar with pitch equivalents and technique tips.",
-  },
-];
-
-export default function DocumentsList({ defaultOpen = false }) {
+export default function DocumentsList({ documents = [], defaultOpen = false, showControls = true }) {
   return (
     <section id="documents_list_container" className="section">
       <Accordion
@@ -135,7 +12,6 @@ export default function DocumentsList({ defaultOpen = false }) {
             <img
               src="/assets/svg/icon-audio-file.svg"
               alt="Documents"
-              w
               className="mr-4"
             />
             Documents
@@ -156,23 +32,24 @@ export default function DocumentsList({ defaultOpen = false }) {
           </h2>
         }
       >
-        {documents.length > 0 ? (
-          <>
-            <div className="flex flex-col justify-start  md:flex-row-reverse md:justify-between items-center mb-4">
-              <Link to="/documents/new" className="btn btn-primary sm:w-full">
-                <img src="/assets/svg/icon-plus.svg" className="icon" />
-                <span className="btn-text">Add Document</span>
-              </Link>
-              <div className="form-group form-search mt-4 md:m-0 w-full md:min-w-2/3 md:w-auto md:w-min-md">
-                <img src="/assets/svg/icon-search.svg" className="icon" />
-                <input
-                  type="search"
-                  id="document_search"
-                  className="input w-full md:w-max-12"
-                  placeholder="Search by title..."
-                />
-              </div>
+        {showControls && (
+          <div id="documents_list_controls" className="flex flex-col justify-start md:flex-row-reverse md:justify-between items-center mb-4">
+            <Link to="/documents/new" className="btn btn-primary sm:w-full">
+              <img src="/assets/svg/icon-plus.svg" className="icon" />
+              <span className="btn-text">Add Document</span>
+            </Link>
+            <div className="form-group form-search mt-4 md:m-0 w-full md:min-w-2/3 md:w-auto md:w-min-md">
+              <img src="/assets/svg/icon-search.svg" className="icon" />
+              <input
+                type="search"
+                id="document_search"
+                className="input w-full md:w-max-12"
+                placeholder="Search by title..."
+              />
             </div>
+          </div>
+        )}
+        {documents.length > 0 ? (
             <div className="scrollable max-h-100">
               <ul
                 id="documents_list"
@@ -200,7 +77,6 @@ export default function DocumentsList({ defaultOpen = false }) {
                 ))}
               </ul>
             </div>
-          </>
         ) : (
           <div className="well well-info text-center">
             <p>No documents available.</p>

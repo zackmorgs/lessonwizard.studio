@@ -1,7 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import { searchTracks } from "../services/spotifyService";
+import DocumentAdder from "./DocumentAdder";
 
-export default function SongPicker({ value = null, onChange }) {
+export default function SongPicker({ value = null, onChange, documentIds = [], onDocumentsChange }) {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -142,6 +143,10 @@ export default function SongPicker({ value = null, onChange }) {
             </ul>
           )}
         </div>
+      )}
+
+      {onDocumentsChange && (
+        <DocumentAdder value={documentIds} onChange={onDocumentsChange} />
       )}
     </div>
   );

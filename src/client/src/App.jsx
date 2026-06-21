@@ -33,7 +33,8 @@ import LessonsOnDate from "./pages/calendar/LessonsOnDate";
 import CalendarIndex from "./pages/calendar/CalendarIndex";
 
 import DocumentsIndex from "./pages/documents/DocumentsIndex";
-import NewDocument from './pages/documents/NewDocument'
+import NewDocument from './pages/documents/NewDocument';
+import DocumentView from './pages/documents/DocumentView';
 
 import TagsIndex from "./pages/tags/TagsIndex";
 import TagPage from "./pages/tags/TagPage";
@@ -75,6 +76,7 @@ export default function App() {
 
         <Route path="/documents" element={<DocumentsIndex />} />
         <Route path="/documents/new" element={<NewDocument />} />
+        <Route path="/documents/:id" element={<DocumentView />} />
 
         <Route path="/tags" element={<TagsIndex />} />
         <Route path="/tags/:name" element={<TagPage />} />

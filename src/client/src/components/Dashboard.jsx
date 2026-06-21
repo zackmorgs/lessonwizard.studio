@@ -14,6 +14,7 @@ import { getStudents } from "../services/studentService";
 import { todaysLessons } from "../services/lessonService";
 import { getLessonDaysInMonth } from "../services/lessonService";
 import { getSongs } from "../services/songService";
+import { getDocuments } from "../services/documentService";
 // let students_list = [
 //   {
 //     id: "1",
@@ -72,6 +73,13 @@ export default function Dashboard() {
       .finally(() => setLoading(false));
   }, []);
 
+  const [documents, setDocuments] = useState([]);
+  useEffect(() => {
+    getDocuments()
+      .then(setDocuments)
+      .catch(() => {});
+  }, []);
+
   return (
     <>
       <div className="md:max-w-md lg:max-w-full mx-auto">
@@ -108,7 +116,7 @@ export default function Dashboard() {
           </div>
         </div>
         <div className="lg:max-w-4xl mx-auto">
-          <DocumentsList defaultOpen={false} />
+          <DocumentsList documents={documents} defaultOpen={false} showControls={false} />
         </div>
         <div className="lg:max-w-4xl mx-auto">
           <Tags defaultOpen={false} />

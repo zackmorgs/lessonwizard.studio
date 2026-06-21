@@ -58,3 +58,5 @@ src/server/Host/wwwroot/assets/app.css
 src/server/Host/wwwroot/assets/app.css.map
 src/server/Host/wwwroot/assets/app.js
 src/server/Host/wwwroot/assets/app.js.map
+
+src/server/Host/wwwroot/documents/

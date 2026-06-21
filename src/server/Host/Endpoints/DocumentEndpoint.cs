@@ -1,6 +1,10 @@
 using System.Security.Claims;
 using Models;
 using MongoDB.Driver;
+using QuestPDF.Fluent;
+using QuestPDF.Helpers;
+using QuestPDF.Infrastructure;
+using PdfDocument = QuestPDF.Fluent.Document;
 
 namespace Host.Endpoints;
 
@@ -10,19 +14,126 @@ public static class DocumentEndpoint
     {
         var group = app.MapGroup("api/documents").RequireAuthorization();
 
-        group.MapGet("/", async (ClaimsPrincipal user, IMongoCollection<Document> collection) =>
+        // GET /api/documents
+        group.MapGet("/", async (ClaimsPrincipal user, IMongoDatabase db) =>
         {
-            user = (System.Threading.Thread.CurrentPrincipal as ClaimsPrincipal) ?? user;
-            var teacherId = user?.FindFirstValue(ClaimTypes.NameIdentifier)
-              ?? user?.FindFirstValue("sub");
+            var teacherId = user.FindFirstValue(ClaimTypes.NameIdentifier)
+                          ?? user.FindFirstValue("sub");
             if (teacherId is null) return Results.Unauthorized();
-            var documents = await collection.Find(d => d.TeacherId == teacherId).ToListAsync();
+
+            var documents = await db.GetCollection<Models.Document>("documents")
+                .Find(d => d.TeacherId == teacherId)
+                .ToListAsync();
             return Results.Ok(documents);
         });
 
+        // GET /api/documents/{id}
+        group.MapGet("/{id}", async (string id, ClaimsPrincipal user, IMongoDatabase db) =>
+        {
+            var teacherId = user.FindFirstValue(ClaimTypes.NameIdentifier)
+                          ?? user.FindFirstValue("sub");
+            if (teacherId is null) return Results.Unauthorized();
+
+            var document = await db.GetCollection<Models.Document>("documents")
+                .Find(d => d.Id == id && d.TeacherId == teacherId)
+                .FirstOrDefaultAsync();
+            return document is null ? Results.NotFound() : Results.Ok(document);
+        });
+
+        // POST /api/documents/from-images
+        // Accepts multipart/form-data: images[] (files), title, description, tagIds[]
+        group.MapPost("/from-images", async (
+            HttpRequest request,
+            ClaimsPrincipal user,
+            IMongoDatabase db,
+            IWebHostEnvironment env) =>
+        {
+            var teacherId = user.FindFirstValue(ClaimTypes.NameIdentifier)
+                          ?? user.FindFirstValue("sub");
+            if (teacherId is null) return Results.Unauthorized();
+
+            if (!request.HasFormContentType)
+                return Results.BadRequest("Expected multipart/form-data.");
+
+            var form = await request.ReadFormAsync();
+            var title = form["title"].FirstOrDefault() ?? "Untitled Document";
+            var description = form["description"].FirstOrDefault() ?? string.Empty;
+            var tagIds = form["tagIds"].Where(t => !string.IsNullOrEmpty(t)).ToList();
+            var imageFiles = form.Files.GetFiles("images");
+
+            if (!imageFiles.Any())
+                return Results.BadRequest("At least one image is required.");
+
+            // Read all images into memory first so streams aren't disposed mid-PDF
+            var imageData = new List<byte[]>();
+            foreach (var file in imageFiles)
+            {
+                using var ms = new MemoryStream();
+                await file.CopyToAsync(ms);
+                imageData.Add(ms.ToArray());
+            }
+
+            // Build PDF — one image per page, fitted to A4
+            QuestPDF.Settings.License = LicenseType.Community;
+            var pdfBytes = PdfDocument.Create(container =>
+            {
+                foreach (var imgBytes in imageData)
+                {
+                    container.Page(page =>
+                    {
+                        page.Size(PageSizes.A4);
+                        page.Margin(20);
+                        page.Content()
+                            .AlignCenter()
+                            .AlignMiddle()
+                            .Image(imgBytes)
+                            .FitArea();
+                    });
+                }
+            }).GeneratePdf();
+
+            // Persist PDF file under wwwroot/documents/
+            var docsDir = Path.Combine(env.WebRootPath, "documents");
+            Directory.CreateDirectory(docsDir);
+            var fileName = $"{Guid.NewGuid()}.pdf";
+            var filePath = Path.Combine(docsDir, fileName);
+            await File.WriteAllBytesAsync(filePath, pdfBytes);
+
+            // Save Document record to MongoDB
+            var doc = new Models.Document
+            {
+                TeacherId = teacherId,
+                Title = title,
+                Description = description,
+                PdfUrl = $"/documents/{fileName}",
+                TagIds = tagIds!
+            };
+            await db.GetCollection<Models.Document>("documents").InsertOneAsync(doc);
+
+            return Results.Created($"/api/documents/{doc.Id}", doc);
+        });
+
+        // DELETE /api/documents/{id}
+        group.MapDelete("/{id}", async (string id, ClaimsPrincipal user, IMongoDatabase db, IWebHostEnvironment env) =>
+        {
+            var teacherId = user.FindFirstValue(ClaimTypes.NameIdentifier)
+                          ?? user.FindFirstValue("sub");
+            if (teacherId is null) return Results.Unauthorized();
+
+            var doc = await db.GetCollection<Models.Document>("documents")
+                .FindOneAndDeleteAsync(d => d.Id == id && d.TeacherId == teacherId);
+            if (doc is null) return Results.NotFound();
+
+            // Remove the PDF file if present
+            if (!string.IsNullOrEmpty(doc.PdfUrl))
+            {
+                var filePath = Path.Combine(env.WebRootPath, doc.PdfUrl.TrimStart('/'));
+                if (File.Exists(filePath)) File.Delete(filePath);
+            }
+
+            return Results.NoContent();
+        });
+
         return app;
-
-
-
     }
 }

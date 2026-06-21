@@ -90,6 +90,7 @@ app.MapSongEndpoints();
 app.MapSpotifyEndpoints();
 app.MapTagEndpoints();
 app.MapSearchEndpoints();
+app.MapDocumentEndpoints();
 
 // Fall back to index.html for client-side routing
 app.MapFallbackToFile("index.html");

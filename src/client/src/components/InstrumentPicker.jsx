@@ -71,7 +71,7 @@ export default function InstrumentPicker({ value = [], onChange }) {
     <div className="flex flex-col gap-1">
       <label className="text-sm font-medium text-gray-700">Instruments</label>
 
-      <div className="relative flex gap-2">
+      <div className="relative md:flex md:flex-row md:items-center md:justify-between">
         <input
           ref={inputRef}
           type="text"
@@ -80,17 +80,17 @@ export default function InstrumentPicker({ value = [], onChange }) {
           onChange={(e) => setInputVal(e.target.value)}
           onKeyDown={handleKeyDown}
           onBlur={() => setTimeout(() => setSuggestions([]), 100)}
-          className="input"
+          className="input w-full mb-4 md:mb-0"
           autoComplete="off"
         />
-        <button
+        {/* <button
           type="button"
           onClick={() => addInstrument(inputVal)}
-          className="btn btn-primary"
+          className="btn btn-primary md:w-full"
         >
           <img src="/assets/svg/icon-plus.svg" alt="Add instrument" className="icon" />
           <span className="btn-text">Add Instrument</span>
-        </button>
+        </button> */}
 
         {suggestions.length > 0 && (
           <ul

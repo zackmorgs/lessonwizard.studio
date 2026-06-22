@@ -88,8 +88,8 @@ export default function SongById() {
       <Breadcrumbs to="/songs" label="Songs" />
       <div className="md:max-w-lg mx-auto">
         <header>
-          <div className="panel flex flex-col items-center justify-between">
-            <div className="flex flex-row items-center gap-4">
+          <div className="panel">
+            <div className="flex flex-row items-center gap-4 justify-between items-center md:justify-start">
               {albumArt && (
                 <img
                   src={albumArt}

@@ -73,13 +73,13 @@ export default function DocumentView() {
               <div className="flex flex-col gap-1">
                 <label className="label">PDF</label>
                 <iframe
-                  src={doc.pdfUrl}
+                  src={`/${doc.pdfUrl}`}
                   title={doc.title}
                   className="w-full rounded border"
                   style={{ height: "70vh" }}
                 />
                 <a
-                  href={doc.pdfUrl}
+                  href={`/${doc.pdfUrl}`}
                   download
                   className="btn btn-secondary mt-2 self-start"
                 >

@@ -18,7 +18,11 @@ export default function GlobalSearch() {
   const debounceRef = useRef(null);
 
   useEffect(() => {
-    if (!query.trim()) { setResults([]); setAlbumArtMap({}); return; }
+    if (!query.trim()) {
+      setResults([]);
+      setAlbumArtMap({});
+      return;
+    }
 
     clearTimeout(debounceRef.current);
     debounceRef.current = setTimeout(async () => {
@@ -36,7 +40,9 @@ export default function GlobalSearch() {
         list.forEach((result) => {
           if (result.type === "song" && result.spotifyTrackId) {
             getTrackAlbumArt(result.spotifyTrackId)
-              .then((art) => setAlbumArtMap((prev) => ({ ...prev, [result.id]: art.url })))
+              .then((art) =>
+                setAlbumArtMap((prev) => ({ ...prev, [result.id]: art.url })),
+              )
               .catch(() => {});
           }
         });
@@ -54,11 +60,16 @@ export default function GlobalSearch() {
     <section id="search">
       <div className="panel">
         <div className="form-group relative">
-          <img
-            src="/assets/svg/icon-search.svg"
-            alt="Search Icon"
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="24px"
+            viewBox="0 -960 960 960"
+            width="24px"
+            fill="rgba(152, 78, 195, 0.45)"
             className="search-icon absolute left-4 top-4 bottom-4"
-          />
+          >
+            <path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z" />
+          </svg>
           <input
             id="global_search"
             type="text"
@@ -70,30 +81,42 @@ export default function GlobalSearch() {
         </div>
         {query.trim() && (
           <div className="mt-2">
-            {loading && <p className="text-sm text-gray-400 p-2">Searching...</p>}
+            {loading && (
+              <p className="text-sm text-gray-400 p-2">Searching...</p>
+            )}
             {!loading && results.length === 0 && (
-              <p className="text-sm text-gray-400 p-2">No results for "{query}"</p>
+              <p className="text-sm text-gray-400 p-2">
+                No results for "{query}"
+              </p>
             )}
             {!loading && results.length > 0 && (
               <ul className="flex flex-col">
                 {results.map((result) => (
                   <li key={`${result.type}-${result.id}`}>
                     <Link
-                      to={TYPE_ROUTES[result.type]?.(result.id, result.title) ?? "/"}
+                      to={
+                        TYPE_ROUTES[result.type]?.(result.id, result.title) ??
+                        "/"
+                      }
                       className="flex items-center justify-between p-2 hover:bg-white/5 rounded"
                       onClick={() => setQuery("")}
                     >
                       <div className="flex items-center gap-3">
                         {result.type === "song" && (
                           <img
-                            src={albumArtMap[result.id] || "/assets/svg/icon-music-note.svg"}
+                            src={
+                              albumArtMap[result.id] ||
+                              "/assets/svg/icon-music-note.svg"
+                            }
                             alt=""
                             className="w-8 h-8 rounded object-cover shrink-0"
                           />
                         )}
                         <span>{result.title}</span>
                       </div>
-                      <span className="tag-link text-xs px-2 py-0.5 ml-2">{result.type}</span>
+                      <span className="tag-link text-xs px-2 py-0.5 ml-2">
+                        {result.type}
+                      </span>
                     </Link>
                   </li>
                 ))}

@@ -4,7 +4,10 @@ import { useParams, useNavigate } from "react-router-dom";
 import Layout from "../../components/Layout";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import TagPicker from "../../components/TagPicker";
-import { getDocumentById, deleteDocument } from "../../services/documentService";
+import {
+  getDocumentById,
+  deleteDocument,
+} from "../../services/documentService";
 
 export default function DocumentView() {
   const { id } = useParams();
@@ -40,7 +43,9 @@ export default function DocumentView() {
   if (error || !doc)
     return (
       <Layout>
-        <p className="p-6 text-sm text-red-600">{error ?? "Document not found."}</p>
+        <p className="p-6 text-sm text-red-600">
+          {error ?? "Document not found."}
+        </p>
       </Layout>
     );
 
@@ -59,7 +64,6 @@ export default function DocumentView() {
 
         <section className="section">
           <div className="panel flex flex-col gap-4">
-
             {/* Tags */}
             {doc.tagIds?.length > 0 && (
               <div className="flex flex-col gap-1">
@@ -67,29 +71,6 @@ export default function DocumentView() {
                 <TagPicker value={doc.tagIds} onChange={() => {}} disabled />
               </div>
             )}
-
-            {/* PDF viewer */}
-            {doc.pdfUrl ? (
-              <div className="flex flex-col gap-1">
-                <label className="label">PDF</label>
-                <iframe
-                  src={`/${doc.pdfUrl}`}
-                  title={doc.title}
-                  className="w-full rounded border"
-                  style={{ height: "70vh" }}
-                />
-                <a
-                  href={`/${doc.pdfUrl}`}
-                  download
-                  className="btn btn-secondary mt-2 self-start"
-                >
-                  Download PDF
-                </a>
-              </div>
-            ) : (
-              <p className="text-sm text-gray-400">No PDF attached.</p>
-            )}
-
             {/* Danger zone */}
             <div className="flex justify-end mt-4">
               <button
@@ -100,6 +81,32 @@ export default function DocumentView() {
                 Delete Document
               </button>
             </div>
+            {/* PDF viewer */}
+            {doc.pdfUrl ? (
+              <div className="flex flex-col gap-1">
+                <a
+                  href={`/${doc.pdfUrl}`}
+                  download
+                  className="btn btn-primary my-4"
+                >
+                  <img
+                    src="/assets/svg/icon-download.svg"
+                    alt="Download icon"
+                    className="icon"
+                  />
+                  <span className="btn-text">Download PDF</span>
+                </a>
+                <label className="label">View PDF</label>
+                <iframe
+                  src={`/${doc.pdfUrl}`}
+                  title={doc.title}
+                  className="w-full rounded border"
+                  style={{ height: "70vh" }}
+                />
+              </div>
+            ) : (
+              <p className="text-sm text-gray-400">No PDF attached.</p>
+            )}
           </div>
         </section>
       </div>

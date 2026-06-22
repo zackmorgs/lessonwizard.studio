@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import Layout from "../../components/Layout";
 import Breadcrumbs from "../../components/Breadcrumbs";
@@ -171,14 +172,22 @@ export default function SongById() {
                 </label>
               </div>
               <div className="flex flex-col">
-                  {song.documentId ==  "" ? (
+                  {!song.documentId ? (
                     <>
                       <div className="well well-info text-sm text-gray-500 text-center mb-4"><p>No document uploaded.</p></div>
-                      <SongDocumentUpload song={song} />
-                      
+                      <SongDocumentUpload
+                        song={song}
+                        onUploaded={(doc) => setSong((prev) => ({ ...prev, documentId: doc.id }))}
+                      />
                     </>
                   ) : (
-                    <img src="/assets/svg/icon-file-upload.svg" className="mx-auto icon"/>
+                    <Link
+                      to={`/documents/${song.documentId}`}
+                      className="btn btn-secondary w-full justify-center"
+                    >
+                      <img src="/assets/svg/icon-audio-file.svg" className="icon" />
+                      <span className="btn-text">View Document</span>
+                    </Link>
                   )}
               </div>
               <div className="flex flex-col gap-1">
@@ -194,7 +203,7 @@ export default function SongById() {
                   onChange={(ids) => setForm({ ...form, studentIds: ids })}
                 />
               </div>
-              <button onClick={handleDelete} className="btn btn-danger">
+              <button type="button" onClick={handleDelete} className="btn btn-danger">
                 <img
                   src="/assets/svg/icon-delete.svg"
                   alt="Delete"

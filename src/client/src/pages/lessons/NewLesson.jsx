@@ -12,6 +12,7 @@ import TagPicker from '../../components/TagPicker';
 import { getStudentById } from "../../services/studentService";
 import { createLesson } from "../../services/lessonService";
 import { createSong, getSongs } from "../../services/songService";
+import { uploadSongPdf } from "../../services/documentService";
 
 export default function NewLesson() {
   const [searchParams] = useSearchParams();
@@ -19,6 +20,7 @@ export default function NewLesson() {
   const studentId = searchParams.get("studentId");
   const [studentName, setStudentName] = useState(null);
   const notesRef = useRef("");
+  const [pendingDocuments, setPendingDocuments] = useState({}); // { [spotifyTrackId]: File }
 
   useEffect(() => {
     if (studentId) {
@@ -66,26 +68,36 @@ export default function NewLesson() {
 
     // For each selected Spotify track, find or create a DB song and collect its ID
     const tags = Array.isArray(form.tagIds) ? form.tagIds : [];
-    const allDbSongs = await getSongs();
-    const songDbIds = await Promise.all(
-      form.songIds.map(async (track) => {
-        // track is a Spotify track object from SongsPicker
-        const spotifyId = track.id ?? track;
-        const existing = allDbSongs.find((s) => s.spotifyTrackId === spotifyId);
-        if (existing) {
-          return existing.id;
-        }
-        const created = await createSong({
-          title: track.name ?? "",
-          artist: track.artist ?? "",
-          spotifyTrackId: spotifyId,
-          albumArtUrl: track.albumArtUrl ?? "",
-          isExplicit: track.isExplicit ?? false,
-          tagIds: tags,
-        });
-        return created.id;
-      })
-    );
+    const songDbIds = (
+      await Promise.all(
+        form.songIds.map(async (track) => {
+          const spotifyId = track.id ?? track;
+          const allDbSongs = await getSongs();
+          const existing = allDbSongs.find((s) => s.spotifyTrackId === spotifyId);
+          if (existing) return existing.id;
+          try {
+            const created = await createSong({
+              title: track.name ?? "",
+              artist: track.artist ?? "",
+              spotifyTrackId: spotifyId,
+              albumArtUrl: track.albumArtUrl ?? "",
+              isExplicit: track.isExplicit ?? false,
+              tagIds: tags,
+            });
+            return created.id;
+          } catch {
+            // 409: song was created by another path (e.g. document attach) — re-fetch
+            const refreshed = await getSongs();
+            const found = refreshed.find(
+              (s) =>
+                s.spotifyTrackId === spotifyId ||
+                (s.title === (track.name ?? "") && s.artist === (track.artist ?? ""))
+            );
+            return found?.id ?? null;
+          }
+        })
+      )
+    ).filter(Boolean);
 
     const payload = {
       ...form,
@@ -94,6 +106,17 @@ export default function NewLesson() {
       songIds: songDbIds,
       tagIds: tags,
     };
+
+    // Upload any pending documents now that we have DB song IDs
+    const spotifyToDbId = {};
+    form.songIds.forEach((track, i) => { spotifyToDbId[track.id ?? track] = songDbIds[i]; });
+    await Promise.all(
+      Object.entries(pendingDocuments).map(async ([spotifyId, file]) => {
+        const dbId = spotifyToDbId[spotifyId];
+        if (dbId) await uploadSongPdf(dbId, file).catch(() => {});
+      })
+    );
+
     await createLesson(payload);
     navigate("/lessons");
   };
@@ -214,6 +237,9 @@ export default function NewLesson() {
             <SongPicker
               value={form.songIds}
               onChange={(songs) => setForm({ ...form, songIds: songs })}
+              onDocumentSelected={(track, file) =>
+                setPendingDocuments((prev) => ({ ...prev, [track.id]: file }))
+              }
             />
 
             <div className="flex flex-col gap-1">

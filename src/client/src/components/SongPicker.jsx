@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { searchTracks } from "../services/spotifyService";
 import DocumentAdder from "./SongDocumentAdder";
+import { getSongs, createSong } from "../services/songService";
 
 export default function SongPicker({ value = null, onChange, documentIds = [], onDocumentsChange = true}) {
   const [query, setQuery] = useState("");
@@ -8,6 +9,8 @@ export default function SongPicker({ value = null, onChange, documentIds = [], o
   const [loading, setLoading] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
   const [attachDocument, setAttachDocument] = useState(false);
+  const [resolvedSong, setResolvedSong] = useState(null);
+  const [resolving, setResolving] = useState(false);
 
 
   const [selection, setSelection] = useState(false);
@@ -69,10 +72,26 @@ export default function SongPicker({ value = null, onChange, documentIds = [], o
     }
   };
 
-  const handleAttachDocument = (e) => {
+  const handleAttachDocument = async (e) => {
     e.preventDefault();
-    setAttachDocument(true);
-    // onDocumentsChange && onDocumentsChange(value?.documentId || null);
+    setResolving(true);
+    try {
+      const allSongs = await getSongs();
+      const existing = allSongs.find((s) => s.spotifyTrackId === value?.id);
+      const dbSong = existing ?? await createSong({
+        title: value.name ?? "",
+        artist: value.artist ?? "",
+        spotifyTrackId: value.id,
+        albumArtUrl: value.albumArtUrl ?? "",
+        isExplicit: value.isExplicit ?? false,
+      });
+      setResolvedSong(dbSong);
+      setAttachDocument(true);
+    } catch {
+      // silently ignore
+    } finally {
+      setResolving(false);
+    }
   }; 
 
   return (
@@ -96,7 +115,7 @@ export default function SongPicker({ value = null, onChange, documentIds = [], o
             )}
           </div>
           <div className="document-attacher mr-4">
-            <button className="btn btn-xs btn-grey" alt="Attach Document" onClick={(e) => handleAttachDocument(e)}>
+            <button className="btn btn-xs btn-grey" alt="Attach Document" onClick={(e) => handleAttachDocument(e)} disabled={resolving}>
               <img src="/assets/svg/icon-attach-plus.svg" alt="" className="icon" />
             </button>
           </div>
@@ -163,8 +182,14 @@ export default function SongPicker({ value = null, onChange, documentIds = [], o
         </div>
       )}
 
-     {(attachDocument && selection && value.name != "") && (
-        <DocumentAdder value={documentIds} hasSelection={setSelection} song={value} />
+     {(attachDocument && resolvedSong) && (
+        <DocumentAdder
+          song={resolvedSong}
+          onUploaded={(doc) => {
+            setResolvedSong((prev) => ({ ...prev, documentId: doc.id }));
+            setAttachDocument(false);
+          }}
+        />
       )}  
     </div>
   );

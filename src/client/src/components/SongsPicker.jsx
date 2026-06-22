@@ -1,14 +1,25 @@
 import React, { useState, useRef, useEffect } from "react";
 import { searchTracks } from "../services/spotifyService";
-import SongDocumentAdder from "./SongDocumentAdder";
 
-export default function SongPicker({ value = [], onChange, documentIds = [], onDocumentsChange = true }) {
+export default function SongPicker({ value = [], onChange, onDocumentSelected }) {
   const [query, setQuery]         = useState("");
   const [results, setResults]     = useState([]);
   const [loading, setLoading]     = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
-  const debounceRef = useRef(null);
-  const inputRef    = useRef(null);
+  const [pendingFiles, setPendingFiles] = useState({});
+  const debounceRef  = useRef(null);
+  const inputRef     = useRef(null);
+  const fileInputRef = useRef(null);
+  const activeTrackRef = useRef(null);
+
+  const handleFileChange = (e) => {
+    const file = e.target.files?.[0];
+    if (!file || !activeTrackRef.current) return;
+    const track = activeTrackRef.current;
+    setPendingFiles((prev) => ({ ...prev, [track.id]: file }));
+    onDocumentSelected?.(track, file);
+    e.target.value = "";
+  };
 
   useEffect(() => {
     const trimmed = query.trim();
@@ -105,10 +116,22 @@ export default function SongPicker({ value = [], onChange, documentIds = [], onD
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-medium truncate">{track.name}</p>
                 <p className="text-xs text-gray-500 truncate">{track.artist}</p>
+                {pendingFiles[track.id] && (
+                  <p className="text-xs text-green-600 truncate">📎 {pendingFiles[track.id].name}</p>
+                )}
               </div>
               {track.previewUrl && (
                 <audio controls src={track.previewUrl} className="h-8 shrink-0" />
               )}
+              <button
+                type="button"
+                onClick={() => { activeTrackRef.current = track; fileInputRef.current?.click(); }}
+                className="text-gray-400 hover:text-blue-500 shrink-0"
+                title="Attach PDF"
+                aria-label={`Attach document to ${track.name}`}
+              >
+                <img src="/assets/svg/icon-attach-plus.svg" alt="" className="icon" />
+              </button>
               <button
                 type="button"
                 onClick={() => removeTrack(track.id)}
@@ -122,9 +145,7 @@ export default function SongPicker({ value = [], onChange, documentIds = [], onD
         </ul>
       )}
 
-      {/* {(form.songId !== "" || documentIds.length > 0) && (
-        <DocumentAdder value={documentIds} onChange={onDocumentsChange} songId={form.songId} />
-      )} */}
+      <input ref={fileInputRef} type="file" accept="application/pdf" className="hidden" onChange={handleFileChange} />
     </div>
   );
 }

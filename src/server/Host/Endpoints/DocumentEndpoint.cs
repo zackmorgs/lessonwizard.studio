@@ -53,6 +53,13 @@ public static class DocumentEndpoint
 
             await db.GetCollection<Models.Document>("documents").InsertOneAsync(document);
 
+            // Link the document back to the song (only if songId is a valid ObjectId)
+            if (MongoDB.Bson.ObjectId.TryParse(songId, out _))
+            {
+                var songUpdate = Builders<Song>.Update.Set(s => s.documentId, document.Id);
+                await db.GetCollection<Song>("songs").UpdateOneAsync(s => s.Id == songId, songUpdate);
+            }
+
             return Results.Ok(document);
         }).DisableAntiforgery();
 

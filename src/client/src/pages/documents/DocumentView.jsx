@@ -72,30 +72,10 @@ export default function DocumentView() {
               </div>
             )}
             {/* Danger zone */}
-            <div className="flex justify-end mt-4">
-              <button
-                type="button"
-                className="btn btn-danger"
-                onClick={handleDelete}
-              >
-                Delete Document
-              </button>
-            </div>
+            <div className="flex justify-end mt-4"></div>
             {/* PDF viewer */}
             {doc.pdfUrl ? (
-              <div className="flex flex-col gap-1">
-                <a
-                  href={`/${doc.pdfUrl}`}
-                  download
-                  className="btn btn-primary my-4"
-                >
-                  <img
-                    src="/assets/svg/icon-download.svg"
-                    alt="Download icon"
-                    className="icon"
-                  />
-                  <span className="btn-text">Download PDF</span>
-                </a>
+              <>
                 <label className="label">View PDF</label>
                 <iframe
                   src={`/${doc.pdfUrl}`}
@@ -103,7 +83,33 @@ export default function DocumentView() {
                   className="w-full rounded border"
                   style={{ height: "70vh" }}
                 />
-              </div>
+                <div className="flex flex-col md:flex-row gap-4">
+                  <button
+                    type="button"
+                    className="btn btn-danger"
+                    onClick={handleDelete}
+                  >
+                    <img
+                      src="/assets/svg/icon-delete.svg"
+                      alt="Delete icon"
+                      className="icon"
+                    />
+                    <span className="btn-text">Delete Document</span>
+                  </button>
+                  <a
+                    href={`/${doc.pdfUrl}`}
+                    download
+                    className="btn btn-primary"
+                  >
+                    <img
+                      src="/assets/svg/icon-download.svg"
+                      alt="Download icon"
+                      className="icon"
+                    />
+                    <span className="btn-text">Download PDF</span>
+                  </a>
+                </div>
+              </>
             ) : (
               <p className="text-sm text-gray-400">No PDF attached.</p>
             )}

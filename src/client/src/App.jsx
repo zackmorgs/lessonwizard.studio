@@ -33,8 +33,11 @@ import LessonsOnDate from "./pages/calendar/LessonsOnDate";
 import CalendarIndex from "./pages/calendar/CalendarIndex";
 
 import DocumentsIndex from "./pages/documents/DocumentsIndex";
-import NewDocument from './pages/documents/NewDocument';
-import DocumentView from './pages/documents/DocumentView';
+import NewDocumentFromImages from "./pages/documents/AddDocumentFromImages";
+import AddDocumentFromCamera from "./pages/documents/AddDocumentsFromCamera";
+import AddDocumentToSong from "./pages/documents/AddDocumentToSong";
+
+import DocumentView from "./pages/documents/DocumentView";
 
 import TagsIndex from "./pages/tags/TagsIndex";
 import TagPage from "./pages/tags/TagPage";
@@ -75,7 +78,19 @@ export default function App() {
         <Route path="/students/:id" element={<StudentPage />} />
 
         <Route path="/documents" element={<DocumentsIndex />} />
-        <Route path="/documents/new" element={<NewDocument />} />
+        <Route
+          path="/documents/new/from-images"
+          element={<NewDocumentFromImages />}
+        />
+        <Route
+          path="/documents/new/from-camera"
+          element={<AddDocumentFromCamera />}
+        />
+        <Route
+          path="/documents/new/for-song"
+          element={<AddDocumentToSong />}
+        />
+
         <Route path="/documents/:id" element={<DocumentView />} />
 
         <Route path="/tags" element={<TagsIndex />} />

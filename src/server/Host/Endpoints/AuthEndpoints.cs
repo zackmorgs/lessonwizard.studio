@@ -3,6 +3,7 @@ using Models;
 using Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Google;
+using Microsoft.Extensions.Logging;
 
 namespace Host.Endpoints;
 

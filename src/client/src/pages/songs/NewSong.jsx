@@ -8,21 +8,50 @@ import { createSong } from "../../services/songService";
 
 export default function NewSong() {
   const navigate = useNavigate();
+
   const [form, setForm] = useState({ title: "", artist: "", tagIds: [] });
   const [selectedTrack, setSelectedTrack] = useState(null);
+  const [isOnSpotify, setIsOnSpotify] = useState(true);
+  const [hasError, setHasError] = useState(false);
 
-  const handleChange = (e) =>
+  const handleChange = (e) => {
+    setHasError(false);
     setForm({ ...form, [e.target.name]: e.target.value });
-
+  };
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await createSong(form);
+    setHasError(false);
+
+    let result;
+    try {
+      result = await createSong(form);
+    } catch (error) {
+      console.log("error:1337", error);
+
+      if (typeof request === "undefined") {
+        setHasError(true);
+      }
+
+      console.log("result: ", result);
+      // setErrorMessage("Song already exists.");
+      return;
+    }
+
     navigate("/songs");
   };
-  const [isOnSpotify, setIsOnSpotify] = useState(true);
+
   return (
     <Layout>
-      <div className="md:max-w-md mx-auto">
+      {hasError && (
+        <div className="error-msg md:max-w-md mx-auto pt-4">
+          <div className="well well-info mx-4">
+            <p className="text-red-500 text-center">There was an error creating this song. </p>
+            <p className="text-red-500 text-center">Is it already in the database?</p>
+          </div>
+        </div>
+      )}
+      <div id="new_song_container" className="md:max-w-md mx-auto">
         <header>
           <div className="panel">
             <h1 className="h1">New Song</h1>
@@ -118,7 +147,12 @@ export default function NewSong() {
                   onChange={handleChange}
                 />
               </div>
-              <button type="submit" className="btn btn-primary mt-4">
+              <button
+                id="create_song_button"
+                type="submit"
+                className="btn btn-primary mt-4"
+                disabled={ hasError  || !form.title || !form.artist}
+              >
                 <svg
                   className="icon"
                   xmlns="http://www.w3.org/2000/svg"

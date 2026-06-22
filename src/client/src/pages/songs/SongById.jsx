@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 import Layout from "../../components/Layout";
+import Breadcrumbs from "../../components/Breadcrumbs";
 import TagPicker from "../../components/TagPicker";
+import SongDocumentUpload from './../../components/SongDocumentAdder';
 import StudentsPicker from "../../components/StudentsPicker";
 import {
   getSongById,
@@ -27,6 +29,7 @@ export default function SongById() {
       .then((data) => {
         setSong(data);
         setForm(data);
+        console.log("Song data loaded:", data);
       })
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false));
@@ -82,6 +85,7 @@ export default function SongById() {
 
   return (
     <Layout>
+      <Breadcrumbs to="/songs" label="Songs" />
       <div className="md:max-w-lg mx-auto">
         <header>
           <div className="panel flex flex-col items-center justify-between">
@@ -94,12 +98,6 @@ export default function SongById() {
                 />
               )}
               <div>
-                <Link
-                  to="/songs"
-                  className="text-sm text-blue-600 hover:underline"
-                >
-                  &larr; All Songs
-                </Link>
                 <h1 className="h1 mt-1 text-4xl">{song.title}</h1>
                 <p className="text-lg text-gray-500">{song.artist}</p>
               </div>
@@ -171,6 +169,17 @@ export default function SongById() {
                 <label htmlFor="isExplicit" className="label">
                   Explicit
                 </label>
+              </div>
+              <div className="flex flex-col">
+                  {song.documentId ==  "" ? (
+                    <>
+                      <div className="well well-info text-sm text-gray-500 text-center mb-4"><p>No document uploaded.</p></div>
+                      <SongDocumentUpload song={song} />
+                      
+                    </>
+                  ) : (
+                    <img src="/assets/svg/icon-file-upload.svg" className="mx-auto icon"/>
+                  )}
               </div>
               <div className="flex flex-col gap-1">
                 <label className="label">Tags</label>

@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router";
 
 import Layout from "./../../components/Layout";
+import Breadcrumbs from "./../../components/Breadcrumbs";
+
 import { getTags, getTagCounts, createTag } from "./../../services/tagService";
 import Tags from "../../components/Tags";
 import TagPicker from "../../components/TagPicker";
@@ -42,6 +44,8 @@ export default function TagsIndex() {
 
   return (
     <Layout>
+      <Breadcrumbs to="/" label="Dashboard" />
+
       <header className="header">
         <div className="p-4 text-center">
           <h1 className="text-3xl font-semibold">Tags</h1>

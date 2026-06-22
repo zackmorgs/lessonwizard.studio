@@ -225,6 +225,56 @@ public static class LessonEndpoints
             return result.MatchedCount == 0 ? Results.NotFound() : Results.Ok(updated);
         });
 
+        // GET /api/lessons/{id}/documents
+        group.MapGet("/{id}/documents", async (string id, ClaimsPrincipal user, IMongoDatabase db) =>
+        {
+            var teacherId = user.FindFirstValue(ClaimTypes.NameIdentifier)
+                          ?? user.FindFirstValue("sub");
+            if (teacherId is null) return Results.Unauthorized();
+
+            var lesson = await db.GetCollection<Lesson>("lessons")
+                .Find(l => l.Id == id && l.TeacherId == teacherId)
+                .FirstOrDefaultAsync();
+            if (lesson is null) return Results.NotFound();
+
+            if (!lesson.DocumentIds.Any())
+                return Results.Ok(new List<Models.Document>());
+
+            var documents = await db.GetCollection<Models.Document>("documents")
+                .Find(d => lesson.DocumentIds.Contains(d.Id) && d.TeacherId == teacherId)
+                .ToListAsync();
+
+            return Results.Ok(documents);
+        });
+
+        // POST /api/lessons/{lessonId}/documents/{docId}
+        group.MapPost("/{lessonId}/documents/{docId}", async (string lessonId, string docId, ClaimsPrincipal user, IMongoDatabase db) =>
+        {
+            var teacherId = user.FindFirstValue(ClaimTypes.NameIdentifier)
+                          ?? user.FindFirstValue("sub");
+            if (teacherId is null) return Results.Unauthorized();
+
+            var update = Builders<Lesson>.Update.AddToSet(l => l.DocumentIds, docId);
+            var result = await db.GetCollection<Lesson>("lessons")
+                .UpdateOneAsync(l => l.Id == lessonId && l.TeacherId == teacherId, update);
+
+            return result.MatchedCount == 0 ? Results.NotFound() : Results.NoContent();
+        });
+
+        // DELETE /api/lessons/{lessonId}/documents/{docId}
+        group.MapDelete("/{lessonId}/documents/{docId}", async (string lessonId, string docId, ClaimsPrincipal user, IMongoDatabase db) =>
+        {
+            var teacherId = user.FindFirstValue(ClaimTypes.NameIdentifier)
+                          ?? user.FindFirstValue("sub");
+            if (teacherId is null) return Results.Unauthorized();
+
+            var update = Builders<Lesson>.Update.Pull(l => l.DocumentIds, docId);
+            var result = await db.GetCollection<Lesson>("lessons")
+                .UpdateOneAsync(l => l.Id == lessonId && l.TeacherId == teacherId, update);
+
+            return result.MatchedCount == 0 ? Results.NotFound() : Results.NoContent();
+        });
+
         // DELETE /api/lessons/{id}
         group.MapDelete("/{id}", async (string id, ClaimsPrincipal user, IMongoDatabase db) =>
         {

@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { getLessonsOnDate } from "../../services/lessonService";
 
 import Layout from "../../components/Layout";
+import Breadcrumbs from "../../components/Breadcrumbs";
 import LessonList from "../../components/LessonList";
 
 export default function LessonsOnDate() {
@@ -29,6 +30,7 @@ export default function LessonsOnDate() {
 
   return (
     <Layout>
+      <Breadcrumbs to="/calendar" label="Calendar" />
       <div className="md:max-w-md mx-auto">
         <section className="section">
           <div className="panel">

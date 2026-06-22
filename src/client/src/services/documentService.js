@@ -25,6 +25,12 @@ export async function getDocumentById(id) {
   return request(`/${id}`);
 }
 
+export async function uploadSongPdf(songId, pdfFile) {
+  const form = new FormData();
+  form.append("pdf", pdfFile);
+  return request(`/songs/upload/${songId}`, { method: "POST", body: form });
+}
+
 /**
  * Create a document from one or more image files.
  * @param {{ title?: string, description?: string, tagIds?: string[], images: File[] }} payload

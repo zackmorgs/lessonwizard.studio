@@ -41,3 +41,15 @@ export async function updateStudent(id, student) {
 export async function deleteStudent(id) {
   return request(`/${id}`, { method: "DELETE" });
 }
+
+export async function getStudentDocuments(id) {
+  return request(`/${id}/documents`);
+}
+
+export async function addDocumentToStudent(studentId, docId) {
+  return request(`/${studentId}/documents/${docId}`, { method: "POST" });
+}
+
+export async function removeDocumentFromStudent(studentId, docId) {
+  return request(`/${studentId}/documents/${docId}`, { method: "DELETE" });
+}

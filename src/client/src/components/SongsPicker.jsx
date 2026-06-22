@@ -1,8 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import { searchTracks } from "../services/spotifyService";
-import DocumentAdder from "./DocumentAdder";
+import SongDocumentAdder from "./SongDocumentAdder";
 
-export default function SongPicker({ value = [], onChange, documentIds = [], onDocumentsChange }) {
+export default function SongPicker({ value = [], onChange, documentIds = [], onDocumentsChange = true }) {
   const [query, setQuery]         = useState("");
   const [results, setResults]     = useState([]);
   const [loading, setLoading]     = useState(false);
@@ -54,7 +54,7 @@ export default function SongPicker({ value = [], onChange, documentIds = [], onD
   console.log({ query, results, loading, activeIndex });
 
   return (
-    <div className="flex flex-col gap-2">
+    <div id="songs_picker" className="flex flex-col gap-2">
       <label className="text-sm font-medium text-gray-700">Songs</label>
 
       <div className="relative">
@@ -96,7 +96,7 @@ export default function SongPicker({ value = [], onChange, documentIds = [], onD
       </div>
 
       {value.length > 0 && (
-        <ul className="flex flex-col gap-2">
+        <ul id="songpicker_list" className="flex flex-col gap-2">
           {value.map((track) => (
             <li key={track.id} className="flex items-center gap-3 p-2 border border-gray-200 rounded bg-gray-50">
               {track.albumArtUrl && (
@@ -122,9 +122,9 @@ export default function SongPicker({ value = [], onChange, documentIds = [], onD
         </ul>
       )}
 
-      {onDocumentsChange && (
-        <DocumentAdder value={documentIds} onChange={onDocumentsChange} />
-      )}
+      {/* {(form.songId !== "" || documentIds.length > 0) && (
+        <DocumentAdder value={documentIds} onChange={onDocumentsChange} songId={form.songId} />
+      )} */}
     </div>
   );
 }

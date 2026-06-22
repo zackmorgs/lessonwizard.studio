@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import LessonList from "../../components/LessonList";
 
 import Layout from "../../components/Layout";
+import Breadcrumbs from "./../../components/Breadcrumbs";
+
 import { useAuth } from "../../contexts/AuthContext";
 import { getPertinentLessons } from "../../services/lessonService";
 
@@ -22,6 +24,7 @@ export default function LessonsIndex() {
 
   return (
     <Layout>
+      <Breadcrumbs to="/" label="Dashboard" />
       <header className="header">
         <div className="p-4 text-center">
           <h1 className="text-3xl font-semibold">Lessons</h1>

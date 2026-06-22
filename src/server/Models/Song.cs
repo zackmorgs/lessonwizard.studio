@@ -23,9 +23,10 @@ public class Song
 
     [BsonElement("tagIds")]
     public List<string> TagIds { get; set; } = new List<string>();
+    // only 1 document per song allowed.
 
-    [BsonElement("documentsId")]
-    public List<string> documentsId { get; set; } = new List<string>(); 
+    [BsonElement("documentId")]
+    public string documentId { get; set; } = string.Empty; 
 
     [BsonElement("isExplicit")]
     public bool IsExplicit { get; set; } = false;
@@ -38,4 +39,7 @@ public class Song
 
     [BsonElement("albumArtUrl")]
     public string? AlbumArtUrl { get; set; }
+    
+    [BsonElement("status")]
+    public string Status { get; set; } = string.Empty;
 }

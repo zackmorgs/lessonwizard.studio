@@ -14,6 +14,48 @@ public static class DocumentEndpoint
     {
         var group = app.MapGroup("api/documents").RequireAuthorization();
 
+        // basic PDF upload for a song
+        group.MapPost("/songs/upload/{songId}", async (string songId, IFormFile pdf, ClaimsPrincipal user, IMongoDatabase db, IWebHostEnvironment env) =>
+        {
+            var teacherId = user.FindFirstValue(ClaimTypes.NameIdentifier)
+                          ?? user.FindFirstValue("sub");
+            if (teacherId is null) return Results.Unauthorized();
+
+            if (string.IsNullOrWhiteSpace(pdf.FileName))
+                return Results.BadRequest("PDF file is required.");
+
+            var document = new Models.Document
+            {
+                Title = Path.GetFileNameWithoutExtension(pdf.FileName),
+                TeacherId = teacherId,
+                PdfUrl = $"path/to/storage/{pdf.FileName}" // replace with actual file path or URL after saving the PDF
+            };
+
+            if (string.IsNullOrWhiteSpace(songId))
+                return Results.BadRequest("Song ID is required.");
+
+            var docsDir = Path.Combine(env.WebRootPath, "documents");
+
+            if (!Directory.Exists(docsDir))
+                Directory.CreateDirectory(docsDir);
+            var pdfPath = Path.Combine(docsDir, pdf.FileName);
+
+            using (var stream = new FileStream(pdfPath, FileMode.Create))
+            {
+                await pdf.CopyToAsync(stream);
+            }
+
+            document.PdfUrl = $"documents/{pdf.FileName}"; // update the PdfUrl to the actual file path relative to wwwroot
+            document.SongId = songId;
+            document.TeacherId = teacherId;
+            // save uploaded pdf to a file storage or cloud storage
+
+
+            await db.GetCollection<Models.Document>("documents").InsertOneAsync(document);
+
+            return Results.Ok(document);
+        }).DisableAntiforgery();
+
         // GET /api/documents
         group.MapGet("/", async (ClaimsPrincipal user, IMongoDatabase db) =>
         {
@@ -33,6 +75,7 @@ public static class DocumentEndpoint
             var teacherId = user.FindFirstValue(ClaimTypes.NameIdentifier)
                           ?? user.FindFirstValue("sub");
             if (teacherId is null) return Results.Unauthorized();
+
 
             var document = await db.GetCollection<Models.Document>("documents")
                 .Find(d => d.Id == id && d.TeacherId == teacherId)

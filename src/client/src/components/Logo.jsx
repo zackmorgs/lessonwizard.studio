@@ -1,15 +1,15 @@
 import React from "react";
 
-export default function Logo({ height = 30 }) {
-  const scale = height / 36;
+export default function Logo({ height = "1.25rem" }) {
+  const scale = parseFloat(height) / 36;
   const width = Math.round(240 * scale);
 
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 240 36"
-      height={height}
-      width={width}
+      height={"auto"}
+      width={"16rem"}
       overflow="visible"
       role="img"
       aria-label="LessonWizard Studio"

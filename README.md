@@ -7,6 +7,14 @@ A student management and curriculum planning platform built specifically for pri
 <!-- - [Progress 6/14](https://youtu.be/upE-J4Up5Ys) -->
 [Progress 6/17](https://youtu.be/hODEshLeaPI)
 
+## Ideas
+- Initial resources
+    - chord charts
+    - scale charts
+- a graph to chart progression of student
+    - see in `/ideas`
+        - wants b & w -> color as progression goes
+
 ## Overview
 
 lessonwizard.studio helps music instructors organize students, track lesson progress, manage song assignments, and build structured learning paths. It is designed around the realities of private music education, where teachers need quick access to student history, assigned material, and lesson planning tools.

@@ -4,6 +4,7 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import { Editor } from "@tinymce/tinymce-react";
 
 import Layout from "../../components/Layout";
+import Breadcrumbs from "../../components/Breadcrumbs";
 import InstrumentPicker from "../../components/InstrumentPicker";
 import SongPicker from "../../components/SongPicker";
 import { getLessonById, updateLesson } from "../../services/lessonService";
@@ -101,19 +102,12 @@ export default function EditLesson() {
 
   return (
     <Layout>
+      <Breadcrumbs to={`/lessons/${id}`} label="Back to Lesson" />
       <section className="section">
         <div className="panel max-w-2xl mx-auto mt-8">
-          <div className="mb-4">
-            <Link
-              to={`/lessons/${id}`}
-              className="text-sm text-blue-600 hover:underline"
-            >
-              &larr; Back to Lesson
-            </Link>
-            <h1 className="h1 mt-1">
-              {studentName ? `Edit Lesson for ${studentName}` : "Edit Lesson"}
-            </h1>
-          </div>
+          <h1 className="h1 mb-4">
+            {studentName ? `Edit Lesson for ${studentName}` : "Edit Lesson"}
+          </h1>
 
           {error && <p className="mb-4 text-sm text-red-600">{error}</p>}
 

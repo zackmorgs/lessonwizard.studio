@@ -31,7 +31,7 @@ export default function NavMenu() {
         <div className="nav-bar flex flex-row justify-between items-center p-4">
           <div className="nav-logo">
             <NavLink to="/" id="nav_logo_link" onClick={closeNav}>
-              <Logo height="2.5rem" />
+              <Logo height="2.5rem"  />
             </NavLink>
           </div>
           <button

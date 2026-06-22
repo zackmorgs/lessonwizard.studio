@@ -1,12 +1,17 @@
 import React, { useState, useRef, useEffect } from "react";
 import { searchTracks } from "../services/spotifyService";
-import DocumentAdder from "./DocumentAdder";
+import DocumentAdder from "./SongDocumentAdder";
 
-export default function SongPicker({ value = null, onChange, documentIds = [], onDocumentsChange }) {
+export default function SongPicker({ value = null, onChange, documentIds = [], onDocumentsChange = true}) {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
+  const [attachDocument, setAttachDocument] = useState(false);
+
+
+  const [selection, setSelection] = useState(false);
+
   const debounceRef = useRef(null);
   const inputRef = useRef(null);
 
@@ -34,6 +39,7 @@ export default function SongPicker({ value = null, onChange, documentIds = [], o
   }, [query]);
 
   const selectTrack = (track) => {
+    setSelection(true);
     onChange(track);
     setQuery("");
     setResults([]);
@@ -41,6 +47,7 @@ export default function SongPicker({ value = null, onChange, documentIds = [], o
   };
 
   const clearTrack = () => {
+    setSelection(false);
     onChange(null);
     inputRef.current?.focus();
   };
@@ -62,12 +69,18 @@ export default function SongPicker({ value = null, onChange, documentIds = [], o
     }
   };
 
+  const handleAttachDocument = (e) => {
+    e.preventDefault();
+    setAttachDocument(true);
+    // onDocumentsChange && onDocumentsChange(value?.documentId || null);
+  }; 
+
   return (
-    <div className="flex flex-col gap-2">
-      <label className="text-sm font-medium text-gray-700">Song</label>
+    <div id="song_picker" className="flex flex-col gap-2">
+      <label className="text-sm font-medium text-gray-700">Song Title</label>
 
       {value?.name ? (
-        <div className="flex items-center gap-3 p-2 border border-gray-200 rounded bg-gray-50">
+        <div id="songpicker_selecton" className="flex items-center gap-3 p-2 border border-gray-200 rounded bg-gray-50">
           {value.albumArtUrl && (
             <img
               src={value.albumArtUrl}
@@ -78,10 +91,15 @@ export default function SongPicker({ value = null, onChange, documentIds = [], o
           <div className="flex-1 min-w-0">
             <p className="text-sm font-medium truncate">{value.name}</p>
             <p className="text-xs text-gray-500 truncate">{value.artist}</p>
+            {value.documentId && (
+              <p className="text-xs text-gray-500 truncate">Document ID: {value.documentId}</p>
+            )}
           </div>
-          {value.previewUrl && (
-            <audio controls src={value.previewUrl} className="h-8 shrink-0" />
-          )}
+          <div className="document-attacher mr-4">
+            <button className="btn btn-xs btn-grey" alt="Attach Document" onClick={(e) => handleAttachDocument(e)}>
+              <img src="/assets/svg/icon-attach-plus.svg" alt="" className="icon" />
+            </button>
+          </div>
           <button
             type="button"
             onClick={clearTrack}
@@ -145,9 +163,9 @@ export default function SongPicker({ value = null, onChange, documentIds = [], o
         </div>
       )}
 
-      {onDocumentsChange && (
-        <DocumentAdder value={documentIds} onChange={onDocumentsChange} />
-      )}
+     {(attachDocument && selection && value.name != "") && (
+        <DocumentAdder value={documentIds} hasSelection={setSelection} song={value} />
+      )}  
     </div>
   );
 }

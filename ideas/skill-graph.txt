@@ -1,0 +1,148 @@
+digraph WonderwallGuitarSkillTree {
+  graph [
+    rankdir=LR,
+    bgcolor="white",
+    pad=0.35,
+    nodesep=0.55,
+    ranksep=0.85,
+    splines=ortho,
+    concentrate=false,
+    fontname="Helvetica",
+    label=<
+      <B>Guitar Skills Dependency Graph for Playing Wonderwall</B><BR/>
+      <FONT POINT-SIZE="16"><I>Example skill tree for a common beginner capo-2 arrangement</I></FONT>
+    >,
+    labelloc=t,
+    fontsize=28
+  ];
+
+  node [
+    shape=box,
+    style="rounded,filled",
+    fontname="Helvetica",
+    fontsize=13,
+    margin="0.12,0.08",
+    color="#334155",
+    penwidth=1.5,
+    fillcolor="#f8fafc"
+  ];
+
+  edge [
+    color="#334155",
+    arrowsize=0.75,
+    penwidth=1.4,
+    fontname="Helvetica",
+    fontsize=11
+  ];
+
+  // Category defaults are overridden by subgraphs and individual nodes.
+  basics [label="Guitar basics", fillcolor="#dbeafe", color="#2563eb"];
+  setup [label="Setup", fillcolor="#dbeafe", color="#2563eb"];
+
+  standard_tuning [label="Standard tuning", fillcolor="#dbeafe", color="#2563eb"];
+  pick_grip [label="Pick grip or\nfinger strum", fillcolor="#dbeafe", color="#2563eb"];
+  count_44 [label="Count steady\n4/4 time", fillcolor="#dbeafe", color="#2563eb"];
+  clean_fretting [label="Clean fretting\npressure", fillcolor="#dbeafe", color="#2563eb"];
+
+  capo [label="Use capo on\n2nd fret", fillcolor="#cffafe", color="#0891b2"];
+
+  chord_shapes [label="Capo-relative\nopen chord shapes", fillcolor="#dcfce7", color="#16a34a"];
+  em7 [label="Em7 shape", fillcolor="#dcfce7", color="#16a34a"];
+  g_shape [label="G shape", fillcolor="#dcfce7", color="#16a34a"];
+  dsus4 [label="Dsus4 shape", fillcolor="#dcfce7", color="#16a34a"];
+  a7sus4 [label="A7sus4 shape", fillcolor="#dcfce7", color="#16a34a"];
+  cadd9 [label="Cadd9 shape", fillcolor="#dcfce7", color="#16a34a"];
+  optional_df [label="Optional D/F#\nbass movement", fillcolor="#dcfce7", color="#16a34a"];
+
+  anchor [label="Keep ring/pinky\nanchor fingers down", fillcolor="#fef3c7", color="#d97706"];
+  fast_transitions [label="Fast chord\ntransitions", fillcolor="#fef3c7", color="#d97706"];
+  em7_g [label="Em7 → G", fillcolor="#fef3c7", color="#d97706"];
+  g_dsus4 [label="G → Dsus4", fillcolor="#fef3c7", color="#d97706"];
+  dsus4_a7sus4 [label="Dsus4 → A7sus4", fillcolor="#fef3c7", color="#d97706"];
+  cadd9_dsus4 [label="Cadd9 → Dsus4", fillcolor="#fef3c7", color="#d97706"];
+
+  loose_wrist [label="Loose wrist\nstrumming", fillcolor="#f3e8ff", color="#7e22ce"];
+  eighth_feel [label="Eighth-note\nstrumming feel", fillcolor="#f3e8ff", color="#7e22ce"];
+  common_pattern [label="Common pattern:\nD D U U D U", fillcolor="#f3e8ff", color="#7e22ce"];
+  accents [label="Accents and\ndynamics", fillcolor="#f3e8ff", color="#7e22ce"];
+  missed_strums [label="Silent/missed\nstrums to keep motion", fillcolor="#f3e8ff", color="#7e22ce"];
+
+  section_chunks [label="Section chunks", fillcolor="#ffedd5", color="#ea580c"];
+  intro_loop [label="Intro loop", fillcolor="#ffedd5", color="#ea580c"];
+  verse_loop [label="Verse loop", fillcolor="#ffedd5", color="#ea580c"];
+  pre_chorus [label="Pre-chorus\nmovement", fillcolor="#ffedd5", color="#ea580c"];
+  chorus [label="Chorus\nmovement", fillcolor="#ffedd5", color="#ea580c"];
+
+  song_form [label="Song form:\nintro / verse /\npre-chorus / chorus", fillcolor="#ffe4e6", color="#e11d48"];
+  memorize [label="Memorize order\nof sections", fillcolor="#ffe4e6", color="#e11d48"];
+
+  fluency [label="Full performance\nfluency", fillcolor="#dbeafe", color="#2563eb"];
+  goal [label="Play Wonderwall\narrangement", fillcolor="#fee2e2", color="#dc2626", penwidth=2.2];
+
+  // Keep related foundations aligned.
+  { rank=same; basics; setup; }
+  { rank=same; standard_tuning; pick_grip; count_44; clean_fretting; }
+  { rank=same; em7; g_shape; dsus4; a7sus4; cadd9; optional_df; }
+
+  // Foundations.
+  basics -> standard_tuning;
+  basics -> pick_grip;
+  basics -> count_44;
+  basics -> clean_fretting;
+
+  setup -> capo;
+  standard_tuning -> capo;
+  capo -> chord_shapes;
+
+  // Chords.
+  chord_shapes -> em7;
+  chord_shapes -> g_shape;
+  chord_shapes -> dsus4;
+  chord_shapes -> a7sus4;
+  chord_shapes -> cadd9;
+  chord_shapes -> optional_df;
+
+  clean_fretting -> anchor;
+  em7 -> anchor;
+  g_shape -> anchor;
+  dsus4 -> anchor;
+  a7sus4 -> anchor;
+  cadd9 -> anchor;
+
+  anchor -> fast_transitions;
+  fast_transitions -> em7_g;
+  fast_transitions -> g_dsus4;
+  fast_transitions -> dsus4_a7sus4;
+  fast_transitions -> cadd9_dsus4;
+
+  // Rhythm and strumming.
+  pick_grip -> loose_wrist;
+  count_44 -> eighth_feel;
+  loose_wrist -> eighth_feel;
+  eighth_feel -> common_pattern;
+  common_pattern -> accents;
+  common_pattern -> missed_strums;
+
+  // Section assembly.
+  chord_shapes -> section_chunks;
+  fast_transitions -> section_chunks;
+  common_pattern -> section_chunks;
+
+  section_chunks -> intro_loop;
+  section_chunks -> verse_loop;
+  section_chunks -> pre_chorus;
+  section_chunks -> chorus;
+
+  intro_loop -> song_form;
+  verse_loop -> song_form;
+  pre_chorus -> song_form;
+  chorus -> song_form;
+
+  song_form -> memorize;
+  memorize -> fluency;
+  accents -> fluency;
+  missed_strums -> fluency;
+
+  song_form -> goal;
+  fluency -> goal;
+}

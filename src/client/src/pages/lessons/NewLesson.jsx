@@ -4,6 +4,7 @@ import { Editor } from "@tinymce/tinymce-react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 
 import Layout from "../../components/Layout";
+import Breadcrumbs from "../../components/Breadcrumbs";
 import InstrumentPicker from "../../components/InstrumentPicker";
 import StudentPicker from "../../components/StudentPicker";
 import SongPicker from "../../components/SongsPicker";
@@ -99,6 +100,7 @@ export default function NewLesson() {
 
   return (
     <Layout>
+      <Breadcrumbs to="/lessons" label="Lessons" />
       <div className="md:max-w-lg mx-auto">
         <section id="new_lesson" className="section">
         <div className="panel">

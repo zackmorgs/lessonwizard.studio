@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 
 import Layout from "../../components/Layout";
+import Breadcrumbs from "./../../components/Breadcrumbs";
+
 import SongList from "../../components/SongList";
 import { getSongs } from "../../services/songService";
 
@@ -27,6 +29,8 @@ export default function Songs() {
 
   return (
     <Layout>
+      <Breadcrumbs to="/" label="Dashboard" />
+
       <header className="header">
         <div className="p-4 text-center">
           <h1 className="text-3xl font-semibold">Songs</h1>

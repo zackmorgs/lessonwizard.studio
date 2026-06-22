@@ -274,6 +274,34 @@ body {
   padding: 1rem;
 }
 
+.breadcrumbs {
+  padding: 0 0.5rem;
+  border-bottom: 1px solid rgba(107, 107, 107, 0.16);
+  .icon {
+    width: 2rem;
+    height: 2rem;
+  }
+  .btn-text {
+    color: #4e2b67;
+    // margin-left:0.5rem;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: rgba(78, 43, 103, 0.1);
+      transition:
+      background-color 0.3s ease;
+  }
+  a {
+    transition:
+      transform 0.15s ease-in-out;
+  }
+  a:active {
+    transform: scale(0.95);
+    .btn-text {
+      background: rgba(78, 43, 103, 0.2);
+    }
+  }
+}
+
 .h1 {
   line-height: 3rem;
   font-weight: 800;
@@ -338,6 +366,17 @@ body {
     .icon {
       filter: drop-shadow(0px 0px 0.25rem rgba(0, 0, 0, 0.5));
     }
+
+    &[disabled] {
+      background-color: #999;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+  }
+
+  &.btn-xs {
+    padding: 0.5rem;
+    font-size: 0.75rem;
   }
 
   &.btn-info {
@@ -679,14 +718,17 @@ $instruments: (
   border-radius: 0.5rem;
   padding: 1rem;
   text-align: center;
-  font-weight:500;
+  font-weight: 500;
   cursor: pointer;
   transition: border-color 0.3s;
   &:hover {
     border-color: #929292;
   }
-}
 
+  .icon {
+    width: 3rem;
+  }
+}
 
 #footer_main {
   background: #391e4b;
@@ -716,8 +758,8 @@ $instruments: (
 
 @media (min-width: 1024px) {
   .max-w-custom {
-    max-width:1024px;
-    display:flex;
+    max-width: 1024px;
+    display: flex;
   }
 
   .btn {
@@ -760,7 +802,7 @@ $instruments: (
       border-radius: 0.5rem;
     }
     &:active {
-      filter: drop-shadow(0px 0px 19px rgba(224,224,224,0.5));
+      filter: drop-shadow(0px 0px 19px rgba(224, 224, 224, 0.5));
     }
   }
 
@@ -906,10 +948,9 @@ $instruments: (
 
 @media (min-width: 1400px) {
   .max-w-custom {
-    min-width:1250px;
-    display:flex;
-    flex-direction:row; 
-    justify-content:space-between;
+    min-width: 1250px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
   }
-
 }

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 import Layout from "../../components/Layout";
+import Breadcrumbs from "../../components/Breadcrumbs";
 import TagPicker from "../../components/TagPicker";
 import { getDocumentById, deleteDocument } from "../../services/documentService";
 
@@ -45,12 +46,10 @@ export default function DocumentView() {
 
   return (
     <Layout>
+      <Breadcrumbs to="/documents" label="Documents" />
       <div className="md:max-w-2xl mx-auto">
         <header>
           <div className="panel">
-            <Link to="/documents" className="text-sm text-blue-600 hover:underline">
-              &larr; All Documents
-            </Link>
             <h1 className="h1 mt-2 text-3xl">{doc.title}</h1>
             {doc.description && (
               <p className="mt-1 text-gray-500">{doc.description}</p>

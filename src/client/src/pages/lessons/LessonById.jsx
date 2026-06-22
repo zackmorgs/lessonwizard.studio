@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 
 import Layout from "../../components/Layout";
+import Breadcrumbs from "../../components/Breadcrumbs";
 
-import { getLessonById, deleteLesson } from "../../services/lessonService";
+import { getLessonById, deleteLesson, getLessonDocuments, addDocumentToLesson, removeDocumentFromLesson } from "../../services/lessonService";
 import { getStudentById } from "../../services/studentService";
 import { getSongById } from "../../services/songService";
+import { getDocuments } from "../../services/documentService";
 
 function formatDate(date) {
     if (!date) return "No date";
@@ -26,6 +28,11 @@ export default function LessonById() {
     const [lesson, setLesson] = useState(null);
     const [student, setStudent] = useState(null);
     const [songs, setSongs] = useState({});
+    const [documents, setDocuments] = useState([]);
+    const [allDocuments, setAllDocuments] = useState([]);
+    const [docQuery, setDocQuery] = useState("");
+    const [docPickerOpen, setDocPickerOpen] = useState(false);
+    const docPickerRef = useRef(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -33,7 +40,10 @@ export default function LessonById() {
         getLessonById(id)
             .then((lessonData) => {
                 setLesson(lessonData);
-                const fetches = [];
+                const fetches = [
+                    getLessonDocuments(id).then(setDocuments).catch(() => []),
+                    getDocuments().then(setAllDocuments).catch(() => []),
+                ];
                 if (lessonData.studentId) {
                     fetches.push(getStudentById(lessonData.studentId).then(setStudent).catch(() => null));
                 }
@@ -57,6 +67,36 @@ export default function LessonById() {
             .catch((err) => setError(err.message))
             .finally(() => setLoading(false));
     }, [id]);
+
+    // Close doc picker on outside click
+    useEffect(() => {
+        function handleClick(e) {
+            if (docPickerRef.current && !docPickerRef.current.contains(e.target))
+                setDocPickerOpen(false);
+        }
+        document.addEventListener("mousedown", handleClick);
+        return () => document.removeEventListener("mousedown", handleClick);
+    }, []);
+
+    const handleAddDocument = async (doc) => {
+        try {
+            await addDocumentToLesson(id, doc.id);
+            setDocuments((prev) => [...prev, doc]);
+        } catch (err) {
+            setError(err.message);
+        }
+        setDocQuery("");
+        setDocPickerOpen(false);
+    };
+
+    const handleRemoveDocument = async (docId) => {
+        try {
+            await removeDocumentFromLesson(id, docId);
+            setDocuments((prev) => prev.filter((d) => d.id !== docId));
+        } catch (err) {
+            setError(err.message);
+        }
+    };
 
     const handleDelete = async () => {
         if (!confirm("Delete this lesson? This cannot be undone.")) return;
@@ -88,12 +128,12 @@ export default function LessonById() {
 
     return (
         <Layout>
+            <Breadcrumbs to="/lessons" label="Lessons" />
             <div className="panel max-w-2xl mx-auto flex flex-col gap-6">
 
                 {/* Header */}
                 <div className="flex items-center justify-between">
                     <div>
-                        <Link to="/lessons" className="text-sm text-blue-600 hover:underline">&larr; All Lessons</Link>
                         <h1 className="text-3xl font-semibold mt-1">{formatDate(lesson.date)}</h1>
                         <p className="text-sm text-gray-500 mt-0.5 capitalize">{lesson.instrument}</p>
                     </div>
@@ -184,6 +224,66 @@ export default function LessonById() {
                         </ul>
                     </div>
                 )}
+
+                {/* Documents */}
+                <div className="bg-white rounded-lg border border-gray-200 p-5 flex flex-col gap-3">
+                    <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide">Documents</h2>
+                    {documents.length > 0 && (
+                        <ul className="flex flex-col gap-1">
+                            {documents.map((doc) => (
+                                <li key={doc.id} className="flex items-center justify-between gap-2 px-3 py-2 border rounded">
+                                    <a
+                                        href={doc.pdfUrl ? `/${doc.pdfUrl}` : undefined}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        className="text-sm font-medium truncate hover:underline"
+                                    >
+                                        {doc.title}
+                                    </a>
+                                    <button
+                                        type="button"
+                                        onClick={() => handleRemoveDocument(doc.id)}
+                                        className="text-gray-400 hover:text-red-500 shrink-0 text-lg leading-none"
+                                        title="Remove"
+                                    >
+                                        ✕
+                                    </button>
+                                </li>
+                            ))}
+                        </ul>
+                    )}
+                    <div className="relative" ref={docPickerRef}>
+                        <input
+                            type="text"
+                            className="input w-full"
+                            placeholder="Add document..."
+                            value={docQuery}
+                            onChange={(e) => { setDocQuery(e.target.value); setDocPickerOpen(true); }}
+                            onFocus={() => setDocPickerOpen(true)}
+                        />
+                        {docPickerOpen && (
+                            <ul className="absolute z-10 w-full border rounded bg-white shadow max-h-48 overflow-y-auto mt-1">
+                                {allDocuments
+                                    .filter(
+                                        (d) =>
+                                            !documents.some((linked) => linked.id === d.id) &&
+                                            d.title.toLowerCase().includes(docQuery.toLowerCase())
+                                    )
+                                    .map((doc) => (
+                                        <li key={doc.id}>
+                                            <button
+                                                type="button"
+                                                className="w-full text-left px-3 py-2 text-sm hover:bg-gray-50 truncate"
+                                                onClick={() => handleAddDocument(doc)}
+                                            >
+                                                {doc.title}
+                                            </button>
+                                        </li>
+                                    ))}
+                            </ul>
+                        )}
+                    </div>
+                </div>
 
             </div>
         </Layout>

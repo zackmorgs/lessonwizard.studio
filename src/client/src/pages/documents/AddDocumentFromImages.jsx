@@ -2,6 +2,8 @@ import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
 import Layout from "../../components/Layout";
+import Breadcrumbs from './../../components/Breadcrumbs';
+
 import TagPicker from "../../components/TagPicker";
 import { createDocumentFromImages } from "../../services/documentService";
 
@@ -54,10 +56,11 @@ export default function NewDocument() {
 
   return (
     <Layout>
+      <Breadcrumbs to="/documents" label="Documents" />
       <div className="md:max-w-lg mx-auto">
         <section id="new_document" className="section">
           <div className="panel">
-            <h1 className="h1 mb-4 text-3xl mt-8">New Document</h1>
+            <h1 className="h1 mb-4 text-3xl mt-8">Add Document from Images</h1>
 
             {error && <p className="mb-4 text-sm text-red-600">{error}</p>}
 

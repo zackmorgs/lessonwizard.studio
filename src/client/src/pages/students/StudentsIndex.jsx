@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 
 import Layout from "../../components/Layout";
+import Breadcrumbs from "./../../components/Breadcrumbs";
+
 import StudentList from "../../components/StudentList";
 import { useAuth } from "../../contexts/AuthContext";
 import { getStudents } from "../../services/studentService";
@@ -20,6 +22,7 @@ export default function StudentPage() {
 
   return (
     <Layout>
+      <Breadcrumbs to="/" label="Dashboard" />
       <header className="header">
         <div className="p-4 text-center">
           <h1 className="text-3xl font-semibold">Students</h1>

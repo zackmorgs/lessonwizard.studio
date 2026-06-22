@@ -59,6 +59,18 @@ export async function deleteLesson(id) {
   return request(`/${id}`, { method: "DELETE" });
 }
 
+export async function getLessonDocuments(id) {
+  return request(`/${id}/documents`);
+}
+
+export async function addDocumentToLesson(lessonId, docId) {
+  return request(`/${lessonId}/documents/${docId}`, { method: "POST" });
+}
+
+export async function removeDocumentFromLesson(lessonId, docId) {
+  return request(`/${lessonId}/documents/${docId}`, { method: "DELETE" });
+}
+
 export async function getLessonsByTag(tag) {
   return request(`/tag/${tag}`);
 }

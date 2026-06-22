@@ -51,21 +51,24 @@ export default function DocumentsList({
                 className="btn btn-primary sm:w-full"
               >
                 <img src="/assets/svg/icon-plus.svg" className="icon" />
-                <span className="btn-text">Add Song PDF</span>
+                {/* <span className="btn-text">Add Song PDF</span> */}
+                <img src="/assets/svg/icon-music-note-add.svg" className="icon" />
               </Link>
               <Link
                 to="/documents/new/from-camera"
                 className="btn btn-primary sm:w-full "
               >
                 <img src="/assets/svg/icon-plus.svg" className="icon" />
-                <span className="btn-text">Add Document from Camera</span>
+                <img src="/assets/svg/icon-camera.svg" className="icon" />
+                {/* <span className="btn-text">Add Document from Camera</span>aw */}
               </Link>
               <Link
                 to="/documents/new/from-images"
                 className="btn btn-primary sm:w-full "
               >
                 <img src="/assets/svg/icon-plus.svg" className="icon" />
-                <span className="btn-text">Add Document from Images</span>
+                <img src="/assets/svg/icon-img-up.svg" className="icon" />
+                {/* <span className="btn-text">Add Document from Images</span> */}
               </Link>
             </div>
             {documents.length > 0 && (

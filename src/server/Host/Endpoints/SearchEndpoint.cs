@@ -55,6 +55,17 @@ public static class SearchEndpoints
                 Type = "tag"
             }));
 
+            // Documents
+            var documents = await db.GetCollection<Document>("documents")
+                .Find(d => d.TeacherId == teacherId && d.Title.ToLower().Contains(lower))
+                .ToListAsync();
+            results.AddRange(documents.Select(d => new SearchResult
+            {
+                Id = d.Id ?? "",
+                Title = d.Title,
+                Type = "document"
+            }));
+
             // Lessons (match by instrument or notes)
             // var lessons = await db.GetCollection<Lesson>("lessons")
             //     .Find(l => l.TeacherId == teacherId &&

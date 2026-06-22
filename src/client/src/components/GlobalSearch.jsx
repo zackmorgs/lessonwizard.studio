@@ -7,6 +7,7 @@ const TYPE_ROUTES = {
   song: (id) => `/songs/${id}`,
   tag: (id, title) => `/tags/${title.replace(/^#/, "")}`,
   lesson: (id) => `/lessons/${id}`,
+  document: (id) => `/documents/${id}`,
 };
 
 export default function GlobalSearch() {

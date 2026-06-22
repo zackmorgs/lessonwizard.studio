@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Accordion from "./Accordion";
 
@@ -7,6 +7,10 @@ export default function DocumentsList({
   defaultOpen = false,
   showControls = true,
 }) {
+  const [search, setSearch] = useState("");
+  const filtered = search.trim()
+    ? documents.filter((d) => d.title.toLowerCase().includes(search.trim().toLowerCase()))
+    : documents;
   return (
     <section id="documents_list_container" className="section">
       <Accordion
@@ -72,18 +76,20 @@ export default function DocumentsList({
                   id="document_search"
                   className="input w-full md:w-max-12"
                   placeholder="Search by title..."
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
                 />
               </div>
             )}
           </div>
         )}
-        {documents.length > 0 ? (
+        {filtered.length > 0 ? (
           <div className="scrollable max-h-100">
             <ul
               id="documents_list"
               className="grid grid-cols-2 gap-4 md:grid-cols-4"
             >
-              {documents.map((document) => (
+              {filtered.map((document) => (
                 <li key={document.id} className="document-item">
                   <Link
                     to={`/documents/${document.id}`}
@@ -107,7 +113,7 @@ export default function DocumentsList({
           </div>
         ) : (
           <div className="well well-info text-center">
-            <p>No documents available.</p>
+            <p>{search.trim() ? `No documents matching "${search}"` : "No documents available."}</p>
           </div>
         )}
       </Accordion>

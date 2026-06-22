@@ -231,9 +231,11 @@ export default function LessonById() {
                     {documents.length > 0 && (
                         <ul className="flex flex-col gap-1">
                             {documents.map((doc) => (
-                                <li key={doc.id} className="flex items-center justify-between gap-2 px-3 py-2 border rounded">
-                                    <a
-                                        href={doc.pdfUrl ? `/${doc.pdfUrl}` : undefined}
+                                <li key={doc.id} className="flex items-center justify-between gap-2 px-3 py-2 bg-white rounded">
+                                    
+                                   <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#3333339f"><path d="M440-200h80v-167l64 64 56-57-160-160-160 160 57 56 63-63v167ZM240-80q-33 0-56.5-23.5T160-160v-640q0-33 23.5-56.5T240-880h320l240 240v480q0 33-23.5 56.5T720-80H240Zm280-520v-200H240v640h480v-440H520ZM240-800v200-200 640-640Z"/></svg>
+                                   <a
+                                        href={doc.pdfUrl ? `${doc.pdfUrl}` : undefined}
                                         target="_blank"
                                         rel="noreferrer"
                                         className="text-sm font-medium truncate hover:underline"

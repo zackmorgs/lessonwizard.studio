@@ -16,7 +16,6 @@ export default function AddDocumentsFromCamera() {
   const [captures, setCaptures] = useState([]); // { file: File, preview: string }[]
   const [cameraActive, setCameraActive] = useState(false);
   const [cameraError, setCameraError] = useState(null);
-  const [facingMode, setFacingMode] = useState("environment");
   const [error, setError] = useState(null);
   const [submitting, setSubmitting] = useState(false);
 
@@ -26,19 +25,22 @@ export default function AddDocumentsFromCamera() {
     };
   }, []);
 
+  useEffect(() => {
+    if (cameraActive && videoRef.current && streamRef.current) {
+      videoRef.current.srcObject = streamRef.current;
+    }
+  }, [cameraActive]);
+
   const startCamera = async (mode) => {
     streamRef.current?.getTracks().forEach((t) => t.stop());
     setCameraError(null);
     try {
       const mediaStream = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: mode ?? facingMode },
+        video: { facingMode: "environment" },
         audio: false,
       });
       streamRef.current = mediaStream;
       setCameraActive(true);
-      if (videoRef.current) {
-        videoRef.current.srcObject = mediaStream;
-      }
     } catch {
       setCameraError("Could not access camera. Please check permissions.");
     }
@@ -48,12 +50,6 @@ export default function AddDocumentsFromCamera() {
     streamRef.current?.getTracks().forEach((t) => t.stop());
     streamRef.current = null;
     setCameraActive(false);
-  };
-
-  const flipCamera = () => {
-    const next = facingMode === "environment" ? "user" : "environment";
-    setFacingMode(next);
-    startCamera(next);
   };
 
   const handleCapture = () => {
@@ -181,17 +177,6 @@ export default function AddDocumentsFromCamera() {
                           <path d="M480-260q75 0 127.5-52.5T660-440q0-75-52.5-127.5T480-620q-75 0-127.5 52.5T300-440q0 75 52.5 127.5T480-260Zm0-80q-42 0-71-29t-29-71q0-42 29-71t71-29q42 0 71 29t29 71q0 42-29 71t-71 29ZM160-120q-33 0-56.5-23.5T80-200v-480q0-33 23.5-56.5T160-760h126l74-80h240l74 80h126q33 0 56.5 23.5T880-680v480q0 33-23.5 56.5T800-120H160Z" />
                         </svg>
                         <span className="btn-text">Capture</span>
-                      </button>
-                      <button
-                        type="button"
-                        className="btn btn-secondary"
-                        onClick={flipCamera}
-                        title="Flip camera"
-                      >
-                        <svg className="icon" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor">
-                          <path d="M440-40v-167l-44 44-56-57 140-140 140 140-56 57-44-44v167h-80ZM160-440l-140-140 56-57 44 44v-167h80v167l44-44 56 57L160-440Zm320-200q-83 0-141.5-58.5T280-840q0-83 58.5-141.5T480-1040q83 0 141.5 58.5T680-840q0 83-58.5 141.5T480-640Zm0-80q50 0 85-35t35-85q0-50-35-85t-85-35q-50 0-85 35t-35 85q0 50 35 85t85 35Zm0-120Z" />
-                        </svg>
-                        <span className="btn-text">Flip</span>
                       </button>
                       <button
                         type="button"

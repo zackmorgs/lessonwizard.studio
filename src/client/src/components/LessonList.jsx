@@ -50,8 +50,8 @@ export default function LessonList({ lessons = [], studentId }) {
     <section id="lesson_view" className="section pt-4">
       <Accordion
         title={
-          <h2 className="h2">
-            Lessons (<span className="lesson-count">{lessons.length}</span>)
+          <h2 className="h2 flex items-center">
+            <img alt="Lessons icon" src="/assets/svg/icon-list.svg" className="mr-2" />Lessons (<span className="lesson-count">{lessons.length}</span>)
           </h2>
         }
         defaultOpen={true}

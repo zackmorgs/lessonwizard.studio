@@ -68,13 +68,20 @@ export default function DocumentAdder({ song = {}, hasSelection = () => {} }) {
     handleFiles(e.dataTransfer.files);
   };
 
+  const MAX_FILE_SIZE = 25 * 1024 * 1024;
+  const ALLOWED_IMAGE_TYPES = new Set(["image/jpeg", "image/png", "image/gif", "image/webp", "image/tiff"]);
+
   const handleFiles = (files) => {
-    const valid = Array.from(files).filter((f) => f.type.startsWith("application/pdf"));
-    if (!valid.length) return;
-    setImages((prev) => [...prev, ...valid]);
+    const all = Array.from(files);
+    const invalid = all.find((f) => !ALLOWED_IMAGE_TYPES.has(f.type));
+    if (invalid) { setError(`'${invalid.name}' is not an allowed type. Accepted: JPEG, PNG, GIF, WEBP, TIFF.`); return; }
+    const oversized = all.find((f) => f.size > MAX_FILE_SIZE);
+    if (oversized) { setError(`'${oversized.name}' exceeds the 25 MB size limit.`); return; }
+    setError(null);
+    setImages((prev) => [...prev, ...all]);
     setPreviews((prev) => [
       ...prev,
-      ...valid.map((f) => URL.createObjectURL(f)),
+      ...all.map((f) => URL.createObjectURL(f)),
     ]);
   };
 
@@ -122,7 +129,7 @@ export default function DocumentAdder({ song = {}, hasSelection = () => {} }) {
               <input
                 ref={inputRef}
                 type="file"
-                accept="application/pdf"
+                accept="image/jpeg,image/png,image/gif,image/webp,image/tiff"
                 multiple
                 className="hidden"
                 onChange={(e) => handleFiles(e.target.files)}

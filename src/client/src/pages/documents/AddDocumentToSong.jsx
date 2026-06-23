@@ -34,9 +34,14 @@ export default function AddDocumentToSong() {
       )
     : songs;
 
+  const MAX_FILE_SIZE = 25 * 1024 * 1024;
+
   const handleFile = (files) => {
-    const pdf = Array.from(files).find((f) => f.type === "application/pdf");
-    if (pdf) setPdfFile(pdf);
+    const file = Array.from(files).find((f) => f.type === "application/pdf");
+    if (!file) { setError("Only PDF files are allowed."); return; }
+    if (file.size > MAX_FILE_SIZE) { setError("File exceeds the 25 MB size limit."); return; }
+    setError(null);
+    setPdfFile(file);
   };
 
   const handleDrop = (e) => {

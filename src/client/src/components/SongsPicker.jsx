@@ -8,7 +8,9 @@ export default function SongPicker({ value = [], onChange, onDocumentSelected, s
   const [loading, setLoading]     = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
   const [pendingFiles, setPendingFiles] = useState({});
+  const [fileError, setFileError] = useState(null);
   const [knownSpotifyIds, setKnownSpotifyIds] = useState(new Set());
+  const MAX_FILE_SIZE = 25 * 1024 * 1024;
   const debounceRef  = useRef(null);
   const inputRef     = useRef(null);
   const fileInputRef = useRef(null);
@@ -28,6 +30,17 @@ export default function SongPicker({ value = [], onChange, onDocumentSelected, s
     const file = e.target.files?.[0];
     if (!file || !activeTrackRef.current) return;
     const track = activeTrackRef.current;
+    setFileError(null);
+    if (file.type !== "application/pdf") {
+      setFileError("Only PDF files are allowed.");
+      e.target.value = "";
+      return;
+    }
+    if (file.size > MAX_FILE_SIZE) {
+      setFileError("File exceeds the 25 MB size limit.");
+      e.target.value = "";
+      return;
+    }
     setPendingFiles((prev) => ({ ...prev, [track.id]: file }));
     onDocumentSelected?.(track, file);
     e.target.value = "";
@@ -170,6 +183,7 @@ export default function SongPicker({ value = [], onChange, onDocumentSelected, s
         </ul>
       )}
 
+      {fileError && <p className="text-xs text-red-600 mt-1">{fileError}</p>}
       <input ref={fileInputRef} type="file" accept="application/pdf" className="hidden" onChange={handleFileChange} />
     </div>
   );

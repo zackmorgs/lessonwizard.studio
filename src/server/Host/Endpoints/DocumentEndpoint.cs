@@ -24,6 +24,13 @@ public static class DocumentEndpoint
             if (string.IsNullOrWhiteSpace(pdf.FileName))
                 return Results.BadRequest("PDF file is required.");
 
+            const long maxBytes = 25L * 1024 * 1024;
+            if (pdf.Length > maxBytes)
+                return Results.BadRequest("File exceeds the 25 MB size limit.");
+
+            if (!string.Equals(pdf.ContentType, "application/pdf", StringComparison.OrdinalIgnoreCase))
+                return Results.BadRequest("Only PDF files are allowed.");
+
             var document = new Models.Document
             {
                 Title = Path.GetFileNameWithoutExtension(pdf.FileName),
@@ -113,6 +120,19 @@ public static class DocumentEndpoint
 
             if (!imageFiles.Any())
                 return Results.BadRequest("At least one image is required.");
+
+            const long maxBytes = 25L * 1024 * 1024;
+            var allowedImageTypes = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+            {
+                "image/jpeg", "image/png", "image/gif", "image/webp", "image/tiff"
+            };
+            foreach (var file in imageFiles)
+            {
+                if (!allowedImageTypes.Contains(file.ContentType))
+                    return Results.BadRequest($"'{file.FileName}' is not an allowed image type. Accepted: JPEG, PNG, GIF, WEBP, TIFF.");
+                if (file.Length > maxBytes)
+                    return Results.BadRequest($"'{file.FileName}' exceeds the 25 MB size limit.");
+            }
 
             // Read all images into memory first so streams aren't disposed mid-PDF
             var imageData = new List<byte[]>();

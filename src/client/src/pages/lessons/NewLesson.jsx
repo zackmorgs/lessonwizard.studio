@@ -145,6 +145,10 @@ export default function NewLesson() {
                 }}
               />
             )}
+            <fieldset
+              disabled={!studentId && !form.studentId}
+              className={`flex flex-col gap-4 ${!studentId && !form.studentId ? "opacity-50" : ""}`}
+            >
             <div className="flex flex-col gap-1">
               <label htmlFor="date">Date</label>
               <input
@@ -181,23 +185,11 @@ export default function NewLesson() {
               />
             </div>
 
-            {/* <div className="flex flex-col gap-1">
-              <label htmlFor="notes">Notes</label>
-              <textarea
-                id="notes"
-                name="notes"
-                className="input"
-                rows={4}
-                placeholder="Lesson notes..."
-                value={form.notes}
-                onChange={handleChange}
-              />
-            </div> */}
-
             <div className="flex flex-col">
               <Editor
                 apiKey="scgdo10tw7b74zk4lfomtw3eirvn8xw863dvg77qifj7ctqk"
                 initialValue={form.notes}
+                disabled={!studentId && !form.studentId}
                 onEditorChange={(content) => {
                   notesRef.current = content;
                 }}
@@ -263,6 +255,7 @@ export default function NewLesson() {
             <button type="submit" className="btn btn-primary mt-6">
               Create Lesson
             </button>
+            </fieldset>
           </form>
         </div>
       </section>

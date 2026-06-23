@@ -39,7 +39,10 @@ export default function LessonsOnDate() {
             </h1>
           </div>
         </section>
-        <LessonList lessons={lessons} />
+        <LessonList
+          lessons={lessons}
+          newLessonPath={`/lessons/new?date=${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`}
+        />
       </div>
     </Layout>
   );

@@ -203,8 +203,12 @@ body {
 
 .nav-list {
   color: #f1f1f1;
-  background: rgb(91 50 120 / 97%);
-  backdrop-filter: blur(0.5rem);
+  // background: rgb(91 50 120 / 97%);
+  background:linear-gradient(
+      165deg,
+      rgb(89, 48, 117),
+      rgb(169, 129, 121));
+  backdrop-filter: blur(1rem);
   z-index: 60;
   border-bottom: 1px solid #f1f1f138;
   padding-bottom: 1rem;

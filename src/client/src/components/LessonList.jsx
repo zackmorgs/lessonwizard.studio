@@ -45,7 +45,7 @@ function formatTime(time) {
   return `${hour}:${String(m).padStart(2, "0")} ${period}`;
 }
 
-export default function LessonList({ lessons = [], studentId }) {
+export default function LessonList({ lessons = [], studentId, newLessonPath }) {
   return (
     <section id="lesson_view" className="section pt-4">
       <Accordion
@@ -120,9 +120,10 @@ export default function LessonList({ lessons = [], studentId }) {
         <hr className="rule-sm" />
         <Link
           to={
-            typeof studentId !== "undefined"
+            newLessonPath ??
+            (typeof studentId !== "undefined"
               ? `/lessons/new?studentId=${studentId}`
-              : "/lessons/new"
+              : "/lessons/new")
           }
           className="btn btn-success mt-4 block text-center"
         >

@@ -18,6 +18,7 @@ export default function NewLesson() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const studentId = searchParams.get("studentId");
+  const dateParam = searchParams.get("date");
   const [studentName, setStudentName] = useState(null);
   const notesRef = useRef("");
   const [pendingDocuments, setPendingDocuments] = useState({}); // { [spotifyTrackId]: File }
@@ -31,7 +32,7 @@ export default function NewLesson() {
   }, [studentId]);
 
   const [form, setForm] = useState({
-    date: new Date().toISOString().split("T")[0],
+    date: dateParam ?? new Date().toISOString().split("T")[0],
     instrument: "",
     time: "",
     notes: "",

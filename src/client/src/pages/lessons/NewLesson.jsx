@@ -240,6 +240,7 @@ export default function NewLesson() {
               onDocumentSelected={(track, file) =>
                 setPendingDocuments((prev) => ({ ...prev, [track.id]: file }))
               }
+              studentId={form.studentId}
             />
 
             <div className="flex flex-col gap-1">

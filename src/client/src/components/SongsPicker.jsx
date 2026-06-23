@@ -1,16 +1,28 @@
 import React, { useState, useRef, useEffect } from "react";
 import { searchTracks } from "../services/spotifyService";
+import { getSongsByStudent } from "../services/songService";
 
-export default function SongPicker({ value = [], onChange, onDocumentSelected }) {
+export default function SongPicker({ value = [], onChange, onDocumentSelected, studentId }) {
   const [query, setQuery]         = useState("");
   const [results, setResults]     = useState([]);
   const [loading, setLoading]     = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
   const [pendingFiles, setPendingFiles] = useState({});
+  const [knownSpotifyIds, setKnownSpotifyIds] = useState(new Set());
   const debounceRef  = useRef(null);
   const inputRef     = useRef(null);
   const fileInputRef = useRef(null);
   const activeTrackRef = useRef(null);
+
+  useEffect(() => {
+    if (!studentId) { setKnownSpotifyIds(new Set()); return; }
+    getSongsByStudent(studentId)
+      .then((songs) => {
+        const ids = new Set(songs.map((s) => s.spotifyTrackId).filter(Boolean));
+        setKnownSpotifyIds(ids);
+      })
+      .catch(() => setKnownSpotifyIds(new Set()));
+  }, [studentId]);
 
   const handleFileChange = (e) => {
     const file = e.target.files?.[0];
@@ -86,62 +98,75 @@ export default function SongPicker({ value = [], onChange, onDocumentSelected })
             {loading && (
               <li className="px-3 py-2 text-sm text-gray-400">Searching...</li>
             )}
-            {!loading && results.map((track, idx) => (
-              <li
-                key={track.id}
-                onMouseDown={() => addTrack(track)}
-                className={`flex items-center gap-3 px-3 py-2 cursor-pointer ${
-                  idx === activeIndex ? "bg-blue-50" : "hover:bg-gray-50"
-                }`}
-              >
-                <img src={track.albumArtUrl} alt="" className="w-8 h-8 rounded object-cover shrink-0" />
-                
-                <div className="min-w-0">
-                  <p className="text-sm font-medium truncate">{track.name}</p>
-                  <p className="text-xs text-gray-500 truncate">{track.artist} &mdash; {track.album}</p>
-                </div>
-              </li>
-            ))}
+            {!loading && results.map((track, idx) => {
+              const alreadyLearned = knownSpotifyIds.has(track.id);
+              return (
+                <li
+                  key={track.id}
+                  onMouseDown={() => addTrack(track)}
+                  className={`flex items-center gap-3 px-3 py-2 cursor-pointer ${
+                    idx === activeIndex ? "bg-blue-50" : "hover:bg-gray-50"
+                  }`}
+                >
+                  <img src={track.albumArtUrl} alt="" className="w-8 h-8 rounded object-cover shrink-0" />
+                  <div className="min-w-0 flex-1">
+                    <p className="text-sm font-medium truncate">{track.name}</p>
+                    <p className="text-xs text-gray-500 truncate">{track.artist} &mdash; {track.album}</p>
+                  </div>
+                  {alreadyLearned && (
+                    <span className="shrink-0 text-xs font-medium text-amber-700 bg-amber-100 border border-amber-300 rounded px-1.5 py-0.5">
+                      Already learned
+                    </span>
+                  )}
+                </li>
+              );
+            })}
           </ul>
         )}
       </div>
 
       {value.length > 0 && (
         <ul id="songpicker_list" className="flex flex-col gap-2">
-          {value.map((track) => (
-            <li key={track.id} className="flex items-center gap-3 p-2 border border-gray-200 rounded bg-gray-50">
-              {track.albumArtUrl && (
-                <img src={track.albumArtUrl} alt="" className="w-10 h-10 rounded object-cover shrink-0" />
-              )}
-              <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium truncate">{track.name}</p>
-                <p className="text-xs text-gray-500 truncate">{track.artist}</p>
-                {pendingFiles[track.id] && (
-                  <p className="text-xs text-green-600 truncate">📎 {pendingFiles[track.id].name}</p>
+          {value.map((track) => {
+            const alreadyLearned = knownSpotifyIds.has(track.id);
+            return (
+              <li key={track.id} className={`flex items-center gap-3 p-2 border rounded ${alreadyLearned ? "border-amber-300 bg-amber-50" : "border-gray-200 bg-gray-50"}`}>
+                {track.albumArtUrl && (
+                  <img src={track.albumArtUrl} alt="" className="w-10 h-10 rounded object-cover shrink-0" />
                 )}
-              </div>
-              {track.previewUrl && (
-                <audio controls src={track.previewUrl} className="h-8 shrink-0" />
-              )}
-              <button
-                type="button"
-                onClick={() => { activeTrackRef.current = track; fileInputRef.current?.click(); }}
-                className="text-gray-400 hover:text-blue-500 shrink-0"
-                title="Attach PDF"
-                aria-label={`Attach document to ${track.name}`}
-              >
-                <img src="/assets/svg/icon-attach-plus.svg" alt="" className="icon" />
-              </button>
-              <button
-                type="button"
-                onClick={() => removeTrack(track.id)}
-                className="text-gray-400 hover:text-red-500 shrink-0"
-                aria-label={`Remove ${track.name}`}
-              >
-                &times;
-              </button>
-            </li>
-          ))}
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-medium truncate">{track.name}</p>
+                  <p className="text-xs text-gray-500 truncate">{track.artist}</p>
+                  {alreadyLearned && (
+                    <p className="text-xs text-amber-700 font-medium mt-0.5">⚠ Student has already learned this song</p>
+                  )}
+                  {pendingFiles[track.id] && (
+                    <p className="text-xs text-green-600 truncate">📎 {pendingFiles[track.id].name}</p>
+                  )}
+                </div>
+                {track.previewUrl && (
+                  <audio controls src={track.previewUrl} className="h-8 shrink-0" />
+                )}
+                <button
+                  type="button"
+                  onClick={() => { activeTrackRef.current = track; fileInputRef.current?.click(); }}
+                  className="text-gray-400 hover:text-blue-500 shrink-0"
+                  title="Attach PDF"
+                  aria-label={`Attach document to ${track.name}`}
+                >
+                  <img src="/assets/svg/icon-attach-plus.svg" alt="" className="icon" />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => removeTrack(track.id)}
+                  className="text-gray-400 hover:text-red-500 shrink-0"
+                  aria-label={`Remove ${track.name}`}
+                >
+                  &times;
+                </button>
+              </li>
+            );
+          })}
         </ul>
       )}
 

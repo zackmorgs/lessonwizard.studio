@@ -60,7 +60,7 @@ export default function NewDocument() {
       <div className="md:max-w-lg mx-auto">
         <section id="new_document" className="section">
           <div className="panel">
-            <h1 className="h1 mb-4 text-3xl mt-8">Add Document from Images</h1>
+            <h1 className="h1 mb-4 text-3xl mt-8">Add Image to New Document</h1>
 
             {error && <p className="mb-4 text-sm text-red-600">{error}</p>}
 

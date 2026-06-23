@@ -181,6 +181,13 @@ public static class DocumentEndpoint
                 if (File.Exists(filePath)) File.Delete(filePath);
             }
 
+            // Clear the documentId back-reference on the linked song
+            if (!string.IsNullOrEmpty(doc.SongId))
+            {
+                var songUpdate = Builders<Song>.Update.Set(s => s.documentId, string.Empty);
+                await db.GetCollection<Song>("songs").UpdateOneAsync(s => s.Id == doc.SongId, songUpdate);
+            }
+
             return Results.NoContent();
         });
 

@@ -8,6 +8,7 @@ import StudentList from "../components/StudentList";
 import Tags from "../components/Tags";
 import SongList from "../components/SongList";
 import DocumentsList from "../components/DocumentsList";
+import CreateStudent from "../components/CreateStudent";
 
 import { useAuth } from "../contexts/AuthContext";
 import { getStudents } from "../services/studentService";
@@ -79,6 +80,12 @@ export default function Dashboard() {
       .then(setDocuments)
       .catch(() => {});
   }, []);
+
+  if (!loading && students.length === 0) {
+    return (
+      <CreateStudent onCreated={(student) => setStudents([student])} />
+    );
+  }
 
   return (
     <>

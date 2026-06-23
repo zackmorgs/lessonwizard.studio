@@ -119,29 +119,36 @@ export default function AddDocumentToSong() {
                         {filtered.length === 0 && (
                           <li className="px-3 py-2 text-sm text-gray-400">No songs found.</li>
                         )}
-                        {filtered.map((song) => (
-                          <li key={song.id} className="song-item">
-                            <button
-                              type="button"
-                              className="pdf-song-btn bg-white w-full flex items-center gap-3 px-3 py-2 text-left hover:bg-gray-50 dark:hover:bg-neutral-800"
-                              onClick={() => { setSelectedSong(song); setQuery(""); }}
-                            >
-                              {song.albumArtUrl ? (
-                                <img
-                                  src={song.albumArtUrl}
-                                  alt={song.title}
-                                  className="w-8 h-8 rounded object-cover shrink-0"
-                                />
-                              ) : (
-                                <div className="w-8 h-8 rounded bg-gray-200 shrink-0" />
-                              )}
-                              <div className="min-w-0">
-                                <p className="text-sm font-medium truncate">{song.title}</p>
-                                <p className="text-xs text-gray-500 truncate">{song.artist}</p>
-                              </div>
-                            </button>
-                          </li>
-                        ))}
+                        {filtered.map((song) => {
+                          const hasDoc = !!song.documentId;
+                          return (
+                            <li key={song.id} className="song-item">
+                              <button
+                                type="button"
+                                disabled={hasDoc}
+                                className={`pdf-song-btn bg-white w-full flex items-center gap-3 px-3 py-2 text-left ${hasDoc ? "opacity-50 cursor-not-allowed" : "hover:bg-gray-50 dark:hover:bg-neutral-800"}`}
+                                onClick={() => { if (!hasDoc) { setSelectedSong(song); setQuery(""); } }}
+                              >
+                                {song.albumArtUrl ? (
+                                  <img
+                                    src={song.albumArtUrl}
+                                    alt={song.title}
+                                    className="w-8 h-8 rounded object-cover shrink-0"
+                                  />
+                                ) : (
+                                  <div className="w-8 h-8 rounded bg-gray-200 shrink-0" />
+                                )}
+                                <div className="min-w-0 flex-1">
+                                  <p className="text-sm font-medium truncate">{song.title}</p>
+                                  <p className="text-xs text-gray-500 truncate">{song.artist}</p>
+                                </div>
+                                {hasDoc && (
+                                  <span className="shrink-0 text-xs text-gray-400 italic">Has document</span>
+                                )}
+                              </button>
+                            </li>
+                          );
+                        })}
                       </ul>
                     )}
                   </div>

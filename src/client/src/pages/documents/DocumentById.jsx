@@ -9,7 +9,7 @@ import {
   deleteDocument,
 } from "../../services/documentService";
 
-export default function DocumentView() {
+export default function DocumentById() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [doc, setDoc] = useState(null);

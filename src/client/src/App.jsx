@@ -36,8 +36,7 @@ import DocumentsIndex from "./pages/documents/DocumentsIndex";
 import NewDocumentFromImages from "./pages/documents/AddDocumentFromImages";
 import AddDocumentFromCamera from "./pages/documents/AddDocumentsFromCamera";
 import AddDocumentToSong from "./pages/documents/AddDocumentToSong";
-
-import DocumentView from "./pages/documents/DocumentView";
+import DocumentById from "./pages/documents/DocumentById";
 
 import TagsIndex from "./pages/tags/TagsIndex";
 import TagPage from "./pages/tags/TagPage";
@@ -91,7 +90,7 @@ export default function App() {
           element={<AddDocumentToSong />}
         />
 
-        <Route path="/documents/:id" element={<DocumentView />} />
+        <Route path="/documents/:id" element={<DocumentById />} />
 
         <Route path="/tags" element={<TagsIndex />} />
         <Route path="/tags/:name" element={<TagPage />} />

@@ -35,7 +35,7 @@ export default function LessonsIndex() {
           <div className="panel">
             <h2 className="h2">
               {user?.displayName
-                ? `${user.displayName}'s Lessons (${lessons.length})`
+                ? `${user.displayName}'s Upcoming Lessons`
                 : "Lessons"}
             </h2>
           </div>

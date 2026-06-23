@@ -64,7 +64,7 @@ export default function Tags({ defaultOpen = false }) {
               alt="Tags"
               className="mr-4"
             />
-            Tags{tags.length > 0 && <> (<Link to="/tags" className="lesson-count" onClick={(e) => e.stopPropagation()}>{tags.length}</Link>)</>}
+            Tags{tags.length > 0 && <> (<Link to="/tags" className="count" onClick={(e) => e.stopPropagation()}>{tags.length}</Link>)</>}
           </h2>
         }
         defaultOpen={defaultOpen}

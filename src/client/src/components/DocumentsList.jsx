@@ -29,7 +29,7 @@ export default function DocumentsList({
                 (
                 <Link
                   to="/documents"
-                  className="lesson-count"
+                  className="count"
                   onClick={(e) => e.stopPropagation()}
                 >
                   {documents.length}

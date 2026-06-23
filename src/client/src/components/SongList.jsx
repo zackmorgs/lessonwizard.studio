@@ -38,7 +38,7 @@ export default function SongList({ songList, defaultOpen = false }) {
                 (
                 <Link
                   to="/songs"
-                  className="lesson-count"
+                  className="count"
                   onClick={(e) => e.stopPropagation()}
                 >
                   {songList.length}

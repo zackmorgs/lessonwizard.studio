@@ -63,7 +63,7 @@ export default function CalendarDatePicker({ defaultOpen = false }) {
               alt="Calendar"
               className="mr-4"
             />
-            <span>Calendar{lessonDays.length > 0 && <> (<Link to="/calendar" className="lesson-count" onClick={(e) => e.stopPropagation()}>{lessonDays.length}</Link>)</>}</span>
+            <span>Calendar{lessonDays.length > 0 && <> (<Link to="/calendar" className="count" onClick={(e) => e.stopPropagation()}>{lessonDays.length}</Link>)</>}</span>
           </h2>
         }
         defaultOpen={defaultOpen}

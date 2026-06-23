@@ -22,7 +22,7 @@ export default function StudentList({ studentList, defaultOpen = false }) {
                   (
                   <Link
                     to="/students"
-                    className="lesson-count"
+                    className="count"
                     onClick={(e) => e.stopPropagation()}
                   >
                     {studentList.length}

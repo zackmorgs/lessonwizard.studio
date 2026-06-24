@@ -111,14 +111,22 @@ export default function NewLesson() {
     // Upload any pending documents now that we have DB song IDs
     const spotifyToDbId = {};
     form.songIds.forEach((track, i) => { spotifyToDbId[track.id ?? track] = songDbIds[i]; });
-    await Promise.all(
-      Object.entries(pendingDocuments).map(async ([spotifyId, file]) => {
-        const dbId = spotifyToDbId[spotifyId];
-        if (dbId) await uploadSongPdf(dbId, file).catch(() => {});
-      })
-    );
+    const uploadedDocIds = (
+      await Promise.all(
+        Object.entries(pendingDocuments).map(async ([spotifyId, file]) => {
+          const dbId = spotifyToDbId[spotifyId];
+          if (!dbId) return null;
+          try {
+            const doc = await uploadSongPdf(dbId, file);
+            return doc?.id ?? null;
+          } catch {
+            return null;
+          }
+        })
+      )
+    ).filter(Boolean);
 
-    await createLesson(payload);
+    await createLesson({ ...payload, documentIds: uploadedDocIds });
     navigate("/lessons");
   };
 
